@@ -1,6 +1,6 @@
-#import "styles.typ": *
+#import "../styles.typ": *
 
-#doc-title("Software Development Plan", subtitle: "План разработки ПО")
+#doc-title("Software Development Plan", subtitle: "План разработки продукта")
 
 #chapter("1.")[Introduction (Введение)]
 
@@ -12,146 +12,164 @@
 
 #section("1.2")[Scope (Область применения)]
 
-#placeholder[Приведите краткое описание области применения.]
+#placeholder[Приведите краткое описание области применения данного документа, к какому(им) проекту(ам) он относится, кем будет использоваться и т.д.]
 
-#section("1.3")[Definitions, Acronyms and Abbreviations (Определения)]
+#section("1.3")[Definitions, Acronyms and Abbreviations (Определения и аббревиатуры)]
 
-#placeholder[Укажите значение терминов и аббревиатур.]
+#placeholder[Укажите значение терминов и аббревиатур, которые употребляются в данном документе. Возможно указание ссылки на Глоссарий проекта.]
 
 #section("1.4")[References (Ссылки)]
 
-#placeholder[Перечислите документы, на которые ссылаетесь.]
+#placeholder[Перечислите списком названия документов, на которые ссылаетесь в данном, укажите их источники.]
 
-#section("1.5")[Overview (Обзор)]
+#section("1.5")[Overview (Обзор документа)]
 
-#placeholder[Приведите краткое описание остальных разделов.]
+#placeholder[Приведите краткое описание остальных разделов документа.]
 
-#chapter("2.")[Project Overview (Обзор проекта)]
+#chapter("2.")[Project Overview (Обзор продукта)]
 
-#section("2.1")[Project Purpose, Scope, and Objectives (Цели и задачи проекта)]
+#section("2.1")[Project Purpose, Scope, and Objectives (Назначение, цели и контекст продукта)]
 
-#placeholder[Опишите цели проекта, для чего разрабатывается, какие задачи решает.]
+#placeholder[Кратко опишите назначение проекта, цели его разработки, какие артефакты будут получены в результате работы над ним.]
 
-#section("2.2")[Assumptions and Constraints (Допущения и ограничения)]
+#section("2.2")[Assumptions and Constraints (Влияющие факторы и ограничения)]
 
-#placeholder[Опишите предположения: бюджет, сроки, риски и т.д.]
+#placeholder[Перечислите ограничения, накладываемые на данный план разработки проекта - бюджет, персонал, сроки и т.д.]
 
-#section("2.3")[Project Deliverables (Результаты проекта)]
+#section("2.3")[Project Deliverables (Ожидаемые результаты проекта)]
 
-#placeholder[Перечислите артефакты, которые будут созданы.]
+#placeholder[Перечислите артефакты, который будут созданы в результате проекта.]
 
-#section("2.4")[Evolution of the Software Development Plan (Развитие плана)]
+#section("2.4")[Evolution of the Software Development Plan (План развития данного документа)]
 
-#placeholder[Опишите как будет обновляться данный план.]
+#placeholder[Приведите план версий данного документа, на каких этапах они должны создаваться, при каких условия нужно изменить данный документ.]
 
 #chapter("3.")[Project Organization (Организация проекта)]
 
-#section("3.1")[Organizational Structure (Организационная структура)]
+#section("3.1")[Organizational Structure (Структура команды разработки)]
 
-#placeholder[Опишите структуру проекта - команда руководителей и подчиненных.]
-
-#doctable(
-  (1fr, 2fr, 2fr),
-  table-header[Роль], table-header[Имя], table-header[Обязанности],
-  [], [], [],
-)
+#placeholder[Опишите структуру команды проекта - список сотрудников с указанием ролей, которые они занимают.]
 
 #section("3.2")[External Interfaces (Внешние интерфейсы)]
 
-#placeholder[Связи с внешними организациями.]
+#placeholder[Опишите, как команда связана с внешним миром - укажите контактных лиц и каналы связи.]
 
 #section("3.3")[Roles and Responsibilities (Роли и обязанности)]
 
-#placeholder[Роли в проекте.]
+#placeholder[Приведите описание ролей в проекте и перечислите их обязанности.]
 
-#doctable(
-  (1fr, 2fr, 2fr),
-  table-header[Роль], table-header[Обязанности], table-header[Назначено],
-  [Project Manager], [Управление проектом], [],
-  [Architect], [Проектирование архитектуры], [],
-  [Developer], [Разработка], [],
-  [Tester], [Тестирование], [],
-)
+#chapter("4.")[Management Process (Процесс управление)]
 
-#chapter("4.")[Management Process (Процесс управления)]
+#section("4.1")[Project Estimates (Оценка сроков разработки проекта)]
 
-#section("4.1")[Project Estimates (Оценка проекта)]
-
-#placeholder[Оценка сроков и ресурсов.]
-
-#subsection("4.1.1")[Estimation Results (Результаты оценки)]
-
-#placeholder[Конкретные цифры.]
+#placeholder[Укажите примерные сроки и стоимость разработки проекта.]
 
 #section("4.2")[Project Plan (План проекта)]
 
-#placeholder[Детальный план проекта.]
+#subsection("4.2.1")[Phase Plan (План фаз)]
 
-#subsection("4.2.1")[Phase Plan (План по фазам)]
-
-#placeholder[Описание фаз.]
+#placeholder[Опишите, какие фазы будет включать в себя разработка проекта с указанием их длительности и оснвных вех.]
 
 #doctable(
-  (1fr, 2fr, 1fr, 1fr),
-  table-header[Фаза], table-header[Активности], table-header[Начало], table-header[Окончание],
-  [Inception], [Начальная фаза], [], [],
-  [Elaboration], [Фаза уточнения], [], [],
-  [Construction], [Фаза построения], [], [],
-  [Transition], [Фаза внедрения], [], [],
+  (1fr, 1fr, 1fr, 1fr),
+  table-header[Фаза], table-header[Количество итераций], table-header[Начало], table-header[Конец],
+  table-header[Название фазы], [], table-header[Ориентировочная дата начала фазы], table-header[Ориентировочная дата конца фазы],
+  [], [], [], [],
+  [], [], [], [],
+)
+
+#doctable(
+  (1fr, 2fr, 2fr),
+  table-header[Фаза], table-header[Описание], table-header[Вехи],
+  table-header[Название фазы], table-header[Краткое описание основных видов деятельности в ходе данной фазы], table-header[Список состояний проекта (созданных артефактов), которые должны быть пройдены для окончания данной фазы],
+  [], [], [],
+  [], [], [],
 )
 
 #subsection("4.2.2")[Iteration Objectives (Цели итераций)]
 
-#placeholder[Цели каждой итерации.]
+#placeholder[Перечислите цели каждой итерации.]
 
 #doctable(
-  (1fr, 2fr, 1fr, 1fr),
-  table-header[Итерация], table-header[Цели], table-header[Начало], table-header[Окончание],
+  (1fr, 1fr, 2fr, 2fr),
+  table-header[Фаза], table-header[Номер итерации], table-header[Описание], table-header[Вехи],
+  table-header[Название фазы], [], table-header[Краткое описание основных видов деятельности в ходе данной итерации], table-header[Список состояний проекта (созданных артефактов), которые должны быть пройдены для окончания данной итерации],
+  [], [], [], [],
   [], [], [], [],
 )
 
-#subsection("4.2.3")[Project Schedule (Расписание проекта)]
+#subsection("4.2.3")[Releases (Релизы)]
 
-#placeholder[Детальное расписание.]
-
-#section("4.3")[Iteration Plans (Планы итераций)]
-
-#placeholder[Планы для каждой итерации.]
-
-#subsection("4.3.1")[#placeholder[Название итерации]]
-
-#placeholder[Детали итерации.]
-
-#section("4.4")[Budget (Бюджет)]
-
-#placeholder[Финансовый план.]
-
-#chapter("5.")[Technical Process (Технический процесс)]
-
-#section("5.1")[Tools (Инструменты)]
-
-#placeholder[Используемые инструменты.]
+#placeholder[Перечислите релизы проекта, их назначение и даты выпуска]
 
 #doctable(
-  (1fr, 2fr, 2fr),
-  table-header[Инструмент], table-header[Версия], table-header[Назначение],
+  (1fr, 2fr, 1fr),
+  table-header[Номер версии], table-header[Описание релиза], table-header[Дата выпуска],
+  [], [], [],
+  [], [], [],
   [], [], [],
 )
 
-#chapter("6.")[Work Packages (Рабочие пакеты)]
+#subsection("4.2.4")[Project Schedule (Штатное расписание)]
 
-#section("6.1")[Work Package 1 (Рабочий пакет 1)]
-
-#placeholder[Описание работы.]
-
-#chapter("7.")[Risk Management (Управление рисками)]
-
-#section("7.1")[Risk List (Список рисков)]
-
-#placeholder[Перечень рисков.]
+#placeholder[Данный раздел содержит расписание разработки проекта, с указанием трудозатрат на реализацию каждой из фаз и итераций.]
 
 #doctable(
-  (1fr, 2fr, 1fr, 1fr),
-  table-header[Риск], table-header[Описание], table-header[Вероятность], table-header[Влияние],
-  [], [], [], [],
+  (2fr, 1fr),
+  table-header[Роль], table-header[Ставка (для расчета стоимости реализации)],
+  [], [],
+  [], [],
+  [], [],
 )
+
+#doctable(
+  (2fr, 1fr, 1fr, 1fr, 1fr, 1fr),
+  table-header[Название задачи], table-header[Трудозатраты Роли 1], table-header[Трудозатраты Роли 2], table-header[...], table-header[Общие трудозатраты], table-header[Стоимость],
+  table-header[Название фазы 1], [], [], [], [], [],
+  [], [], [], [], [], [],
+  table-header[Общая стоимость разработки:], [], [], [], [], [],
+)
+
+#subsection("4.2.5")[Project Resourcing (Ресурсы проекта)]
+
+#subsubsection("4.2.5.1")[Staffing Plan (План по сотрудникам)]
+
+#placeholder[Приведите описание сотрудников, необходимых для разработки проекта - их навыки, требуемый опыт, количество. Укажите, в каких фазах и итерациях они понадобятся.]
+
+#subsubsection("4.2.5.2")[Resource Acquisition Plan (План поиска сотрудников)]
+
+#placeholder[Опишите, каким образом будут найдены необходимые проекту сотруднику (если их ещё нет в команде)]
+
+#subsection("4.2.6")[Budget (Бюджет)]
+
+#placeholder[Определите бюджет проекта]
+
+#section("4.3")[Project Monitoring and Control (Мониторинг и контроль проекта)]
+
+#subsection("4.3.1")[Requirements Management Plan (План управления требованиями)]
+
+#placeholder[Определите, каким образом будет контролироваться процесс работы с требованиями проекта.]
+
+#subsection("4.3.2")[Schedule Control Plan (План управления расписанием)]
+
+#placeholder[Определите, каким образом будут контролироваться сроки выполнения работ проекта.]
+
+#subsection("4.3.3")[Budget Control Plan (План управления бюджетом)]
+
+#placeholder[Определите, каким образом будет контролироваться бюджет проекта.]
+
+#subsection("4.3.4")[Quality Control Plan (План управления качеством)]
+
+#placeholder[Определите, каким образом будет контролироваться качество проекта.]
+
+#subsection("4.3.5")[Reporting Plan (План отчетности)]
+
+#placeholder[Определите, как часто будут создаваться отчеты по прогрессу разработки проекта, а также каково будет их содержание.]
+
+#section("4.4")[Risk Management plan (План управления рисками)]
+
+#placeholder[Определите, каким образом будут контролироваться риски проекта.]
+
+#section("4.5")[Close-out Plan (План завершения проекта)]
+
+#placeholder[Опишите, каким образом будет определяться завершение разработки проекта, какие цели должны быть достигнуты для этого, что должно быть сделано после завершения разработки.]

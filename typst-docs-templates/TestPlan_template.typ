@@ -1,4 +1,4 @@
-#import "styles.typ": *
+#import "../styles.typ": *
 
 #doc-title("Test Plan", subtitle: "План тестирования")
 
@@ -12,190 +12,184 @@
 
 #section("1.2")[Scope (Область применения)]
 
-#placeholder[Приведите краткое описание области применения.]
+#placeholder[Приведите краткое описание области применения данного документа, к какому(им) проекту(ам) он относится, кем будет использоваться и т.д.]
 
-#section("1.3")[Intended Audience (Целевая аудитория)]
+#section("1.3")[Intended Audience (Предполагаемая аудитория)]
 
-#placeholder[Укажите, кто будет читать данный документ и в каких целях.]
+#placeholder[Укажите, для кого написан данный документ и в каких целях он будет использоваться.]
 
-#section("1.4")[Document Terminology and Acronyms (Терминология)]
+#section("1.4")[Document Terminology and Acronyms (Терминология документа)]
 
-#placeholder[Укажите значение терминов и аббревиатур.]
+#placeholder[Укажите значение терминов и аббревиатур, которые употребляются в данном документе. Возможно указание ссылки на Глоссарий проекта.]
 
 #section("1.5")[References (Ссылки)]
 
-#placeholder[Перечислите документы, на которые ссылаетесь.]
+#placeholder[Перечислите списком названия документов, на которые ссылаетесь в данном, укажите их источники.]
 
 #section("1.6")[Document Structure (Структура документа)]
 
-#placeholder[Приведите краткое описание структуры документа.]
+#placeholder[Приведите краткое описание остальных разделов документа.]
 
-#chapter("2.")[Evaluation Mission and Test Motivation (Цели и мотивация тестирования)]
+#chapter("2.")[Evaluation Mission and Test Motivation (Цель и мотивы тестирования)]
 
-#section("2.1")[Background (Контекст)]
+#section("2.1")[Background (Справочная информация)]
 
-#placeholder[В каком контексте создается продукт, какие задачи он решает, кто будет пользоваться.]
+#placeholder[В данном разделе кратко опишите проект, какие цели он преследует, как будет использоваться, какова его архитектура. Уместны ссылки на другие документы.]
 
-#section("2.2")[Evaluation Mission (Цели оценки)]
+#section("2.2")[Evaluation Mission (Цели тестирования)]
 
-#placeholder[В чем состоит цель тестирования данного продукта.]
+#placeholder[В данном разделе укажите, с какой целью проводится тестирование проекта. Например, удовлетворить заказчика, найти как можно больше ошибок до окончательного завершения разработки, выявить самые главные проблемы системы и т.д.]
 
-#section("2.3")[Test Motivators (Мотиваторы тестирования)]
+#section("2.3")[Test Motivators (Мотивы тестирования)]
 
-#placeholder[Опишите, какие факторы заставляют уделить особое внимание тестированию.]
+#placeholder[Укажите, какие элементы будут служить источником информации для тестирования - функциональные и нефункциональные требования, ограничения системы, риски и т.д.]
 
-#chapter("3.")[Target Test Items (Объекты тестирования)]
+#chapter("3.")[Target Test Items (Целевые объекты тестирования)]
 
-#placeholder[Перечислите объекты тестирования, т.е. что именно будет тестироваться.]
+#placeholder[Перечислите объекты тестирования, т.е. что именно будет проверяться с помощью тестов.]
 
-#chapter("4.")[Outline of Planned Tests (План тестирования)]
+#chapter("4.")[Outline of Planned Tests (План тестов)]
 
-#section("4.1")[Outline of Test Inclusions (Включенные тесты)]
-
-#placeholder[Опишите, какие тесты будут проводиться.]
-
-#section("4.2")[Outline of Other Candidates for Potential Inclusion (Возможные дополнительные тесты)]
-
-#placeholder[Опишите тесты, которые могут быть проведены при наличии ресурсов.]
-
-#section("4.3")[Outline of Test Exclusions (Исключенные тесты)]
-
-#placeholder[Опишите, что тестироваться не будет и почему.]
+#placeholder[В данном разделе перечислите все виды тестов, которые будут включены в процесс тестирования. Кратко опишите, что они будут проверять.]
 
 #chapter("5.")[Test Approach (Подход к тестированию)]
 
-#section("5.1")[Testing Types and Techniques (Типы и техники тестирования)]
+#placeholder[Данный раздел представляет рекомендованные стратегии для разработки и выполнения обязательных тестов. Не все виды тестов обязательно должны быть реализованы.]
 
-#placeholder[Опишите типы тестирования: функциональное, нагрузочное, usability и т.д.]
+#section("5.1")[Testing Techniques and Types (Техники тестирования)]
 
-#section("5.2")[Test Completeness (Полнота тестирования)]
-
-#placeholder[Критерии завершения тестирования.]
-
-#chapter("6.")[Entry and Exit Criteria (Критерии начала и завершения)]
-
-#section("6.1")[Test Plan (План тестирования)]
-
-#placeholder[Критерии для начала и завершения этапа планирования.]
-
-#section("6.2")[Test Design (Проектирование тестов)]
-
-#placeholder[Критерии для начала и завершения этапа проектирования тестов.]
-
-#section("6.3")[Test Implementation (Реализация тестов)]
-
-#placeholder[Критерии для начала и завершения этапа реализации тестов.]
-
-#section("6.4")[Test Execution (Выполнение тестов)]
-
-#placeholder[Критерии для начала и завершения этапа выполнения тестов.]
-
-#chapter("7.")[Deliverables (Результаты)]
-
-#section("7.1")[Test Evaluation Summaries (Сводки оценки тестирования)]
-
-#placeholder[Какие отчеты будут созданы.]
-
-#section("7.2")[Reporting on Test Coverage (Отчет о покрытии тестами)]
-
-#placeholder[Как будет отслеживаться покрытие.]
-
-#section("7.3")[Perceived Quality Reports (Отчеты о воспринимаемом качестве)]
-
-#placeholder[Метрики качества.]
-
-#section("7.4")[Incident Reports and RCRs (Отчеты об инцидентах)]
-
-#placeholder[Как фиксироваться будут найденные дефекты.]
-
-#chapter("8.")[Testing Workflow (Рабочий процесс тестирования)]
-
-#placeholder[Опишите последовательность шагов тестирования.]
-
-#chapter("9.")[Environmental Needs (Требования к окружению)]
-
-#section("9.1")[Base System Hardware (Базовое аппаратное обеспечение)]
-
-#placeholder[Требования к оборудованию.]
+#placeholder[Для описания каждой из используемых техник тестирования рекомендуется воспользоваться следующей таблицей:]
 
 #doctable(
-  (2fr, 1fr, 1fr, 2fr),
-  table-header[Ресурс], table-header[Количество], table-header[Тип], table-header[Примечания],
-  [], [], [], [],
+  (1fr, 3fr),
+  table-header[Атрибут], table-header[Описание],
+  [Technique Objective (Цель)], [#placeholder[В чем состоит цель данного типа тестов, что он проверяет]],
+  [Technique (Описание процесса)], [#placeholder[Пошаговое подробное описание процесса выполнения тестов]],
+  [Oracles (Источники)], [#placeholder[На какой документ/элемент системы опираются тесты для проверки результата выполнения]],
+  [Required Tools (Инструменты)], [#placeholder[Инструменты, необходимые для проведения теста - сторонние программы, необходимое окружение пользователя и т.д.]],
+  [Success Criteria (Критерий успеха)], [#placeholder[Опишите условия, при которых данный тип тестов считается пройденным]],
 )
 
-#section("9.2")[Base Software Elements (Базовое программное обеспечение)]
+#subsection("5.2.1")[Data and Database Integrity Testing (Тестирование базы данных)]
 
-#placeholder[Требования к ПО.]
+#subsection("5.2.2")[Function Testing (Функциональное тестирование)]
+
+#subsection("5.2.3")[Business Cycle Testing (Тестирование бизнес-цикла)]
+
+#subsection("5.2.4")[User Interface Testing (Тестирование интерфейса)]
+
+#subsection("5.2.5")[Performance Profiling (Тестирование производительности)]
+
+#subsection("5.2.6")[Load Testing (Нагрузочное тестирование)]
+
+#subsection("5.2.7")[Stress Testing (Стрессовое тестирование)]
+
+#subsection("5.2.8")[Volume Testing (Объемное тестирование)]
+
+#subsection("5.2.9")[Security and Access Control Testing (Тестирование безопасности и прав доступа)]
+
+#subsection("5.2.10")[Failover and Recovery Testing (Тестирование на отказ и восстановление)]
+
+#subsection("5.2.11")[Configuration Testing (Тестирование конфигурации)]
+
+#subsection("5.2.12")[Installation Testing (Тестирование процесса установки)]
+
+#chapter("6.")[Entry and Exit Criteria (Критерии старта и окончания)]
+
+#section("6.1")[Test Plan Entry Criteria (Критерий старта)]
+
+#placeholder[Укажите условие, при котором можно начать процесс тестирования]
+
+#section("6.2")[Test Plan Exit Criteria (Критерий окончания)]
+
+#placeholder[Укажите условие, при котором процесс тестирования считается оконченным.]
+
+#section("6.3")[Suspension and Resumption Criteria (Критерий паузы и возобновления)]
+
+#placeholder[Укажите условие, при котором необходимо приостановить процесс тестирования и при котором продолжить.]
+
+#chapter("7.")[Deliverables (Ожидаемые результаты тестирования)]
+
+#placeholder[В данном разделе перечислите артефакты, которые будут созданы в процессе тестирования.]
+
+#section("7.1")[Test Evaluation Summaries (Результаты выполнения тестов)]
+
+#placeholder[Опишите формат и содержание результатов выполнения тестирования]
+
+#section("7.2")[Perceived Quality Reports (Оценка качества)]
+
+#placeholder[Опишите формат и содержание отчета о качестве разрабатываемой системы]
+
+#section("7.3")[Incident Logs and Change Requests (Журналы ошибок и изменений)]
+
+#placeholder[Опишите, каким образом будут фиксироваться найденные ошибки в системе, а также изменения, сделанные с целью их исправить.]
+
+#chapter("8.")[Environmental Needs (Необходимое окружение для проведения тестирования)]
+
+#placeholder[Данный раздел содержит описание ресурсов (за исключением людей), необходимых для выполнения плана тестирования.]
+
+#section("8.1")[Base System Hardware (Базовое аппаратное обеспечение)]
+
+#placeholder[Опишите в таблице, приведенной ниже, конфигурацию систем(ы), на которой будут запускаться тесты]
 
 #doctable(
-  (2fr, 1fr, 1fr, 2fr),
-  table-header[ПО], table-header[Количество], table-header[Тип], table-header[Примечания],
-  [], [], [], [],
-)
-
-#section("9.3")[Productivity and Support Tools (Инструменты)]
-
-#placeholder[Инструменты для тестирования.]
-
-#section("9.4")[Test Environment Configurations (Конфигурации тестового окружения)]
-
-#placeholder[Различные конфигурации для тестирования.]
-
-#chapter("10.")[Responsibilities, Staffing, and Training Needs (Обязанности и обучение)]
-
-#section("10.1")[People and Roles (Люди и роли)]
-
-#placeholder[Кто будет выполнять тестирование.]
-
-#doctable(
-  (1fr, 2fr, 2fr),
-  table-header[Роль], table-header[Ответственный], table-header[Обязанности],
+  (1fr, 1fr, 2fr),
+  table-header[Resource (Ресурс)], table-header[Quantity (Количество)], table-header[Name and Type (Название и тип)],
+  [], [], [],
+  [], [], [],
   [], [], [],
 )
 
-#section("10.2")[Staffing and Training Needs (Потребности в персонале и обучении)]
+#section("8.2")[Base Software Elements in the Test Environment (Базовые программы тестового окружения)]
 
-#placeholder[Какое обучение требуется персоналу.]
+#placeholder[Опишите в таблице, приведенное ниже, какие программы должны быть установлены на тестовой(ых) системе(ах).]
 
-#chapter("11.")[Iteration Milestones (Вехи итераций)]
+#doctable(
+  (2fr, 1fr, 1fr),
+  table-header[Software Element Name (Название)], table-header[Version (Версия)], table-header[Type (Тип)],
+  [], [], [],
+  [], [], [],
+  [], [], [],
+)
 
-#section("11.1")[Milestone 1: #placeholder[Название вехи]]
+#section("8.3")[Productivity and Support Tools (Вспомогательные инструменты)]
 
-#placeholder[Описание вехи и критерии завершения.]
+#placeholder[Опишите в таблице, приведенное ниже, какие программы будут полезны для проведения тестирования.]
 
-#chapter("12.")[Risks, Dependencies, Assumptions, and Constraints (Риски и ограничения)]
+#doctable(
+  (1fr, 2fr, 2fr, 1fr),
+  table-header[Tool Category or Type (Тип программы)], table-header[Tool Brand Name (Название)], table-header[Vendor (Производитель)], table-header[Version (Версия)],
+  [], [], [], [],
+  [], [], [], [],
+  [], [], [], [],
+)
 
-#section("12.1")[Risks (Риски)]
+#chapter("9.")[Responsibilities, Staffing, and Training Needs (Обязанности сотрудников)]
 
-#placeholder[Опишите риски, связанные с тестированием.]
+#placeholder[В данном разделе описываются необходимые навыки и знания людей, осуществляющих процесс тестирования.]
 
-#section("12.2")[Dependencies (Зависимости)]
+#section("9.1")[People and Roles (Люди и роли)]
 
-#placeholder[От чего зависит тестирование.]
+#doctable(
+  (1fr, 1fr, 2fr),
+  table-header[Role (Роль)], table-header[Minimum Resources Recommended (Минимально необходимое количество людей)], table-header[Specific Responsibilities (Обязанности)],
+  [], [], [],
+  [], [], [],
+  [], [], [],
+)
 
-#section("12.3")[Assumptions (Предположения)]
+#chapter("10.")[Management Process and Procedures (Управление)]
 
-#placeholder[Какие предположения сделаны.]
+#placeholder[Данный раздел содержит описание различных мероприятий по управлению процессом тестирования]
 
-#section("12.4")[Constraints (Ограничения)]
+#section("10.1")[Reporting on Test Coverage (Сообщение о тестовом покрытии)]
 
-#placeholder[Какие ограничения существуют.]
+#placeholder[Опишите процесс рецензирования результатов тестирования.]
 
-#chapter("13.")[Management Process and Procedures (Процессы управления)]
+#section("10.2")[Problem Reporting, Escalation, and Issue Resolution (Выявление, избегание и решение проблем)]
 
-#section("13.1")[Measuring and Assessing the Extent of Testing (Измерение объема тестирования)]
+#placeholder[Опишите, каким образом будет вестись учет проблем, возникших во время выполнения тестов, и какие действия нужно предпринять для их решения.]
 
-#placeholder[Как измерять прогресс тестирования.]
+#section("10.3")[Approval and Signoff (Утверждение плана тестирования)]
 
-#section("13.2")[Assessing the Results of Testing (Оценка результатов)]
-
-#placeholder[Как оценивать результаты.]
-
-#section("13.3")[Problem Reporting and Corrective Action (Отчетность о проблемах)]
-
-#placeholder[Процесс работы с дефектами.]
-
-#section("13.4")[Managing Test Assets (Управление тестовыми активами)]
-
-#placeholder[Как управляются тестовые артефакты.]
+#placeholder[Опишите процесс утверждения данного плана тестирования, а также укажите список лиц, участвующих в нём.]

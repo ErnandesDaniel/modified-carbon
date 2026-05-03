@@ -95,9 +95,9 @@
 #placeholder[Дайте краткое описание всех групп потенциальных пользователей.]
 
 #doctable(
-  (1fr, 2fr, 2fr, 1fr),
-  table-header[Название], table-header[Описание], table-header[Обязанности], table-header[Заинтересованное лицо],
-  [#placeholder[Название группы]], [#placeholder[Краткое описание]], [#placeholder[Главные обязанности]], [#placeholder[Связанное лицо]],
+  (1fr, 2fr, 2fr, 1fr, 1fr),
+  table-header[Name (Название)], table-header[Description (Описание)], table-header[Responsibilities (Обязанности)], table-header[Stakeholder (Заинтересованное лицо)], table-header[],
+  [#placeholder[Название группы]], [#placeholder[Кратко опишите, кем они являются в контексте разрабатываемого продукта.]], [#placeholder[Перечислите главные обязанности пользователей в контексте разрабатываемой системы]], [#placeholder[Укажите заинтересованное лицо, которое представляет интересы данной группы пользователей]], [],
 )
 
 #section("3.4")[User Environment (Описание рабочего окружения пользователей)]

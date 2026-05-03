@@ -1,4 +1,4 @@
-#import "styles.typ": *
+#import "../styles.typ": *
 
 #doc-title("Business Case", subtitle: "Бизнес-обоснование")
 
