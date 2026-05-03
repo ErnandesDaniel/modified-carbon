@@ -1,4 +1,4 @@
-#import "../styles.typ": *
+#import "styles.typ": *
 
 #doc-title("Software Requirements Specification", subtitle: "Спецификация требований к продукту")
 

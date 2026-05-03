@@ -1,4 +1,4 @@
-#import "../styles.typ": *
+#import "styles.typ": *
 
 #doc-title("Risk List", subtitle: "Список рисков")
 

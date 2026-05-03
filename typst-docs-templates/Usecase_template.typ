@@ -1,4 +1,4 @@
-#import "../styles.typ": *
+#import "styles.typ": *
 
 #doc-title("Use-Case Specification", subtitle: "Спецификация вариантов использования")
 

@@ -1,4 +1,4 @@
-#import "../styles.typ": *
+#import "styles.typ": *
 
 #doc-title("Test Plan", subtitle: "План тестирования")
 

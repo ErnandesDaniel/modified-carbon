@@ -1,4 +1,4 @@
-#import "../styles.typ": *
+#import "styles.typ": *
 
 #doc-title("Software Development Plan", subtitle: "План разработки ПО")
 
