@@ -61,13 +61,12 @@
 #placeholder[Для описания каждой из используемых техник тестирования рекомендуется воспользоваться следующей таблицей:]
 
 #doctable(
-  (1fr, 3fr),
-  table-header[Атрибут], table-header[Описание],
-  [Technique Objective (Цель)], [#placeholder[В чем состоит цель данного типа тестов, что он проверяет]],
-  [Technique (Описание процесса)], [#placeholder[Пошаговое подробное описание процесса выполнения тестов]],
-  [Oracles (Источники)], [#placeholder[На какой документ/элемент системы опираются тесты для проверки результата выполнения]],
-  [Required Tools (Инструменты)], [#placeholder[Инструменты, необходимые для проведения теста - сторонние программы, необходимое окружение пользователя и т.д.]],
-  [Success Criteria (Критерий успеха)], [#placeholder[Опишите условия, при которых данный тип тестов считается пройденным]],
+  (table-header[Атрибут], table-header[Описание]),
+  ([Technique Objective (Цель)], [#placeholder[В чем состоит цель данного типа тестов, что он проверяет]]),
+  ([Technique (Описание процесса)], [#placeholder[Пошаговое подробное описание процесса выполнения тестов]]),
+  ([Oracles (Источники)], [#placeholder[На какой документ/элемент системы опираются тесты для проверки результата выполнения]]),
+  ([Required Tools (Инструменты)], [#placeholder[Инструменты, необходимые для проведения теста - сторонние программы, необходимое окружение пользователя и т.д.]]),
+  ([Success Criteria (Критерий успеха)], [#placeholder[Опишите условия, при которых данный тип тестов считается пройденным]]),
 )
 
 #subsection("5.2.1")[Data and Database Integrity Testing (Тестирование базы данных)]
@@ -133,11 +132,10 @@
 #placeholder[Опишите в таблице, приведенной ниже, конфигурацию систем(ы), на которой будут запускаться тесты]
 
 #doctable(
-  (1fr, 1fr, 2fr),
-  table-header[Resource (Ресурс)], table-header[Quantity (Количество)], table-header[Name and Type (Название и тип)],
-  [], [], [],
-  [], [], [],
-  [], [], [],
+  (table-header[Resource (Ресурс)], table-header[Quantity (Количество)], table-header[Name and Type (Название и тип)]),
+  ([], [], []),
+  ([], [], []),
+  ([], [], []),
 )
 
 #section("8.2")[Base Software Elements in the Test Environment (Базовые программы тестового окружения)]
@@ -145,11 +143,10 @@
 #placeholder[Опишите в таблице, приведенное ниже, какие программы должны быть установлены на тестовой(ых) системе(ах).]
 
 #doctable(
-  (2fr, 1fr, 1fr),
-  table-header[Software Element Name (Название)], table-header[Version (Версия)], table-header[Type (Тип)],
-  [], [], [],
-  [], [], [],
-  [], [], [],
+  (table-header[Software Element Name (Название)], table-header[Version (Версия)], table-header[Type (Тип)]),
+  ([], [], []),
+  ([], [], []),
+  ([], [], []),
 )
 
 #section("8.3")[Productivity and Support Tools (Вспомогательные инструменты)]
@@ -157,11 +154,10 @@
 #placeholder[Опишите в таблице, приведенное ниже, какие программы будут полезны для проведения тестирования.]
 
 #doctable(
-  (1fr, 2fr, 2fr, 1fr),
-  table-header[Tool Category or Type (Тип программы)], table-header[Tool Brand Name (Название)], table-header[Vendor (Производитель)], table-header[Version (Версия)],
-  [], [], [], [],
-  [], [], [], [],
-  [], [], [], [],
+  (table-header[Tool Category or Type (Тип программы)], table-header[Tool Brand Name (Название)], table-header[Vendor (Производитель)], table-header[Version (Версия)]),
+  ([], [], [], []),
+  ([], [], [], []),
+  ([], [], [], []),
 )
 
 #chapter("9.")[Responsibilities, Staffing, and Training Needs (Обязанности сотрудников)]
@@ -171,11 +167,10 @@
 #section("9.1")[People and Roles (Люди и роли)]
 
 #doctable(
-  (1fr, 1fr, 2fr),
-  table-header[Role (Роль)], table-header[Minimum Resources Recommended (Минимально необходимое количество людей)], table-header[Specific Responsibilities (Обязанности)],
-  [], [], [],
-  [], [], [],
-  [], [], [],
+  (table-header[Role (Роль)], table-header[Minimum Resources Recommended (Минимально необходимое количество людей)], table-header[Specific Responsibilities (Обязанности)]),
+  ([], [], []),
+  ([], [], []),
+  ([], [], []),
 )
 
 #chapter("10.")[Management Process and Procedures (Управление)]

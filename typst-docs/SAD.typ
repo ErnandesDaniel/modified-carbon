@@ -31,16 +31,15 @@
 #placeholder[Данный раздел описывает в общем архитектуру системы.]
 
 #doctable(
-  (2fr, 1fr, 1fr, 1fr, 1fr, 1fr),
   align: (center, center, center, center, center, center),
-  table-header[Diagram/View], table-header[Use Case], table-header[Logical], table-header[Implementation], table-header[Process], table-header[Deployment],
-  [Use Case Diagram], [+], [-], [-], [-], [-],
-  [Class Diagram], [+], [+], [+], [-], [-],
-  [Activity Diagram], [+], [+], [-], [-], [-],
-  [Sequence Diagram], [-], [+], [-], [+], [-],
-  [State Machine], [-], [+], [-], [-], [-],
-  [Package Diagram], [-], [-], [+], [-], [-],
-  [Deployment Diagram], [-], [-], [-], [-], [+],
+  (table-header[Diagram/View], table-header[Use Case], table-header[Logical], table-header[Implementation], table-header[Process], table-header[Deployment]),
+  ([Use Case Diagram], [+], [-], [-], [-], [-]),
+  ([Class Diagram], [+], [+], [+], [-], [-]),
+  ([Activity Diagram], [+], [+], [-], [-], [-]),
+  ([Sequence Diagram], [-], [+], [-], [+], [-]),
+  ([State Machine], [-], [+], [-], [-], [-]),
+  ([Package Diagram], [-], [-], [+], [-], [-]),
+  ([Deployment Diagram], [-], [-], [-], [-], [+]),
 )
 
 #chapter("3.")[Architectural Goals and Constraints (Цели и ограничения)]

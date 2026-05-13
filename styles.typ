@@ -102,23 +102,39 @@
 // ============================================
 
 // Унифицированная функция для создания таблиц в документах
-// columns - массив ширин колонок, например (1fr, 2fr)
-// ...args - содержимое таблицы (ячейки)
+// Автоматически определяет ширину колонок на основе содержимого
+// ...rows - строки таблицы, каждая строка - это массив ячеек
 //
 // Пример использования:
 // #doctable(
-//   (1fr, 2fr),
-//   table-header[Заголовок 1], table-header[Заголовок 2],
-//   [Ячейка 1], [Ячейка 2],
+//   (table-header[Заголовок 1], table-header[Заголовок 2]),
+//   ([Ячейка 1], [Ячейка 2]),
 // )
-#let doctable(columns, ..args) = {
+#let doctable(..rows) = {
+  let row-arrays = rows.pos()
+  
+  // Определяем количество столбцов по первой строке (заголовки)
+  let col-count = if row-arrays.len() > 0 {
+    row-arrays.at(0).len()
+  } else {
+    2
+  }
+  
+  // Преобразуем массив строк в плоский массив ячеек
+  let cells = ()
+  for row in row-arrays {
+    for cell in row {
+      cells.push(cell)
+    }
+  }
+  
   table(
-    columns: columns,
+    columns: col-count,
     // Заголовки по центру, данные по левому краю
     align: (col, row) => if row == 0 { center } else { left },
     stroke: 0.5pt,
     inset: 8pt,
-    ..args
+    ..cells
   )
 }
 
