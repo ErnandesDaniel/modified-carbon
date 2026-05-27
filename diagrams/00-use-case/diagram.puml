@@ -3,7 +3,7 @@ skinparam packageStyle rectangle
 skinparam actorStyle awesome
 skinparam dpi 150
 
-top to bottom direction
+left to right direction
 
 actor "Meth\n(Клиент)" as METH
 usecase "Регистрация\nи аутентификация" as UC01
@@ -23,6 +23,8 @@ BROKER --> UC05
 BROKER --> UC06
 BROKER --> UC07
 
+METH -[hidden]down-> BROKER
+
 actor "Needlecaster" as NEEDLE
 usecase "Календарь\nопераций" as UC08
 usecase "Реестр\nстеков" as UC09
@@ -33,6 +35,8 @@ NEEDLE --> UC09
 NEEDLE --> UC10
 NEEDLE --> UC11
 
+BROKER -[hidden]down-> NEEDLE
+
 actor "Psychosurgeon" as PSYCHO
 usecase "72-часовое\nнаблюдение" as UC12
 usecase "Сертификация\nсовместимости" as UC13
@@ -40,6 +44,8 @@ usecase "Диагностика\nпроблем" as UC14
 PSYCHO --> UC12
 PSYCHO --> UC13
 PSYCHO --> UC14
+
+NEEDLE -[hidden]down-> PSYCHO
 
 actor "Администратор" as ADMIN
 usecase "Управление\nпользователями" as UC15
@@ -52,5 +58,7 @@ ADMIN --> UC16
 ADMIN --> UC17
 ADMIN --> UC18
 ADMIN --> UC19
+
+PSYCHO -[hidden]down-> ADMIN
 
 @enduml
