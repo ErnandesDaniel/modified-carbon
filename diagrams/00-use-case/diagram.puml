@@ -1,0 +1,74 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam dpi 150
+
+top to bottom direction
+
+actor Meth as "Meth\n(Клиент)"
+actor Broker as "Sleeve\nBroker"
+actor Needle as "Needlecaster"
+actor Psycho as "Psychosurgeon"
+actor Admin as "Администратор"
+
+rectangle "SCMS — Sleeving Clinic Management System" {
+
+  package "Клиентский портал" {
+    usecase "Регистрация\nи аутентификация" as UC11
+    usecase "Просмотр\nстатуса кейса" as UC12
+    usecase "Скачивание\nсертификатов" as UC13
+  }
+
+  package "Управление телами" {
+    usecase "Учёт инвентаря\nsleeves" as UC1
+    usecase "Отслеживание\nкультивирования" as UC2
+    usecase "Резервирование\nsleeve" as UC3
+    usecase "Календарь\nопераций" as UC4
+  }
+
+  package "Процедуры и стеки" {
+    usecase "Реестр\nстеков" as UC5
+    usecase "Мониторинг\nneedlecast" as UC6
+    usecase "Тестирование\nпосле пробуждения" as UC7
+  }
+
+  package "Валидация" {
+    usecase "72-часовое\nнаблюдение" as UC8
+    usecase "Сертификация\nсовместимости" as UC9
+    usecase "Диагностика\nпроблем" as UC10
+  }
+
+  package "Администрирование" {
+    usecase "Управление\nпользователями" as UC14
+    usecase "Контракты\nи оплаты" as UC15
+    usecase "Онбординг\nклиентов" as UC16
+    usecase "Генерация\nотчётов" as UC17
+    usecase "Просмотр\nаудит-лога" as UC18
+  }
+}
+
+Meth --> UC11
+Meth --> UC12
+Meth --> UC13
+
+Broker --> UC1
+Broker --> UC2
+Broker --> UC3
+Broker --> UC4
+
+Needle --> UC4
+Needle --> UC5
+Needle --> UC6
+Needle --> UC7
+
+Psycho --> UC8
+Psycho --> UC9
+Psycho --> UC10
+
+Admin --> UC14
+Admin --> UC15
+Admin --> UC16
+Admin --> UC17
+Admin --> UC18
+
+@enduml

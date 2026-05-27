@@ -52,7 +52,7 @@
 #chapter("2.")[Overall Description (Общее описание)]
 
 #figure(
-  image("../diagrams/00-use-case/diagram.png", width: 100%),
+  image("../diagrams/00-use-case/diagram.png", width: 90%),
   caption: [Диаграмма вариантов использования SCMS]
 )
 
