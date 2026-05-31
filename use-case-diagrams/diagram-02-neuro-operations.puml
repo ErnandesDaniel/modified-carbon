@@ -16,7 +16,7 @@ rectangle "SCMS — Модуль нейро-операций\n(перенос и
   usecase "Тестирование\nпосле пробуждения" as WAKETEST
   usecase "Управление\nкалендарем операций" as CALENDAR
 
-  usecase "72-часовая\nпроверка" as VALIDATE
+  usecase "72-часовая\nвалидация" as VALIDATE
   usecase "Сертификация\nсовместимости" as CERTIFY
   usecase "Диагностика проблем\nпереноса" as DIAGNOSE
   usecase "Ведение мед.\nкарты sleeve" as MEDCARD
