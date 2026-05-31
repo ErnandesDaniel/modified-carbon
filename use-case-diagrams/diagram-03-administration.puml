@@ -1,0 +1,31 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam dpi 200
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+left to right direction
+
+title Use Case Diagram — Модуль администрирования
+
+rectangle "SCMS — Модуль\nадминистрирования" {
+
+  usecase "Управление\nпользователями и ролями" as USERMGMT
+  usecase "Управление\nконтрактами и оплатами" as CONTRACTS
+  usecase "Онбординг\nклиентов" as ONBOARD
+  usecase "Генерация отчетов\nи аудит" as REPORTS
+  usecase "Поиск по\nсистеме" as SEARCH
+  usecase "Управление\nдокументами" as DOCUMENTS
+}
+
+actor "Администратор" as ADMIN
+
+ADMIN -- USERMGMT
+ADMIN -- CONTRACTS
+ADMIN -- ONBOARD
+ADMIN -- REPORTS
+ADMIN -- SEARCH
+ADMIN -- DOCUMENTS
+
+@enduml
