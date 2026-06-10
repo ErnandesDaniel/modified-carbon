@@ -1,0 +1,28 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam dpi 200
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+left to right direction
+
+title UC-03 — Проведение процедуры переноса
+
+rectangle "SCMS — Процедура переноса" {
+
+  usecase "Начать перенос" as START
+  usecase "Отметить успех" as SUCCESS
+  usecase "Отметить неудачу" as FAIL
+
+  START ..> SUCCESS : <<extend>>
+  START ..> FAIL : <<extend>>
+}
+
+actor "Needlecaster" as NC
+
+NC -- START
+NC -- SUCCESS
+NC -- FAIL
+
+@enduml

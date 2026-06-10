@@ -1,0 +1,25 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam dpi 200
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+left to right direction
+
+title UC-05 — Администрирование системы
+
+rectangle "SCMS — Администрирование" {
+
+  usecase "Создать учётную\nзапись" as CREATE
+  usecase "Заблокировать /\nразблокировать" as BLOCK
+  usecase "Сменить\nпароль" as PWD
+}
+
+actor "Администратор" as ADMIN
+
+ADMIN -- CREATE
+ADMIN -- BLOCK
+ADMIN -- PWD
+
+@enduml

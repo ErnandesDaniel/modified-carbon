@@ -16,9 +16,9 @@
 
 #section("1.3")[Intended Audience (Предполагаемая аудитория)]
 
-- QA Engineer — исполнение тестов.
-- Разработчики — понимание критериев качества.
-- Project Manager — контроль прогресса тестирования.
+- QA Engineer (Developer 1) — исполнение тестов.
+- Developers (Developer 1, Developer 2) — понимание критериев качества.
+- Project Manager / System Analyst (Developer 1) — контроль прогресса тестирования.
 - Заказчик — валидация соответствия продукта требованиям.
 
 #section("1.4")[Document Terminology and Acronyms (Терминология документа)]
@@ -221,17 +221,17 @@ SCMS — корпоративная система для элитной кли�
 #section("9.1")[People and Roles (Люди и роли)]
 
 #doctable(
-  (table-header[Role (Роль)], table-header[Minimum Resources Recommended (Минимально необходимое количество людей)], table-header[Specific Responsibilities (Обязанности)]),
-  ([QA Engineer], [1], [Разработка тест-кейсов, выполнение тестов, ведение баг-трекинга, составление отчётов]),
-  ([Developer (поддержка)], [1 (part-time)], [Code review тестов, фикс багов, поддержка тестовой среды]),
-  ([Project Manager], [1 (part-time)], [Контроль прогресса тестирования, утверждение критериев]),
+  (table-header[Role (Роль по RUP/RAP)], table-header[Minimum Resources Recommended (Минимально необходимое количество людей)], table-header[Specific Responsibilities (Обязанности)]),
+  ([QA Engineer], [Developer 1 (part-time)], [Разработка тест-кейсов, выполнение тестов, ведение баг-трекинга, составление отчётов]),
+  ([Developer (поддержка)], [Developer 2 (part-time)], [Code review тестов, фикс багов, поддержка тестовой среды]),
+  ([Project Manager / System Analyst], [Developer 1 (part-time)], [Контроль прогресса тестирования, утверждение критериев]),
 )
 
 #chapter("10.")[Management Process and Procedures (Управление)]
 
 #section("10.1")[Reporting on Test Coverage (Сообщение о тестовом покрытии)]
 
-Еженедельный отчёт QA Engineer содержит: % покрытия FR, количество пройденных/проваленных тестов, статус открытых багов. Отчёт направляется PM и архитектору.
+Еженедельный отчёт QA Engineer содержит: % покрытия FR, количество пройденных/проваленных тестов, статус открытых багов. Отчёт направляется PM / System Analyst и Architect.
 
 #section("10.2")[Problem Reporting, Escalation, and Issue Resolution (Выявление, избегание и решение проблем)]
 
@@ -239,8 +239,8 @@ SCMS — корпоративная система для элитной кли�
 - Critical баги блокируют релиз и требуют немедленного исправления.
 - Major баги исправляются в текущей итерации.
 - Minor/Trivial баги могут быть отложены до следующей итерации.
-- При разногласиях решение принимает PM.
+- При разногласиях решение принимает PM / System Analyst (Developer 1).
 
 #section("10.3")[Approval and Signoff (Утверждение плана тестирования)]
 
-План тестирования утверждается PM и архитектором. Изменения в план вносятся через Change Request с уведомлением всех заинтересованных сторон.
+План тестирования утверждается PM / System Analyst и Architect. Изменения в план вносятся через Change Request с уведомлением всех заинтересованных сторон.

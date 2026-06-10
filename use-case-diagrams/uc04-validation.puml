@@ -1,0 +1,30 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam dpi 200
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+left to right direction
+
+title UC-04 — Валидация и сертификация
+
+rectangle "SCMS — Валидация" {
+
+  usecase "Осмотреть\nклиента" as EXAM
+  usecase "Подтвердить" as OK
+  usecase "Зафиксировать\nосложнение" as COMP
+
+  EXAM ..> OK : <<extend>>
+  EXAM ..> COMP : <<extend>>
+}
+
+actor "Psycho-\nsurgeon" as PSY
+actor "Meth" as METH
+
+PSY -- EXAM
+PSY -- OK
+PSY -- COMP
+METH -- OK
+
+@enduml

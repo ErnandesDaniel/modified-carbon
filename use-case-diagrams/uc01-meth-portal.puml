@@ -1,0 +1,33 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam dpi 200
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+left to right direction
+
+title UC-01 — Работа с порталом Meth
+
+rectangle "SCMS — Портал Meth" {
+
+  usecase "Просмотр каталога\nтел" as CATALOG
+  usecase "Заказ свободного\nтела" as ORDER
+  usecase "Предзаказ клонированного\nтела" as PREORDER
+  usecase "Просмотр статуса\nзаказа" as STATUS
+  usecase "Скачивание\nсертификата" as CERT
+
+  ORDER ..> CATALOG : <<include>>
+  PREORDER ..> CATALOG : <<include>>
+  STATUS ..> CERT : <<extend>>
+}
+
+actor "Meth\n(Клиент)" as METH
+
+METH -- CATALOG
+METH -- ORDER
+METH -- PREORDER
+METH -- STATUS
+METH -- CERT
+
+@enduml

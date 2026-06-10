@@ -1,0 +1,27 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam dpi 200
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+left to right direction
+
+title UC-02 — Управление каталогом тел
+
+rectangle "SCMS — Каталог тел" {
+
+  usecase "Добавление нового\nтела в каталог" as ADD
+  usecase "Редактирование\nданных тела" as EDIT
+  usecase "Удаление тела\nиз каталога" as DELETE
+
+  EDIT ..> ADD : <<include>>
+}
+
+actor "Sleeve\nBroker" as BROKER
+
+BROKER -- ADD
+BROKER -- EDIT
+BROKER -- DELETE
+
+@enduml
