@@ -7,28 +7,28 @@
 ## Роли
 
 ### 1. Meth (Клиент)
-Миллиардер, заказывающий новое тело. Примеры: Лоренс Банкрофт, персонажи вроде тех, кто живёт 300+ лет, меняя тела как костюмы. Ожидает: клонированное тело с нужными параметрами, сохранение всех воспоминаний, отсутствие stack shock.
+Миллиардер, заказывающий новое тело. Ожидает: клонированное тело с нужными параметрами, сохранение всех воспоминаний, отсутствие stack shock.
 
 ### 2. Sleeve Broker
-Специалист по подбору и подготовке тел. Работает с клонированными телами из генетических архивов. Проверяет: генетическую чистоту, отсутствие болезней, совместимость с конкретным стеком клиента.
+Специалист по подбору и подготовке тел. Проверяет: генетическую чистоту, отсутствие болезней, совместимость с конкретным стеком клиента.
 
 ### 3. Needlecaster
-Техник по работе со стеками. Извлекает кортикальный стек, выполняет needlecast (перенос сознания), следит за целостностью данных. Использует квантовое шифрование для защиты сознания в процессе.
+Техник по работе со стеками. Извлекает кортикальный стек, выполняет needlecast (перенос сознания), следит за целостностью данных.
 
 ### 4. Psychosurgeon
-Врач, проверяющий психосоматическую совместимость после переноса. Диагностирует: stack shock, фрагментацию личности, несовместимость с новой физиологией. Сертифицирует готовность клиента к выходу.
+Врач, проверяющий психосоматическую совместимость после переноса. Диагностирует: stack shock, фрагментацию личности. Сертифицирует готовность клиента к выходу.
 
 ---
 
 ## Структура проекта
 
 ```
-├── README.md                          # Этот файл
+├── README.md
 ├── diagrams/                          # Диаграммы бизнес-процессов
-│   ├── 01-sleeve-selection/           # Подбор тела
-│   ├── 02-stack-extraction/           # Извлечение стека
-│   ├── 03-consciousness-transfer/     # Перенос сознания
-│   └── 04-post-transfer-validation/   # Пост-трансферная валидация
+│   ├── 01-sleeve-selection/
+│   ├── 02-stack-extraction/
+│   ├── 03-consciousness-transfer/
+│   └── 04-post-transfer-validation/
 ├── markdown-docs/                     # Документы проекта (Markdown)
 │   ├── Vision.md
 │   ├── SRS.md
@@ -58,75 +58,51 @@
 
 ## Генерация PDF из Markdown
 
-### Установка Pandoc и wkhtmltopdf
-
-```powershell
-# Установка Pandoc
-winget install --id JohnMacFarlane.Pandoc
-
-# Установка wkhtmltopdf (для HTML-рендеринга)
-winget install --id wkhtmltopdf.wkhtmltopdf
-```
+Используется npm-пакет `md-to-pdf` (установлен глобально).
 
 ### Конвертация одного файла
 
 ```powershell
-# Способ 1: Через Pandoc (рекомендуется)
-pandoc markdown-docs/Vision.md -o pdf/Vision.pdf --pdf-engine=wkhtmltopdf
-
-# Способ 2: Простой рендеринг (без стилей)
-pandoc markdown-docs/Vision.md -o pdf/Vision.pdf
+md-to-pdf markdown-docs/Vision.md
 ```
+
+PDF будет создан в той же папке рядом с `.md` файлом.
 
 ### Конвертация всех файлов
 
 **PowerShell:**
 ```powershell
 Get-ChildItem markdown-docs/*.md | ForEach-Object {
-    $output = "pdf/$($_.BaseName).pdf"
-    pandoc $_.FullName -o $output --pdf-engine=wkhtmltopdf
-    Write-Host "Converted: $($_.Name) -> $output"
+    md-to-pdf $_.FullName
+    Write-Host "Converted: $($_.Name)"
 }
 ```
 
 **Компактная команда:**
 ```powershell
-gci markdown-docs/*.md | % { pandoc $_.FullName "pdf/$($_.BaseName).pdf" --pdf-engine=wkhtmltopdf }
+gci markdown-docs/*.md | % { md-to-pdf $_.FullName }
 ```
 
 ### Конвертация шаблонов
 
 ```powershell
-Get-ChildItem markdown-docs-templates/*.md | ForEach-Object {
-    $output = "pdf/$($_.BaseName).pdf"
-    pandoc $_.FullName -o $output --pdf-engine=wkhtmltopdf
-    Write-Host "Converted: $($_.Name) -> $output"
-}
+gci markdown-docs-templates/*.md | % { md-to-pdf $_.FullName }
 ```
 
 ---
 
 ## Инструментарий
 
-### Pandoc
-Универсальный конвертер документов. Поддерживает Markdown → PDF, HTML, DOCX и другие форматы.
+### md-to-pdf
 
 ```powershell
 # Проверка установки
-pandoc --version
-```
-
-### wkhtmltopdf
-Движок для рендеринга HTML в PDF. Используется Pandoc как backend для генерации PDF.
-
-```powershell
-# Проверка установки
-wkhtmltopdf --version
+md-to-pdf --version
 ```
 
 ### Live Preview (Markdown)
 
-Для просмотра Markdown в реальном времени используйте расширение **Markdown Preview** в VS Code / WebStorm:
+Для просмотра Markdown в реальном времени — расширение **Markdown Preview** в редакторе:
 
 1. Откройте `.md` файл
 2. Нажмите `Ctrl+Shift+V` (Preview)
@@ -134,7 +110,4 @@ wkhtmltopdf --version
 
 ---
 
-## Заметки
-
-- Термины и роли описаны в контексте мира "Видоизменённый углерод" Ричарда Моргана
-- Используйте глоссарий (`markdown-docs/Glossary.md`) для справок по терминологии
+*Термины и роли описаны в контексте мира "Видоизменённый углерод" Ричарда Моргана*
