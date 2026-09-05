@@ -24,33 +24,11 @@
 
 ```
 ├── README.md
-├── diagrams/                          # Диаграммы бизнес-процессов
-│   ├── 01-sleeve-selection/
-│   ├── 02-stack-extraction/
-│   ├── 03-consciousness-transfer/
-│   └── 04-post-transfer-validation/
 ├── markdown-docs/                     # Документы проекта (Markdown)
-│   ├── Vision.md
-│   ├── SRS.md
-│   ├── TestPlan.md
-│   ├── SDP.md
-│   ├── SAD.md
-│   ├── RiskList.md
-│   ├── Glossary.md
-│   ├── BusinessCase.md
-│   └── Usecase.md
 ├── markdown-docs-templates/           # Шаблоны документов (Markdown)
-│   ├── styles_template.md
-│   ├── Vision_template.md
-│   ├── SRS_template.md
-│   ├── TestPlan_template.md
-│   ├── SDP_template.md
-│   ├── SAD_template.md
-│   ├── RiskList_template.md
-│   ├── Glossary_template.md
-│   ├── BusinessCase_template.md
-│   └── Usecase_template.md
 ├── use-case-diagrams/                 # Диаграммы вариантов использования
+├── word-docs/                         # Документы Word
+├── word-docs-templates/               # Шаблоны Word
 └── pdf/                               # Готовые PDF файлы
 ```
 
