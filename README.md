@@ -41,30 +41,30 @@
 ### Конвертация одного файла
 
 ```powershell
-md-to-pdf markdown-docs/Vision.md
+md-to-pdf markdown-docs/Vision.md --dest pdf/
 ```
 
-PDF будет создан в той же папке рядом с `.md` файлом.
+PDF будет создан в папке `pdf/`.
 
 ### Конвертация всех файлов
 
 **PowerShell:**
 ```powershell
 Get-ChildItem markdown-docs/*.md | ForEach-Object {
-    md-to-pdf $_.FullName
-    Write-Host "Converted: $($_.Name)"
+    md-to-pdf $_.FullName --dest pdf/
+    Write-Host "Converted: $($_.Name) -> pdf/"
 }
 ```
 
 **Компактная команда:**
 ```powershell
-gci markdown-docs/*.md | % { md-to-pdf $_.FullName }
+gci markdown-docs/*.md | % { md-to-pdf $_.FullName --dest pdf/ }
 ```
 
 ### Конвертация шаблонов
 
 ```powershell
-gci markdown-docs-templates/*.md | % { md-to-pdf $_.FullName }
+gci markdown-docs-templates/*.md | % { md-to-pdf $_.FullName --dest pdf/ }
 ```
 
 ---
