@@ -77,15 +77,4 @@ gci markdown-docs-templates/*.md | % { md-to-pdf $_.FullName; Move-Item $_.FullN
 # Проверка установки
 md-to-pdf --version
 ```
-
-### Live Preview (Markdown)
-
-Для просмотра Markdown в реальном времени — расширение **Markdown Preview** в редакторе:
-
-1. Откройте `.md` файл
-2. Нажмите `Ctrl+Shift+V` (Preview)
-3. Редактируйте — превью обновляется автоматически
-
 ---
-
-*Термины и роли описаны в контексте мира "Видоизменённый углерод" Ричарда Моргана*
