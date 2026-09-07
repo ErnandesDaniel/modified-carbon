@@ -1,0 +1,37 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam dpi 200
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+left to right direction
+
+title UC-05 — Регистрация Meth через Google OAuth (RegisterMeth)
+
+rectangle "SCMS — Внешний портал" {
+
+  usecase "Нажать\n«Войти через Google»" as START
+  usecase "Перенаправление\nна Google" as REDIRECT
+  usecase "Подтвердить\nдоступ в Google" as CONFIRM
+  usecase "Создать\nучётную запись" as CREATE
+  usecase "Создать\nличный кабинет" as CABINET
+
+  REDIRECT ..> START : <<include>>
+  CONFIRM ..> REDIRECT : <<include>>
+  CREATE ..> CONFIRM : <<include>>
+  CABINET ..> CREATE : <<include>>
+}
+
+rectangle "Google OAuth" as GOOGLE
+
+actor "Meth\n(Новый клиент)" as METH
+actor "Sleeve\nBroker" as BROKER
+
+METH -- START
+GOOGLE -- REDIRECT
+GOOGLE -- CONFIRM
+METH -- CONFIRM
+BROKER -- CABINET
+
+@enduml

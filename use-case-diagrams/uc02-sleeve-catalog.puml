@@ -7,21 +7,28 @@ skinparam defaultFontSize 12
 
 left to right direction
 
-title UC-02 — Управление каталогом тел
+title UC-02 — Управление жизненным циклом sleeve (ManageSleeveLifecycle)
 
-rectangle "SCMS — Каталог тел" {
+rectangle "SCMS — Управление sleeves" {
 
-  usecase "Добавление нового\nтела в каталог" as ADD
-  usecase "Редактирование\nданных тела" as EDIT
-  usecase "Удаление тела\nиз каталога" as DELETE
+  usecase "Заказ\nкультивирования" as CULTIVATE
+  usecase "Приёмка\nтела" as ACCEPT
+  usecase "Резервирование\nза клиентом" as RESERVE
+  usecase "Просмотр\nкаталога" as CATALOG
 
-  EDIT ..> ADD : <<include>>
+  ACCEPT ..> CULTIVATE : <<extend>>
+  RESERVE ..> CATALOG : <<include>>
 }
 
 actor "Sleeve\nBroker" as BROKER
+actor "Meth" as METH
+rectangle "Генетический\nархив" as GA
 
-BROKER -- ADD
-BROKER -- EDIT
-BROKER -- DELETE
+BROKER -- CULTIVATE
+BROKER -- ACCEPT
+BROKER -- RESERVE
+BROKER -- CATALOG
+GA -- CULTIVATE
+METH -- RESERVE
 
 @enduml

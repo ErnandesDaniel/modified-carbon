@@ -69,6 +69,52 @@ gci markdown-docs-templates/*.md | % { md-to-pdf $_.FullName; Move-Item $_.FullN
 
 ---
 
+## Генерация диаграмм Use Case (PlantUML)
+
+Диаграммыvariants использования хранятся в формате PlantUML (`.puml`) в папке `use-case-diagrams/`. PNG-файлы генерируются из них.
+
+### Генерация одной диаграммы
+
+```powershell
+plantuml use-case-diagrams\uc01-meth-portal.puml
+```
+
+### Генерация всех диаграмм
+
+```powershell
+plantuml use-case-diagrams/*.puml
+```
+
+### Генерация с explicit output path
+
+```powershell
+plantuml -o "../use-case-diagrams" use-case-diagrams/*.puml
+```
+
+### Проверка установки
+
+```powershell
+plantuml -version
+```
+
+### Структура папки
+
+```
+use-case-diagrams/
+├── uc01-meth-portal.puml          # UC-01: Заказ sleeve клиентом
+├── uc01-meth-portal.png
+├── uc02-sleeve-catalog.puml       # UC-02: Управление жизненным циклом sleeve
+├── uc02-sleeve-catalog.png
+├── uc03-needlecast-procedure.puml # UC-03: Проведение needlecast
+├── uc03-needlecast-procedure.png
+├── uc04-validation.puml           # UC-04: Валидация и сертификация
+├── uc04-validation.png
+├── uc05-register-meth.puml        # UC-05: Регистрация Meth
+└── uc05-register-meth.png
+```
+
+---
+
 ## Инструментарий
 
 ### md-to-pdf
@@ -76,5 +122,12 @@ gci markdown-docs-templates/*.md | % { md-to-pdf $_.FullName; Move-Item $_.FullN
 ```powershell
 # Проверка установки
 md-to-pdf --version
+```
+
+### PlantUML
+
+```powershell
+# Проверка установки
+plantuml -version
 ```
 ---

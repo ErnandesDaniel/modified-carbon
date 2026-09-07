@@ -7,19 +7,22 @@ skinparam defaultFontSize 12
 
 left to right direction
 
-title UC-01 — Работа с порталом Meth
+title UC-01 — Заказ sleeve клиентом (OrderSleeve)
 
 rectangle "SCMS — Портал Meth" {
 
   usecase "Просмотр каталога\nтел" as CATALOG
-  usecase "Заказ свободного\nтела" as ORDER
-  usecase "Предзаказ клонированного\nтела" as PREORDER
-  usecase "Просмотр статуса\nзаказа" as STATUS
+  usecase "Фильтрация по\nпараметрам" as FILTER
+  usecase "Заказ\nсвободного тела" as ORDER
+  usecase "Предзаказ\nклонированного тела" as PREORDER
+  usecase "Отслеживание\nстатуса культивирования" as TRACK
   usecase "Скачивание\nсертификата" as CERT
 
+  CATALOG ..> FILTER : <<include>>
   ORDER ..> CATALOG : <<include>>
   PREORDER ..> CATALOG : <<include>>
-  STATUS ..> CERT : <<extend>>
+  PREORDER ..> ORDER : <<extend>>
+  CERT ..> TRACK : <<extend>>
 }
 
 actor "Meth\n(Клиент)" as METH
@@ -27,7 +30,7 @@ actor "Meth\n(Клиент)" as METH
 METH -- CATALOG
 METH -- ORDER
 METH -- PREORDER
-METH -- STATUS
+METH -- TRACK
 METH -- CERT
 
 @enduml

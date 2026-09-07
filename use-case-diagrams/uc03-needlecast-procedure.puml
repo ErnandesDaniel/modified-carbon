@@ -7,22 +7,25 @@ skinparam defaultFontSize 12
 
 left to right direction
 
-title UC-03 — Проведение процедуры переноса
+title UC-03 — Проведение процедуры needlecast (ConductNeedlecast)
 
 rectangle "SCMS — Процедура переноса" {
 
-  usecase "Начать перенос" as START
-  usecase "Отметить успех" as SUCCESS
-  usecase "Отметить неудачу" as FAIL
+  usecase "Начать\nперенос" as START
+  usecase "Отметить\nрезультат" as RESULT
+  usecase "Зафиксировать\nинцидент" as INCIDENT
 
-  START ..> SUCCESS : <<extend>>
-  START ..> FAIL : <<extend>>
+  INCIDENT ..> RESULT : <<extend>>
 }
 
 actor "Needlecaster" as NC
+actor "Psychosurgeon" as PSY
+actor "Meth" as METH
 
 NC -- START
-NC -- SUCCESS
-NC -- FAIL
+NC -- RESULT
+NC -- INCIDENT
+PSY -- RESULT
+METH -- RESULT
 
 @enduml

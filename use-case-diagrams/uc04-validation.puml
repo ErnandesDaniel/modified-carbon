@@ -7,24 +7,27 @@ skinparam defaultFontSize 12
 
 left to right direction
 
-title UC-04 — Валидация и сертификация
+title UC-04 — Валидация и сертификация (ValidateAndCertify)
 
 rectangle "SCMS — Валидация" {
 
-  usecase "Осмотреть\nклиента" as EXAM
-  usecase "Подтвердить" as OK
+  usecase "Провести\nосмотр клиента" as EXAM
+  usecase "Подтвердить\nуспех" as OK
   usecase "Зафиксировать\nосложнение" as COMP
+  usecase "Сгенерировать\nсертификат PDF" as PDF
 
-  EXAM ..> OK : <<extend>>
-  EXAM ..> COMP : <<extend>>
+  COMP ..> EXAM : <<extend>>
+  PDF ..> OK : <<include>>
 }
 
-actor "Psycho-\nsurgeon" as PSY
+actor "Psychosurgeon" as PSY
 actor "Meth" as METH
+actor "Администратор" as ADMIN
 
 PSY -- EXAM
 PSY -- OK
 PSY -- COMP
-METH -- OK
+METH -- PDF
+ADMIN -- COMP
 
 @enduml
