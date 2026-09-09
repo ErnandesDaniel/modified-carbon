@@ -1,0 +1,49 @@
+@startgantt
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+skinparam dpi 200
+
+title Диаграмма Ганта — Проект SCMS (RUP), 2026
+
+Project starts 2026-02-01
+printscale monthly zoom 5
+
+-- Семестр 1: Анализ и документация --
+
+[Inception] as [I1] lasts 4 weeks and is colored in #6CB4EE
+[Elaboration] as [E1] lasts 8 weeks and is colored in #7BC88F
+
+-- Летние каникулы --
+
+-- Семестр 2: Разработка и внедрение --
+
+[Construction C1] as [C1] lasts 3 weeks and is colored in #F5C542
+[Construction C2] as [C2] lasts 3 weeks and is colored in #F5C542
+[Construction C3] as [C3] lasts 3 weeks and is colored in #F5C542
+[Construction C4] as [C4] lasts 3 weeks and is colored in #F5C542
+[Transition] as [T1] lasts 4 weeks and is colored in #E86363
+
+[I1] starts at 2026-02-01
+[I1] ends at 2026-03-01
+[E1] starts at 2026-03-01
+[E1] ends at 2026-05-01
+[C1] starts at 2026-09-01
+[C1] ends at 2026-09-22
+[C2] starts at 2026-09-22
+[C2] ends at 2026-10-13
+[C3] starts at 2026-10-13
+[C3] ends at 2026-11-03
+[C4] starts at 2026-11-03
+[C4] ends at 2026-11-24
+[T1] starts at 2026-11-24
+[T1] ends at 2026-12-22
+
+legend bottom
+  | Цвет | Фаза |
+  | <#6CB4EE> | Inception (Анализ) |
+  | <#7BC88F> | Elaboration (Проектирование) |
+  | <#F5C542> | Construction (Разработка) |
+  | <#E86363> | Transition (Внедрение) |
+end legend
+
+@endgantt

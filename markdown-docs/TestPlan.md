@@ -161,7 +161,7 @@ SCMS — корпоративная система для элитной кли�
 | Technique (Описание процесса) | Постепенное увеличение нагрузки через JMeter: от 50 до 200 виртуальных пользователей с шагом 25. Фиксация момента деградации (рост времени отклика >2 сек) и момента отказа (HTTP 5xx). Проверка graceful degradation |
 | Oracles (Источники) | SRS (раздел 3.4 Performance), SAD (раздел 9 Size and Performance) |
 | Required Tools (Инструменты) | Apache JMeter, Prometheus + Grafana |
-| Success Criteria (Критерий успеха) | Система деградирует плавно (без падения); при 100 пользователях — отклик ≤1 сек; при 150+ пользователях — корректные сообщения об ошибке, keine Datenverlust |
+| Success Criteria (Критерий успеха) | Система деградирует плавно (без падения); при 100 пользователях — отклик ≤1 сек; при 150+ пользователях — корректные сообщения об ошибке, без потери данных |
 
 ### 5.1.8 Volume Testing (Объёмное тестирование)
 
@@ -201,7 +201,7 @@ SCMS — корпоративная система для элитной кли�
 | Technique (Описание процесса) | Тестирование с минимальной (2 GB heap, 4 GB RAM) и максимальной (16 GB heap, 128 GB RAM) конфигурацией. Проверка влияния параметров connection pool, thread pool, WebSocket timeout на производительность |
 | Oracles (Источники) | SRS (раздел 3.4.3 — память ≤16 ГБ), SAD (раздел 7 Deployment View) |
 | Required Tools (Инструменты) | Docker Compose (изменение параметров контейнеров), JMeter |
-| Success Criteria (Критерий успеха) | Система работает корректно при всех поддерживаемых конфигурациях; нет OutOfMemoryError; keine Konfigurationsfehler beim Start |
+| Success Criteria (Критерий успеха) | Система работает корректно при всех поддерживаемых конфигурациях; нет OutOfMemoryError; нет ошибок конфигурации при запуске |
 
 ### 5.1.12 Installation Testing (Тестирование процесса установки)
 
@@ -249,7 +249,7 @@ SCMS — корпоративная система для элитной кли�
 
 ## 7.3 Incident Logs and Change Requests (Журналы ошибок и изменений)
 
-Ведётся в Jira. Каждый баг содержит: шаги воспроизведения, ожидаемый/фактический результат, severity, приоритет, ссылку на FR. Change request создаётся при необходимости изменения требований.
+Ведётся в GitLab Issues. Каждый баг содержит: шаги воспроизведения, ожидаемый/фактический результат, severity, приоритет, ссылку на FR. Change request создаётся при необходимости изменения требований.
 
 ---
 
@@ -280,7 +280,7 @@ SCMS — корпоративная система для элитной кли�
 | Test automation (API) | REST Assured | Open Source | 5.x |
 | Test automation (UI) | Playwright | Microsoft | 1.50+ |
 | Load testing | Apache JMeter | Apache | 5.6+ |
-| Bug tracking | Jira | Atlassian | Cloud |
+| Bug tracking | GitLab Issues | GitLab | Latest |
 | CI/CD | GitLab CI | GitLab | Latest |
 
 ---
@@ -305,7 +305,7 @@ SCMS — корпоративная система для элитной кли�
 
 ## 10.2 Problem Reporting, Escalation, and Issue Resolution (Выявление, избегание и решение проблем)
 
-- Баги регистрируются в Jira с severity (Critical / Major / Minor / Trivial).
+- Баги регистрируются в GitLab Issues с severity (Critical / Major / Minor / Trivial).
 - Critical баги блокируют релиз и требуют немедленного исправления.
 - Major баги исправляются в текущей итерации.
 - Minor/Trivial баги могут быть отложены до следующей итерации.
