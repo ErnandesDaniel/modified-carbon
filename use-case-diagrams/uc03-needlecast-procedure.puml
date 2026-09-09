@@ -14,8 +14,10 @@ rectangle "SCMS — Процедура переноса" {
   usecase "Начать\nперенос" as START
   usecase "Отметить\nрезультат" as RESULT
   usecase "Зафиксировать\nинцидент" as INCIDENT
+  usecase "Процедура\nне удалась\n(ProcedureFailed)" as FAIL
 
   INCIDENT ..> RESULT : <<extend>>
+  FAIL ..> RESULT : <<extend>>
 }
 
 actor "Needlecaster" as NC

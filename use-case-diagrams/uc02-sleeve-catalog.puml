@@ -15,9 +15,13 @@ rectangle "SCMS — Управление sleeves" {
   usecase "Приёмка\nтела" as ACCEPT
   usecase "Резервирование\nза клиентом" as RESERVE
   usecase "Просмотр\nкаталога" as CATALOG
+  usecase "Ошибка\nкультивирования\n(CultivationFailed)" as CULT_FAIL
+  usecase "Проверка\nдубликатов\n(DuplicateCheck)" as DUP_CHECK
 
-  ACCEPT ..> CULTIVATE : <<extend>>
+  CULTIVATE ..> CATALOG : <<include>>
   RESERVE ..> CATALOG : <<include>>
+  CULT_FAIL ..> CULTIVATE : <<extend>>
+  DUP_CHECK ..> RESERVE : <<extend>>
 }
 
 actor "Sleeve\nBroker" as BROKER

@@ -16,11 +16,15 @@ rectangle "SCMS — Внешний портал" {
   usecase "Подтвердить\nдоступ в Google" as CONFIRM
   usecase "Создать\nучётную запись" as CREATE
   usecase "Создать\nличный кабинет" as CABINET
+  usecase "Доступ\nотклонён\n(GoogleAuthDenied)" as DENIED
+  usecase "Аккаунт\nуже существует\n(AccountExists)" as EXISTS
 
-  REDIRECT ..> START : <<include>>
-  CONFIRM ..> REDIRECT : <<include>>
-  CREATE ..> CONFIRM : <<include>>
-  CABINET ..> CREATE : <<include>>
+  START ..> REDIRECT : <<include>>
+  REDIRECT ..> CONFIRM : <<include>>
+  CONFIRM ..> CREATE : <<include>>
+  CREATE ..> CABINET : <<include>>
+  DENIED ..> CONFIRM : <<extend>>
+  EXISTS ..> CREATE : <<extend>>
 }
 
 rectangle "Google OAuth" as GOOGLE

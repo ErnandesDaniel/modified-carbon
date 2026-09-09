@@ -17,12 +17,16 @@ rectangle "SCMS — Портал Meth" {
   usecase "Предзаказ\nклонированного тела" as PREORDER
   usecase "Отслеживание\nстатуса культивирования" as TRACK
   usecase "Скачивание\nсертификата" as CERT
+  usecase "Нет доступных\nтел (NoAvailableSleeves)" as NO_SLEEVES
+  usecase "Сертификат\nне готов (CertificateNotReady)" as CERT_WAIT
 
   CATALOG ..> FILTER : <<include>>
   ORDER ..> CATALOG : <<include>>
   PREORDER ..> CATALOG : <<include>>
   PREORDER ..> ORDER : <<extend>>
   CERT ..> TRACK : <<extend>>
+  NO_SLEEVES ..> PREORDER : <<extend>>
+  CERT_WAIT ..> CERT : <<extend>>
 }
 
 actor "Meth\n(Клиент)" as METH
