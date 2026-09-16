@@ -1,0 +1,129 @@
+@startgantt
+skinparam defaultFontName Arial
+skinparam defaultFontSize 10
+skinparam dpi 200
+
+title Диаграмма Ганта — проект SCMS (RUP), 2026
+
+Project starts 2026-02-02
+printscale weekly
+
+' ===== Inception =====
+[Vision] as [VISION] is colored in #6CB4EE
+[VISION] starts at 2026-02-02
+[VISION] ends at 2026-02-15
+[SRS черновик] as [SRS1] is colored in #6CB4EE
+[SRS1] starts at 2026-02-09
+[SRS1] ends at 2026-03-01
+[BusinessCase] as [BC] is colored in #6CB4EE
+[BC] starts at 2026-02-16
+[BC] ends at 2026-02-22
+[Glossary] as [GLS] is colored in #6CB4EE
+[GLS] starts at 2026-02-16
+[GLS] ends at 2026-02-22
+
+' ===== Elaboration-1 =====
+[Use Case (UC-01..UC-02)] as [UC1] is colored in #7BC88F
+[UC1] starts at 2026-03-02
+[UC1] ends at 2026-03-15
+[SAD] as [SAD] is colored in #7BC88F
+[SAD] starts at 2026-03-16
+[SAD] ends at 2026-04-12
+[RiskList] as [RL] is colored in #7BC88F
+[RL] starts at 2026-03-23
+[RL] ends at 2026-03-29
+[TestPlan черновик] as [TP1] is colored in #7BC88F
+[TP1] starts at 2026-03-23
+[TP1] ends at 2026-03-29
+[SRS финал] as [SRS2] is colored in #7BC88F
+[SRS2] starts at 2026-02-23
+[SRS2] ends at 2026-04-12
+
+' ===== Elaboration-2 =====
+[CI/CD и репозиторий] as [CI] is colored in #A0D8B0
+[CI] starts at 2026-04-13
+[CI] ends at 2026-04-19
+[Use Case финал + макеты] as [UC2] is colored in #A0D8B0
+[UC2] starts at 2026-04-20
+[UC2] ends at 2026-04-26
+[TestPlan] as [TP2] is colored in #A0D8B0
+[TP2] starts at 2026-04-27
+[TP2] ends at 2026-05-03
+[SDP] as [SDP] is colored in #A0D8B0
+[SDP] starts at 2026-05-04
+[SDP] ends at 2026-05-31
+[BusinessCase графики] as [BC2] is colored in #A0D8B0
+[BC2] starts at 2026-05-11
+[BC2] ends at 2026-05-17
+[Заморозка требований] as [FRZ] is colored in #A0D8B0
+[FRZ] starts at 2026-06-01
+[FRZ] ends at 2026-06-07
+
+' ===== Construction-1 =====
+[UC-05 RegisterMeth] as [C1A] is colored in #F5C542
+[C1A] starts at 2026-09-01
+[C1A] ends at 2026-09-07
+[UC-01 OrderSleeve] as [C1B] is colored in #F5C542
+[C1B] starts at 2026-09-08
+[C1B] ends at 2026-09-14
+[UC-02 ManageSleeveReserve] as [C1C] is colored in #F5C542
+[C1C] starts at 2026-09-15
+[C1C] ends at 2026-09-21
+[Тесты Iter 1] as [C1D] is colored in #F5C542
+[C1D] starts at 2026-09-22
+[C1D] ends at 2026-09-28
+
+' ===== Construction-2 =====
+[UC-03 ConductNeedlecast] as [C2A] is colored in #F5C542
+[C2A] starts at 2026-09-29
+[C2A] ends at 2026-10-05
+[UC-04 ExamineAndCertify] as [C2B] is colored in #F5C542
+[C2B] starts at 2026-10-06
+[C2B] ends at 2026-10-12
+[Интеграция с архивом] as [C2C] is colored in #F5C542
+[C2C] starts at 2026-10-13
+[C2C] ends at 2026-10-19
+[Тесты Iter 2] as [C2D] is colored in #F5C542
+[C2D] starts at 2026-10-20
+[C2D] ends at 2026-10-26
+
+' ===== Construction-3 =====
+[Админ-панель] as [C3A] is colored in #F5C542
+[C3A] starts at 2026-10-27
+[C3A] ends at 2026-11-02
+[Отчёты и аудит-лог] as [C3B] is colored in #F5C542
+[C3B] starts at 2026-11-03
+[C3B] ends at 2026-11-09
+[Тесты Iter 3] as [C3C] is colored in #F5C542
+[C3C] starts at 2026-11-10
+[C3C] ends at 2026-11-16
+
+' ===== Construction-4 =====
+[Оптимизация и RBAC] as [C4A] is colored in #F5C542
+[C4A] starts at 2026-11-17
+[C4A] ends at 2026-11-23
+[Интеграционные тесты] as [C4B] is colored in #F5C542
+[C4B] starts at 2026-11-24
+[C4B] ends at 2026-11-30
+[Security review] as [C4C] is colored in #F5C542
+[C4C] starts at 2026-12-01
+[C4C] ends at 2026-12-07
+
+' ===== Transition =====
+[Развёртывание] as [T1] is colored in #E86363
+[T1] starts at 2026-12-08
+[T1] ends at 2026-12-14
+[Приёмка и документация] as [T2] is colored in #E86363
+[T2] starts at 2026-12-15
+[T2] ends at 2026-12-31
+
+legend bottom
+  | Цвет | Фаза |
+  | <#6CB4EE> | Inception |
+  | <#7BC88F> | Elaboration-1 |
+  | <#A0D8B0> | Elaboration-2 |
+  | <#F5C542> | Construction (Iter 1–4) |
+  | <#E86363> | Transition |
+end legend
+
+@endgantt

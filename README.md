@@ -27,6 +27,7 @@
 ├── markdown-docs/                     # Документы проекта (Markdown)
 ├── markdown-docs-templates/           # Шаблоны документов (Markdown)
 ├── use-case-diagrams/                 # Диаграммы вариантов использования и макеты интерфейсов (HTML + PNG)
+├── diagrams/                          # Диаграмма Ганта и графики окупаемости (PNG)
 ├── word-docs/                         # Документы Word
 ├── word-docs-templates/               # Шаблоны Word
 └── pdf/                               # Готовые PDF файлы

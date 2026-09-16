@@ -1,3 +1,7 @@
 .idea
 plantuml.jar
 .playwright-mcp/
+*.tsbuildinfo
+.env
+.env.local
+.env.*.local
