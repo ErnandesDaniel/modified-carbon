@@ -76,7 +76,7 @@ gci markdown-docs-templates/*.md | % { md-to-pdf $_.FullName; Move-Item $_.FullN
 ### Генерация одной диаграммы
 
 ```powershell
-plantuml use-case-diagrams\uc01-meth-portal.puml
+plantuml use-case-diagrams\uc01-OrderSleeve.puml
 ```
 
 ### Генерация всех диаграмм
@@ -101,16 +101,16 @@ plantuml -version
 
 ```
 use-case-diagrams/
-├── uc01-meth-portal.puml          # UC-01: Заказ sleeve клиентом
-├── uc01-meth-portal.png
-├── uc02-sleeve-catalog.puml       # UC-02: Управление жизненным циклом sleeve
-├── uc02-sleeve-catalog.png
-├── uc03-needlecast-procedure.puml # UC-03: Проведение needlecast
-├── uc03-needlecast-procedure.png
-├── uc04-validation.puml           # UC-04: Валидация и сертификация
-├── uc04-validation.png
-├── uc05-register-meth.puml        # UC-05: Регистрация Meth
-└── uc05-register-meth.png
+├── uc01-OrderSleeve.puml          # UC-01: Заказ тела клиентом
+├── uc01-OrderSleeve.png
+├── uc02-ManageSleeveReserve.puml  # UC-02: Пополнение резерва тел
+├── uc02-ManageSleeveReserve.png
+├── uc03-ConductNeedlecast.puml    # UC-03: Проведение переноса
+├── uc03-ConductNeedlecast.png
+├── uc04-ExamineAndCertify.puml    # UC-04: Осмотр и сертификация
+├── uc04-ExamineAndCertify.png
+├── uc05-RegisterMeth.puml         # UC-05: Регистрация клиента
+└── uc05-RegisterMeth.png
 ```
 
 ---
@@ -146,26 +146,26 @@ Markdown (и превью в WebStorm, и `md-to-pdf`) умеет отображ
 
 ```
 use-case-diagrams/
-├── uc01-meth-portal.puml              # UC-01: диаграмма прецедента
-├── uc01-meth-portal.png
-├── uc01-meth-portal.html              # Исходник макета интерфейса
-├── uc01-meth-portal-mockup.png        # Скриншот макета для документа
-├── uc02-sleeve-catalog.puml
-├── uc02-sleeve-catalog.png
-├── uc02-sleeve-catalog.html
-├── uc02-sleeve-catalog-mockup.png
-├── uc03-needlecast-procedure.puml
-├── uc03-needlecast-procedure.png
-├── uc03-needlecast-procedure.html
-├── uc03-needlecast-procedure-mockup.png
-├── uc04-validation.puml
-├── uc04-validation.png
-├── uc04-validation.html
-├── uc04-validation-mockup.png
-├── uc05-register-meth.puml
-├── uc05-register-meth.png
-├── uc05-register-meth.html
-└── uc05-register-meth-mockup.png
+├── uc01-OrderSleeve.puml              # UC-01: диаграмма прецедента
+├── uc01-OrderSleeve.png
+├── uc01-OrderSleeve.html              # Исходник макета интерфейса
+├── uc01-OrderSleeve-mockup.png        # Скриншот макета для документа
+├── uc02-ManageSleeveReserve.puml
+├── uc02-ManageSleeveReserve.png
+├── uc02-ManageSleeveReserve.html
+├── uc02-ManageSleeveReserve-mockup.png
+├── uc03-ConductNeedlecast.puml
+├── uc03-ConductNeedlecast.png
+├── uc03-ConductNeedlecast.html
+├── uc03-ConductNeedlecast-mockup.png
+├── uc04-ExamineAndCertify.puml
+├── uc04-ExamineAndCertify.png
+├── uc04-ExamineAndCertify.html
+├── uc04-ExamineAndCertify-mockup.png
+├── uc05-RegisterMeth.puml
+├── uc05-RegisterMeth.png
+├── uc05-RegisterMeth.html
+└── uc05-RegisterMeth-mockup.png
 ```
 
 ### Как вставить макет в Markdown
@@ -174,9 +174,9 @@ use-case-diagrams/
 рядом ссылкой как исходник макета:
 
 ```markdown
-![UC-01: Макет интерфейса](../use-case-diagrams/uc01-meth-portal-mockup.png)
+![UC-01: Макет интерфейса](../use-case-diagrams/uc01-OrderSleeve-mockup.png)
 
-Исходник макета: [`use-case-diagrams/uc01-meth-portal.html`](../use-case-diagrams/uc01-meth-portal.html)
+Исходник макета: [`use-case-diagrams/uc01-OrderSleeve.html`](../use-case-diagrams/uc01-OrderSleeve.html)
 ```
 
 ### Рабочий цикл
@@ -193,8 +193,8 @@ use-case-diagrams/
 
 ```js
 await page.setViewportSize({ width: 1300, height: 900 });
-await page.goto('use-case-diagrams/uc01-meth-portal.html');
-await page.locator('.app').screenshot({ path: 'use-case-diagrams/uc01-meth-portal-mockup.png' });
+await page.goto('use-case-diagrams/uc01-OrderSleeve.html');
+await page.locator('.app').screenshot({ path: 'use-case-diagrams/uc01-OrderSleeve-mockup.png' });
 ```
 
 Макет (`.app`) центрируется по горизонтали, а скриншот снимается с самого блока —

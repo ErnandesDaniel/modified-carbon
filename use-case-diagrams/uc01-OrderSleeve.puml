@@ -1,0 +1,33 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam dpi 200
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+left to right direction
+
+title UC-01 — Заказ тела клиентом (OrderSleeve)
+
+rectangle "SCMS — Портал Meth" {
+
+  usecase "Заказ тела клиентом\n(OrderSleeve)" as ORDER
+  usecase "Просмотр каталога\nтел" as CATALOG
+  usecase "Фильтрация по\nпараметрам" as FILTER
+  usecase "Нет доступных тел\n(NoAvailableSleeves)" as NO_SLEEVES
+
+  ORDER ..> CATALOG : <<include>>
+  FILTER ..> CATALOG : <<extend>>
+  NO_SLEEVES ..> ORDER : <<extend>>
+}
+
+actor "Meth\n(Клиент)" as METH
+actor "Sleeve\nBroker" as BROKER
+rectangle "Генетический\nархив" as GA
+
+METH -- ORDER
+BROKER -- ORDER
+BROKER -- NO_SLEEVES
+GA -- NO_SLEEVES
+
+@enduml

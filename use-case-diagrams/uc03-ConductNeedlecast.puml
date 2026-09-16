@@ -1,0 +1,31 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam dpi 200
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+left to right direction
+
+title UC-03 — Проведение переноса сознания (ConductNeedlecast)
+
+rectangle "SCMS — Процедура переноса" {
+
+  usecase "Проведение переноса\n(ConductNeedlecast)" as NEEDLECAST
+  usecase "Начать\nперенос" as START
+  usecase "Отметить\nрезультат" as RESULT
+  usecase "Процедура не удалась\n(ProcedureFailed)" as FAIL
+
+  NEEDLECAST ..> START : <<include>>
+  NEEDLECAST ..> RESULT : <<include>>
+  FAIL ..> NEEDLECAST : <<extend>>
+}
+
+actor "Needlecaster" as NC
+actor "Meth" as METH
+
+NC -- NEEDLECAST
+METH -- NEEDLECAST
+NC -- FAIL
+
+@enduml

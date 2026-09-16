@@ -32,7 +32,7 @@ export const useCases: UseCase[] = [
       { name: 'CertificateNotReady', description: 'Сертификат ещё не сгенерирован — кнопка скачивания неактивна.' },
     ],
     frIds: ['FR-013-01', 'FR-013-02'],
-    diagramImage: '/use-case-diagrams/uc01-meth-portal.png',
+    diagramImage: '/use-case-diagrams/uc01-OrderSleeve.png',
   },
   {
     id: 2,
@@ -52,7 +52,7 @@ export const useCases: UseCase[] = [
       { name: 'DuplicateCheck', description: 'Попытка добавить дубликат тела — система отображает ошибку.' },
     ],
     frIds: ['FR-001-01', 'FR-001-02', 'FR-001-03', 'FR-002-01', 'FR-002-02', 'FR-003-01'],
-    diagramImage: '/use-case-diagrams/uc02-sleeve-catalog.png',
+    diagramImage: '/use-case-diagrams/uc02-ManageSleeveReserve.png',
   },
   {
     id: 3,
@@ -72,7 +72,7 @@ export const useCases: UseCase[] = [
       { name: 'ProcedureFailed', description: 'Перенос не удался — фиксируется инцидент (stack shock / отторжение / повреждение стека).' },
     ],
     frIds: ['FR-007-01', 'FR-008-01', 'FR-008-02'],
-    diagramImage: '/use-case-diagrams/uc03-needlecast-procedure.png',
+    diagramImage: '/use-case-diagrams/uc03-ConductNeedlecast.png',
   },
   {
     id: 4,
@@ -91,7 +91,7 @@ export const useCases: UseCase[] = [
       { name: 'Complications', description: 'Обнаружены осложнения после переноса — фиксируется диагноз, выпуск блокируется.' },
     ],
     frIds: ['FR-009-01', 'FR-010-01', 'FR-010-02', 'FR-011-01', 'FR-011-02'],
-    diagramImage: '/use-case-diagrams/uc04-validation.png',
+    diagramImage: '/use-case-diagrams/uc04-ExamineAndCertify.png',
   },
   {
     id: 5,
@@ -111,7 +111,7 @@ export const useCases: UseCase[] = [
       { name: 'AccountExists', description: 'Google-аккаунт уже привязан — Meth перенаправляется на вход.' },
     ],
     frIds: ['FR-014-01', 'FR-014-02'],
-    diagramImage: '/use-case-diagrams/uc05-register-meth.png',
+    diagramImage: '/use-case-diagrams/uc05-RegisterMeth.png',
   },
 ]
 

@@ -78,17 +78,17 @@ Meth просматривает каталог доступных тел, выб
 
 ## 8. Use-case diagram (Диаграмма прецедента)
 
-![UC-01: Заказ sleeve](../use-case-diagrams/uc01-meth-portal.png)
+![UC-01: Заказ sleeve](../use-case-diagrams/uc01-OrderSleeve.png)
 
 *Личный кабинет Meth: каталог тел с фильтрами и статус заказа.*
 
 ## 9. Interface example (Пример интерфейса)
 
-![UC-01: Макет интерфейса](../use-case-diagrams/uc01-meth-portal-mockup.png)
+![UC-01: Макет интерфейса](../use-case-diagrams/uc01-OrderSleeve-mockup.png)
 
 *Макет личного кабинета Meth: фильтр подбора тела (рост/вес/пол/возраст), таблица доступных тел с кнопкой «Заказать» и статус заказа.*
 
-Исходник макета: [`use-case-diagrams/uc01-meth-portal.html`](../use-case-diagrams/uc01-meth-portal.html)
+Исходник макета: [`use-case-diagrams/uc01-OrderSleeve.html`](../use-case-diagrams/uc01-OrderSleeve.html)
 
 **Интерфейс:** личный кабинет Meth, вкладка «Каталог тел» — экран, в котором выполняется весь основной поток прецедента.
 
@@ -151,17 +151,17 @@ ManageSleeveReserve — пополнение резерва тел.
 
 ## 8. Use-case diagram (Диаграмма прецедента)
 
-![UC-02: Пополнение резерва тел](../use-case-diagrams/uc02-sleeve-catalog.png)
+![UC-02: Пополнение резерва тел](../use-case-diagrams/uc02-ManageSleeveReserve.png)
 
 *Каталог sleeves со статусами. Форма заказа культивирования. Форма приёмки тела.*
 
 ## 9. Interface example (Пример интерфейса)
 
-![UC-02: Макет интерфейса](../use-case-diagrams/uc02-sleeve-catalog-mockup.png)
+![UC-02: Макет интерфейса](../use-case-diagrams/uc02-ManageSleeveReserve-mockup.png)
 
 *Макет панели Sleeve Broker: каталог тел со статусами, форма заказа культивирования (выбор архива и параметров) и действия приёмки тела.*
 
-Исходник макета: [`use-case-diagrams/uc02-sleeve-catalog.html`](../use-case-diagrams/uc02-sleeve-catalog.html)
+Исходник макета: [`use-case-diagrams/uc02-ManageSleeveReserve.html`](../use-case-diagrams/uc02-ManageSleeveReserve.html)
 
 **Интерфейс:** панель Sleeve Broker, вкладка «Каталог sleeves» — рабочий экран управления резервом тел.
 
@@ -243,17 +243,17 @@ Needlecaster проводит процедуру переноса сознани
 
 ## 8. Use-case diagram (Диаграмма прецедента)
 
-![UC-03: Needlecast](../use-case-diagrams/uc03-needlecast-procedure.png)
+![UC-03: Needlecast](../use-case-diagrams/uc03-ConductNeedlecast.png)
 
 *Страница процедуры: данные клиента, кнопки «Начать перенос», «Отметить результат», «Зафиксировать инцидент».*
 
 ## 9. Interface example (Пример интерфейса)
 
-![UC-03: Макет интерфейса](../use-case-diagrams/uc03-needlecast-procedure-mockup.png)
+![UC-03: Макет интерфейса](../use-case-diagrams/uc03-ConductNeedlecast-mockup.png)
 
 *Макет рабочего места Needlecaster: список кейсов на сегодня, карточка процедуры (клиент/стек/тело), кнопки «Начать перенос», «Отметить результат», «Зафиксировать инцидент» и форма результата/инцидента.*
 
-Исходник макета: [`use-case-diagrams/uc03-needlecast-procedure.html`](../use-case-diagrams/uc03-needlecast-procedure.html)
+Исходник макета: [`use-case-diagrams/uc03-ConductNeedlecast.html`](../use-case-diagrams/uc03-ConductNeedlecast.html)
 
 **Интерфейс:** рабочее место Needlecaster, вкладка «Процедура» — экран проведения переноса сознания.
 
@@ -335,17 +335,17 @@ Psychosurgeon осматривает клиента после переноса 
 
 ## 8. Use-case diagram (Диаграмма прецедента)
 
-![UC-04: Валидация](../use-case-diagrams/uc04-validation.png)
+![UC-04: Валидация](../use-case-diagrams/uc04-ExamineAndCertify.png)
 
 *Страница валидации: данные клиента, протокол переноса, кнопки «Подтвердить» и «Зафиксировать осложнение».*
 
 ## 9. Interface example (Пример интерфейса)
 
-![UC-04: Макет интерфейса](../use-case-diagrams/uc04-validation-mockup.png)
+![UC-04: Макет интерфейса](../use-case-diagrams/uc04-ExamineAndCertify-mockup.png)
 
 *Макет панели Psychosurgeon: список кейсов на валидации, страница осмотра с чек-листом и кнопками «Подтвердить» / «Зафиксировать осложнение», выбор типа осложнения.*
 
-Исходник макета: [`use-case-diagrams/uc04-validation.html`](../use-case-diagrams/uc04-validation.html)
+Исходник макета: [`use-case-diagrams/uc04-ExamineAndCertify.html`](../use-case-diagrams/uc04-ExamineAndCertify.html)
 
 **Интерфейс:** панель Psychosurgeon, вкладка «Кейсы на валидации» — экран осмотра и сертификации клиента.
 
@@ -423,17 +423,17 @@ RegisterMeth — регистрация клиента через Google OAuth.
 
 ## 8. Use-case diagram (Диаграмма прецедента)
 
-![UC-05: Регистрация Meth](../use-case-diagrams/uc05-register-meth.png)
+![UC-05: Регистрация Meth](../use-case-diagrams/uc05-RegisterMeth.png)
 
 *Публичная страница регистрации: вход через Google OAuth.*
 
 ## 9. Interface example (Пример интерфейса)
 
-![UC-05: Макет интерфейса](../use-case-diagrams/uc05-register-meth-mockup.png)
+![UC-05: Макет интерфейса](../use-case-diagrams/uc05-RegisterMeth-mockup.png)
 
 *Макет публичной страницы: кнопка «Войти через Google», экран подтверждения доступа Google (имя, email, аватар).*
 
-Исходник макета: [`use-case-diagrams/uc05-register-meth.html`](../use-case-diagrams/uc05-register-meth.html)
+Исходник макета: [`use-case-diagrams/uc05-RegisterMeth.html`](../use-case-diagrams/uc05-RegisterMeth.html)
 
 **Интерфейс:** публичная страница клиники — точка входа для незарегистрированного Meth.
 

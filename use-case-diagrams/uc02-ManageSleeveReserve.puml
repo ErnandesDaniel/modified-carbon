@@ -1,0 +1,28 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam dpi 200
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+left to right direction
+
+title UC-02 — Пополнение резерва тел (ManageSleeveReserve)
+
+rectangle "SCMS — Управление резервом тел" {
+
+  usecase "Пополнение резерва тел\n(ManageSleeveReserve)" as RESERVE
+  usecase "Заказ культивирования\nв генетическом архиве" as CULTIVATE
+  usecase "Приёмка\nтела" as ACCEPT
+
+  RESERVE ..> CULTIVATE : <<include>>
+  RESERVE ..> ACCEPT : <<include>>
+}
+
+actor "Sleeve\nBroker" as BROKER
+rectangle "Генетический\nархив" as GA
+
+BROKER -- RESERVE
+GA -- CULTIVATE
+
+@enduml

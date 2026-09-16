@@ -1,0 +1,31 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam dpi 200
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+left to right direction
+
+title UC-05 — Регистрация клиента (RegisterMeth)
+
+rectangle "SCMS — Внешний портал" {
+
+  usecase "Регистрация клиента\n(RegisterMeth)" as REGISTER
+  usecase "Авторизация\nчерез Google" as GOOGLE_AUTH
+  usecase "Создание\nучётной записи" as CREATE
+  usecase "Аккаунт уже существует\n(AccountExists)" as EXISTS
+
+  REGISTER ..> GOOGLE_AUTH : <<include>>
+  REGISTER ..> CREATE : <<include>>
+  EXISTS ..> REGISTER : <<extend>>
+}
+
+rectangle "Google OAuth" as GOOGLE
+actor "Meth\n(Новый клиент)" as METH
+
+METH -- REGISTER
+GOOGLE -- GOOGLE_AUTH
+METH -- EXISTS
+
+@enduml

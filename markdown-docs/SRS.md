@@ -55,23 +55,23 @@
 
 ## 2.1 Product Functions (Функционал продукта)
 
-![UC-01: Портал Meth](../use-case-diagrams/uc01-meth-portal.png)
+![UC-01: Портал Meth](../use-case-diagrams/uc01-OrderSleeve.png)
 
 *Диаграмма 1 — UC-01: Работа с порталом Meth. Актор: Meth. Прецеденты: просмотр каталога тел, заказ свободного тела, предзаказ клонированного, просмотр статуса, скачивание сертификата.*
 
-![UC-02: Каталог тел](../use-case-diagrams/uc02-sleeve-catalog.png)
+![UC-02: Каталог тел](../use-case-diagrams/uc02-ManageSleeveReserve.png)
 
 *Диаграмма 2 — UC-02: Управление каталогом тел. Актор: Sleeve Broker. Прецеденты: добавление тела, редактирование параметров, удаление тела.*
 
-![UC-03: Перенос](../use-case-diagrams/uc03-needlecast-procedure.png)
+![UC-03: Перенос](../use-case-diagrams/uc03-ConductNeedlecast.png)
 
 *Диаграмма 3 — UC-03: Проведение процедуры переноса. Актор: Needlecaster. Прецеденты: начало переноса, отметка успеха, отметка неудачи.*
 
-![UC-04: Валидация](../use-case-diagrams/uc04-validation.png)
+![UC-04: Валидация](../use-case-diagrams/uc04-ExamineAndCertify.png)
 
 *Диаграмма 4 — UC-04: Валидация и сертификация. Акторы: Psychosurgeon, Meth. Прецеденты: осмотр клиента, подтверждение, фиксация осложнений.*
 
-![UC-05: Регистрация Meth](../use-case-diagrams/uc05-register-meth.png)
+![UC-05: Регистрация Meth](../use-case-diagrams/uc05-RegisterMeth.png)
 
 *Диаграмма 5 — UC-05: Регистрация Meth через Google OAuth. Акторы: Meth (новый клиент), Sleeve Broker. Прецеденты: вход через Google, перенаправление, подтверждение доступа, создание учётной записи, создание личного кабинета.*
 

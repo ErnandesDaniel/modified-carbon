@@ -1,0 +1,31 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam dpi 200
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+left to right direction
+
+title UC-04 — Осмотр и сертификация (ExamineAndCertify)
+
+rectangle "SCMS — Осмотр и сертификация" {
+
+  usecase "Осмотр и сертификация\n(ExamineAndCertify)" as EXAMINE
+  usecase "Провести осмотр\nклиента" as EXAM
+  usecase "Сгенерировать\nсертификат PDF" as PDF
+  usecase "Осложнения\n(Complications)" as COMP
+
+  EXAMINE ..> EXAM : <<include>>
+  EXAMINE ..> PDF : <<include>>
+  COMP ..> EXAMINE : <<extend>>
+}
+
+actor "Psychosurgeon" as PSY
+actor "Meth" as METH
+
+PSY -- EXAMINE
+METH -- EXAMINE
+PSY -- COMP
+
+@enduml
