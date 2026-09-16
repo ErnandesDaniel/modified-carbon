@@ -30,7 +30,7 @@
 ├── diagrams/                          # Диаграмма Ганта и графики окупаемости (PNG)
 ├── word-docs/                         # Документы Word
 ├── word-docs-templates/               # Шаблоны Word
-└── pdf/                               # Готовые PDF файлы
+└── software/                          # Рабочее приложение (backend + два портала)
 ```
 
 ---
@@ -39,9 +39,12 @@
 
 Используется npm-пакет `md-to-pdf` (установлен глобально).
 
+> Папка `pdf/` не хранится в репозитории (см. `.gitignore`) — она создаётся при конвертации.
+
 ### Конвертация одного файла
 
 ```powershell
+New-Item -ItemType Directory -Force pdf | Out-Null
 md-to-pdf markdown-docs/Vision.md
 Move-Item markdown-docs/Vision.pdf pdf/
 ```
@@ -59,12 +62,14 @@ Get-ChildItem markdown-docs/*.md | ForEach-Object {
 
 **Компактная команда:**
 ```powershell
+New-Item -ItemType Directory -Force pdf | Out-Null
 gci markdown-docs/*.md | % { md-to-pdf $_.FullName; Move-Item $_.FullName.Replace('.md', '.pdf') pdf/ }
 ```
 
 ### Конвертация шаблонов
 
 ```powershell
+New-Item -ItemType Directory -Force pdf | Out-Null
 gci markdown-docs-templates/*.md | % { md-to-pdf $_.FullName; Move-Item $_.FullName.Replace('.md', '.pdf') pdf/ }
 ```
 
@@ -218,4 +223,45 @@ md-to-pdf --version
 # Проверка установки
 plantuml -version
 ```
+
+---
+
+## Программная реализация (software/)
+
+Рабочее приложение SCMS, реализующее прецеденты UC-01…UC-05: backend с реальной БД и
+два раздельных веб-портала. Подробности — в [`software/README.md`](software/README.md).
+
+```
+software/
+├── backend/          # Spring Boot 3.4 (Java 21) + PostgreSQL + Liquibase — API (:3001)
+├── client-portal/    # Next.js 16 — внешний портал Meth (:3000)
+└── internal-portal/  # Next.js 16 — внутренний портал персонала (:3002)
+```
+
+| Портал | Кто | Аутентификация | Возможности |
+| :---- | :---- | :---- | :---- |
+| client-portal | Meth (клиент) | Google OAuth (UC-05) / демо-вход | Каталог тел, заказ (UC-01), статус кейса, сертификаты |
+| internal-portal | Персонал | Dev-вход + выбор роли | Резерв/культивация (UC-02), needlecast (UC-03), валидация и сертификация (UC-04), аудит, RBAC |
+
+Backend покрывает все прецеденты: заказы и резерв тел, культивирование и приёмку,
+процедуру needlecast с инцидентами, чекпоинты и генерацию сертификатов, дашборды,
+аудит-журнал. Схема БД и сиды — в Liquibase (`software/backend/src/main/resources/db/changelog`).
+
+Пошаговый план показа соответствия прецедентам — в [`software/DEMO.md`](software/DEMO.md).
+
+### Быстрый старт
+
+```powershell
+# 1. Backend + PostgreSQL
+cd software/backend; Copy-Item .env.example .env; docker compose up -d; mvn spring-boot:run
+
+# 2. Внутренний портал
+cd software/internal-portal; pnpm install; pnpm dev      # http://localhost:3002
+
+# 3. Внешний портал
+cd software/client-portal; pnpm install; pnpm dev        # http://localhost:3000
+```
+
+Swagger: http://localhost:3001/api/swagger-ui/index.html
+
 ---

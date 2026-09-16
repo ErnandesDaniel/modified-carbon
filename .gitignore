@@ -5,3 +5,4 @@ plantuml.jar
 .env
 .env.local
 .env.*.local
+pdf/

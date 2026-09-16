@@ -1,17 +1,10 @@
 'use client';
 
-import {
-  CheckCircleOutlined,
-  CloudServerOutlined,
-  ExperimentOutlined,
-  ProfileOutlined,
-  SafetyCertificateOutlined,
-  WarningOutlined
-} from '@ant-design/icons';
-import { Alert, Card, Col, Descriptions, List, Row, Space, Statistic, Steps, Table, Tag, Typography } from 'antd';
+import { WarningOutlined } from '@ant-design/icons';
+import { Alert, Card, List, Space, Steps, Table, Tag, Typography } from 'antd';
 import type { TableProps } from 'antd';
 import { useRouter } from 'next/navigation';
-import { formatDate, formatDateTime } from '@/lib/format';
+import { formatDateTime } from '@/lib/format';
 import { caseStatusMeta, certificateStatusMeta, orderStatusMeta, stageLabels, stageOrder } from '@/lib/labels';
 import { useApiData } from '@/lib/use-async';
 import { useSession } from '@/components/session-provider';
@@ -73,45 +66,6 @@ export default function CabinetPage() {
         />
       </Card>
 
-      <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
-        <Col xs={12} sm={6}>
-          <Card>
-            <Statistic
-              title="Мои заказы"
-              value={data?.orders.length ?? 0}
-              prefix={<ProfileOutlined />}
-            />
-          </Card>
-        </Col>
-        <Col xs={12} sm={6}>
-          <Card>
-            <Statistic
-              title="Мои стеки"
-              value={data?.stacks.length ?? 0}
-              prefix={<CloudServerOutlined style={{ color: '#722ed1' }} />}
-            />
-          </Card>
-        </Col>
-        <Col xs={12} sm={6}>
-          <Card>
-            <Statistic
-              title="Кейсы"
-              value={data?.cases.length ?? 0}
-              prefix={<ExperimentOutlined style={{ color: '#1677ff' }} />}
-            />
-          </Card>
-        </Col>
-        <Col xs={12} sm={6}>
-          <Card>
-            <Statistic
-              title="Сертификаты"
-              value={data?.certificates.length ?? 0}
-              prefix={<SafetyCertificateOutlined style={{ color: '#52c41a' }} />}
-            />
-          </Card>
-        </Col>
-      </Row>
-
       <Card title="Мои заказы" style={{ marginBottom: 16 }}>
         <Table
           rowKey="id"
@@ -160,42 +114,20 @@ export default function CabinetPage() {
         />
       </Card>
 
-      <Row gutter={[16, 16]}>
-        <Col xs={24} lg={14}>
-          <Card
-            title="Сертификаты"
-            extra={<a onClick={() => router.push('/cabinet/certificates')}>Все сертификаты</a>}
-          >
-            <Table
-              rowKey="id"
-              size="small"
-              loading={loading}
-              pagination={false}
-              dataSource={data?.certificates ?? []}
-              columns={certificateColumns}
-              locale={{ emptyText: 'Сертификатов пока нет' }}
-            />
-          </Card>
-        </Col>
-        <Col xs={24} lg={10}>
-          <Card title="Мои стеки">
-            <List
-              loading={loading}
-              dataSource={data?.stacks ?? []}
-              locale={{ emptyText: 'Стеки не найдены' }}
-              renderItem={(stack) => (
-                <List.Item>
-                  <List.Item.Meta
-                    avatar={<CloudServerOutlined style={{ color: '#722ed1' }} />}
-                    title={<Text>{stack.code}</Text>}
-                    description={`Локация: ${stack.location ?? '—'} · Последнее извлечение: ${formatDate(stack.lastExtractedAt)}`}
-                  />
-                </List.Item>
-              )}
-            />
-          </Card>
-        </Col>
-      </Row>
+      <Card
+        title="Сертификаты"
+        extra={<a onClick={() => router.push('/cabinet/certificates')}>Все сертификаты</a>}
+      >
+        <Table
+          rowKey="id"
+          size="small"
+          loading={loading}
+          pagination={false}
+          dataSource={data?.certificates ?? []}
+          columns={certificateColumns}
+          locale={{ emptyText: 'Сертификатов пока нет' }}
+        />
+      </Card>
     </div>
   );
 }

@@ -226,9 +226,10 @@ export default function DashboardPage() {
         </Card>
       )}
 
-      <Card title="Последние события" style={{ marginTop: 16 }}>
-        <List
-          loading={admin.loading}
+      {role === 'ADMIN' && (
+        <Card title="Последние события" style={{ marginTop: 16 }}>
+          <List
+            loading={admin.loading}
           dataSource={stats?.recentAudit ?? []}
           locale={{ emptyText: 'Событий пока нет' }}
           renderItem={(log) => (
@@ -248,8 +249,9 @@ export default function DashboardPage() {
               />
             </List.Item>
           )}
-        />
-      </Card>
+          />
+        </Card>
+      )}
     </div>
   );
 }
