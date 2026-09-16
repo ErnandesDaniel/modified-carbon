@@ -1,0 +1,75 @@
+name: notes_ia_backend_infrastructure
+
+services:
+  ollama:
+    container_name: ollama
+    image: ollama/ollama:0.5.8
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+      - ./ollama-entrypoint.sh:/entrypoint.sh
+    environment:
+      - OLLAMA_HOST=${OLLAMA_HOST}
+      - OLLAMA_NUM_PARALLEL=${OLLAMA_NUM_PARALLEL}
+      - OLLAMA_MAX_LOADED_MODELS=${OLLAMA_MAX_LOADED_MODELS}
+      - OLLAMA_EMBEDDING_MODEL=${OLLAMA_EMBEDDING_MODEL}
+    entrypoint: ["/bin/bash", "/entrypoint.sh"]
+    networks:
+      - notes-ai-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://127.0.0.1:11434/api/tags > /dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+
+  postgres-notes-ai:
+    container_name: postgres-notes-ai
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    environment:
+      APP_DB_USERNAME: ${APP_DB_USERNAME}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD}
+      POSTGRES_PASSWORD: ${ADMIN_DB_PASSWORD}
+      POSTGRES_USER: ${ADMIN_DB_USERNAME}
+      POSTGRES_DB: ${DB_NAME}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - ${DB_PORT}:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./src/main/resources/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${ADMIN_DB_USERNAME} -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - notes-ai-network
+
+  pgadmin-notes-ai:
+    container_name: pgadmin-notes-ai
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - ${PG_ADMIN_PORT}:80
+    logging:
+      driver: none
+    networks:
+      - notes-ai-network
+
+networks:
+  notes-ai-network:
+    driver: bridge
+volumes:
+  postgres_data:
+  pgadmin_data:
+  ollama_data:
