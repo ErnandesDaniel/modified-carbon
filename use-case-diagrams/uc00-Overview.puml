@@ -5,54 +5,34 @@ skinparam dpi 200
 skinparam defaultFontName Arial
 skinparam defaultFontSize 12
 
-' Актеры-люди (слева)
+left to right direction
+
+' 1. Актеры-люди (слева)
 actor "Meth\n(Клиент)" as METH
 actor "Sleeve Broker\n(Брокер тел)" as BROKER
 actor "Needlecaster\n(Оператор переноса)" as NC
 actor "Psychosurgeon\n(Психохирург)" as PSY
 
-METH -[hidden]down-> BROKER
-BROKER -[hidden]down-> NC
-NC -[hidden]down-> PSY
-
-' Внешние системы (справа)
+' 2. Внешние системы (справа)
 actor "Google OAuth\n<<System>>" as GOOGLE
 actor "Генетический архив\n<<System>>" as GA
 
-GOOGLE -[hidden]down-> GA
-
-' Граница системы SCMS
+' 3. Граница системы и прецеденты
 rectangle "SCMS — Sleeving Clinic Management System" as SCMS {
-
-  ' Параллельный стартовый уровень
-  together {
-    usecase "UC-05: Регистрация клиента\n(RegisterMeth)" as UC05
-    usecase "UC-02: Пополнение резерва тел\n(ManageSleeveReserve)" as UC02
-  }
-
-  ' Основной поток
+  usecase "UC-05: Регистрация клиента\n(RegisterMeth)" as UC05
+  usecase "UC-02: Пополнение резерва тел\n(ManageSleeveReserve)" as UC02
   usecase "UC-01: Заказ тела клиентом\n(OrderSleeve)" as UC01
   usecase "UC-03: Проведение переноса\n(ConductNeedlecast)" as UC03
   usecase "UC-04: Осмотр и сертификация\n(ExamineAndCertify)" as UC04
 
-  UC05 -[hidden]down-> UC02
-
-  UC05 -[hidden]right-> UC01
-  UC02 -[hidden]right-> UC01
-  UC01 -[hidden]right-> UC03
-  UC03 -[hidden]right-> UC04
-
-  ' Зависимости (хвост у того, кто зависит)
+  ' Обычные чистые зависимости UML (без текста над стрелками)
   UC01 ..> UC05
   UC01 ..> UC02
   UC03 ..> UC01
   UC04 ..> UC03
 }
 
-METH -[hidden]right-> SCMS
-SCMS -[hidden]right-> GOOGLE
-
-' Связи актеров с прецедентами
+' 4. Связи с актерами
 METH -- UC05
 METH -- UC01
 METH -- UC03
