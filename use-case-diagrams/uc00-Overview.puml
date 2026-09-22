@@ -5,66 +5,66 @@ skinparam dpi 200
 skinparam defaultFontName Arial
 skinparam defaultFontSize 12
 
-left to right direction
-
-' 1. Основные актеры (слева)
+' Актеры-люди (слева)
 actor "Meth\n(Клиент)" as METH
 actor "Sleeve Broker\n(Брокер тел)" as BROKER
 actor "Needlecaster\n(Оператор переноса)" as NC
 actor "Psychosurgeon\n(Психохирург)" as PSY
 
-' 2. Внешние системы (справа, как вторичные акторы)
-actor "Google OAuth\n<<System>>" as GOOGLE
-actor "Генетический архив\n<<System>>" as GA
-
-' Выравнивание актеров по вертикали
 METH -[hidden]down-> BROKER
 BROKER -[hidden]down-> NC
 NC -[hidden]down-> PSY
+
+' Внешние системы (справа)
+actor "Google OAuth\n<<System>>" as GOOGLE
+actor "Генетический архив\n<<System>>" as GA
+
 GOOGLE -[hidden]down-> GA
 
-' 3. Граница системы SCMS
+' Граница системы SCMS
 rectangle "SCMS — Sleeving Clinic Management System" as SCMS {
 
-  usecase "UC-05: Регистрация клиента\n(RegisterMeth)" as UC05
-  usecase "UC-02: Пополнение резерва тел\n(ManageSleeveReserve)" as UC02
+  ' Параллельный стартовый уровень
+  together {
+    usecase "UC-05: Регистрация клиента\n(RegisterMeth)" as UC05
+    usecase "UC-02: Пополнение резерва тел\n(ManageSleeveReserve)" as UC02
+  }
+
+  ' Основной поток
   usecase "UC-01: Заказ тела клиентом\n(OrderSleeve)" as UC01
   usecase "UC-03: Проведение переноса\n(ConductNeedlecast)" as UC03
   usecase "UC-04: Осмотр и сертификация\n(ExamineAndCertify)" as UC04
 
-  ' Внутренняя компоновка прецедентов (сверху вниз)
   UC05 -[hidden]down-> UC02
-  UC02 -[hidden]down-> UC01
-  UC01 -[hidden]down-> UC03
-  UC03 -[hidden]down-> UC04
 
-  ' Зависимости по предусловиям: хвост у того, КТО зависит
-  UC01 ..> UC05 : <<precondition>>
-  UC01 ..> UC02 : <<precondition>>
-  UC03 ..> UC01 : <<precondition>>
-  UC04 ..> UC03 : <<precondition>>
+  UC05 -[hidden]right-> UC01
+  UC02 -[hidden]right-> UC01
+  UC01 -[hidden]right-> UC03
+  UC03 -[hidden]right-> UC04
+
+  ' Зависимости (хвост у того, кто зависит)
+  UC01 ..> UC05
+  UC01 ..> UC02
+  UC03 ..> UC01
+  UC04 ..> UC03
 }
 
-' 4. Связи актеров с прецедентами
+METH -[hidden]right-> SCMS
+SCMS -[hidden]right-> GOOGLE
 
-' UC-05: Регистрация
+' Связи актеров с прецедентами
 METH -- UC05
-UC05 -- GOOGLE
-
-' UC-02: Резерв тел
-BROKER -- UC02
-UC02 -- GA
-
-' UC-01: Заказ тела
 METH -- UC01
-BROKER -- UC01
-
-' UC-03: Перенос
 METH -- UC03
-NC -- UC03
-
-' UC-04: Сертификация
 METH -- UC04
+
+BROKER -- UC01
+BROKER -- UC02
+
+NC -- UC03
 PSY -- UC04
+
+UC05 -- GOOGLE
+UC02 -- GA
 
 @enduml
