@@ -19,17 +19,22 @@ actor "Генетический архив\n<<System>>" as GA
 
 ' 3. Граница системы и прецеденты
 rectangle "SCMS — Sleeving Clinic Management System" as SCMS {
+  ' Левый край (Старт)
   usecase "UC-05: Регистрация клиента\n(RegisterMeth)" as UC05
   usecase "UC-02: Пополнение резерва тел\n(ManageSleeveReserve)" as UC02
+
+  ' Центр
   usecase "UC-01: Заказ тела клиентом\n(OrderSleeve)" as UC01
+
+  ' Правый край (Финиш)
   usecase "UC-03: Проведение переноса\n(ConductNeedlecast)" as UC03
   usecase "UC-04: Осмотр и сертификация\n(ExamineAndCertify)" as UC04
 
-  ' Обычные чистые зависимости UML (без текста над стрелками)
-  UC01 ..> UC05
-  UC01 ..> UC02
-  UC03 ..> UC01
-  UC04 ..> UC03
+  ' Стрелки идут слева направо: от стартовых к конечным
+  UC05 ..> UC01
+  UC02 ..> UC01
+  UC01 ..> UC03
+  UC03 ..> UC04
 }
 
 ' 4. Связи с актерами
