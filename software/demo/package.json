@@ -1,0 +1,16 @@
+{
+  "name": "scms-demo",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Проигрыватель демонстрации SCMS: поднимает Docker-стек и прогоняет сценарий UC-01…UC-05 в видимом браузере",
+  "scripts": {
+    "demo": "node demo.mjs",
+    "demo:fast": "node demo.mjs --speed=fast",
+    "demo:slow": "node demo.mjs --speed=slow",
+    "install-browser": "playwright install chromium"
+  },
+  "dependencies": {
+    "playwright": "1.48.0"
+  }
+}
