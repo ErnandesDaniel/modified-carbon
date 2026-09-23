@@ -1,15 +1,31 @@
 import { DownloadOutlined } from "@ant-design/icons";
-import { Alert, Button, Card, Table, Tag, Typography } from "antd";
+import { Alert, App, Button, Card, Table, Tag, Typography } from "antd";
 import type { TableProps } from "antd";
+import { useState } from "react";
 import { useMyCertificates } from "@/shared/api";
 import type { CertificateDto } from "@/shared/api";
 import { certificateStatusMeta } from "@/shared/config";
 import { formatDateTime } from "@/shared/lib";
+import { downloadCertificatePdf } from "./certificate-pdf";
 
 const { Title, Paragraph } = Typography;
 
 const CertificatesPage = () => {
+  const { message } = App.useApp();
   const { data, isLoading, isError, error, refetch } = useMyCertificates();
+  const [downloadingId, setDownloadingId] = useState<number | null>(null);
+
+  const download = async (cert: CertificateDto) => {
+    setDownloadingId(cert.id);
+    try {
+      await downloadCertificatePdf(cert);
+      message.success(`Сертификат ${cert.code} сохранён`);
+    } catch {
+      message.error("Не удалось сформировать PDF");
+    } finally {
+      setDownloadingId(null);
+    }
+  };
 
   const columns: TableProps<CertificateDto>["columns"] = [
     { title: "Сертификат", dataIndex: "code", render: (value: string) => <Tag color="purple">{value}</Tag> },
@@ -32,7 +48,8 @@ const CertificatesPage = () => {
           icon={<DownloadOutlined />}
           size="small"
           disabled={record.status !== "READY"}
-          onClick={() => window.print()}
+          loading={downloadingId === record.id}
+          onClick={() => void download(record)}
         >
           Скачать PDF
         </Button>
