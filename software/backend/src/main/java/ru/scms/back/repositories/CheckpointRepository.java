@@ -1,10 +1,9 @@
 package ru.scms.back.repositories;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.scms.back.entities.Checkpoint;
 import ru.scms.back.enums.CheckpointStatus;
-
-import java.util.List;
 
 public interface CheckpointRepository extends JpaRepository<Checkpoint, Long> {
 

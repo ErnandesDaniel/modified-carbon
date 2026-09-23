@@ -1,10 +1,9 @@
 package ru.scms.back.dto;
 
-import ru.scms.back.enums.SleeveGender;
-import ru.scms.back.enums.SleeveStatus;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import ru.scms.back.enums.SleeveGender;
+import ru.scms.back.enums.SleeveStatus;
 
 public record SleeveDto(
         Long id,
@@ -23,6 +22,4 @@ public record SleeveDto(
         Integer cultivationStagePercent,
         Long reservedForUserId,
         String reservedForUserName,
-        LocalDateTime createdAt
-) {
-}
+        LocalDateTime createdAt) {}

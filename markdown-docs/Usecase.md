@@ -118,7 +118,15 @@ Meth просматривает каталог доступных тел, выб
 
 Исходник макета: [`use-case-diagrams/uc01-OrderSleeve-broker.html`](../use-case-diagrams/uc01-OrderSleeve-broker.html)
 
-### 9.4 Статус заказа Meth — «Подтверждён» (шаги 12–13, основная последовательность)
+### 9.4 Обработка заказа без тела — NoAvailableSleeves (шаг 8, точка расширения)
+
+![UC-01: Тела нет в резерве](../use-case-diagrams/uc01-OrderSleeve-broker-nowait-mockup.png)
+
+*Sleeve Broker: заказ ORD-524 (R. Osei, SLV-210). Подходящего тела нет в резерве — система предлагает «Ожидает тело» и заказ культивирования (UC-02).*
+
+Исходник макета: [`use-case-diagrams/uc01-OrderSleeve-broker-nowait.html`](../use-case-diagrams/uc01-OrderSleeve-broker-nowait.html)
+
+### 9.5 Статус заказа Meth — «Подтверждён» (шаги 12–13, основная последовательность)
 
 ![UC-01: Статус заказа «Подтверждён»](../use-case-diagrams/uc01-OrderSleeve-status-mockup.png)
 
@@ -126,7 +134,7 @@ Meth просматривает каталог доступных тел, выб
 
 Исходник макета: [`use-case-diagrams/uc01-OrderSleeve-status.html`](../use-case-diagrams/uc01-OrderSleeve-status.html)
 
-### 9.5 Статус заказа Meth — «Ожидает тело» (точка расширения NoAvailableSleeves)
+### 9.6 Статус заказа Meth — «Ожидает тело» (точка расширения NoAvailableSleeves)
 
 ![UC-01: Статус заказа «Ожидает тело»](../use-case-diagrams/uc01-OrderSleeve-waiting-mockup.png)
 
@@ -134,7 +142,15 @@ Meth просматривает каталог доступных тел, выб
 
 Исходник макета: [`use-case-diagrams/uc01-OrderSleeve-waiting.html`](../use-case-diagrams/uc01-OrderSleeve-waiting.html)
 
-**Интерфейс:** личный кабинет Meth (каталог, оформление, статус) и панель Sleeve Broker (обработка заказа).
+### 9.7 Мои заказы — отслеживание статусов (шаг 12)
+
+![UC-01: Мои заказы](../use-case-diagrams/uc01-OrderSleeve-orders-mockup.png)
+
+*Личный кабинет Meth: список заказов клиента во всех статусах — «Новый», «Подтверждён», «Ожидает тело», «Завершён» — с переходом к кейсу или сертификату.*
+
+Исходник макета: [`use-case-diagrams/uc01-OrderSleeve-orders.html`](../use-case-diagrams/uc01-OrderSleeve-orders.html)
+
+**Интерфейс:** личный кабинет Meth (каталог, оформление, мои заказы, статус кейса) и панель Sleeve Broker (обработка заказа, в том числе без тела).
 
 <!-- FR: FR-003-01, FR-013-01, FR-013-02 -->
 
@@ -203,7 +219,7 @@ ManageSleeveReserve — пополнение резерва тел.
 
 ![UC-02: Резерв тел](../use-case-diagrams/uc02-ManageSleeveReserve-mockup.png)
 
-*Панель Sleeve Broker: таблица резерва со статусами тел («В культивации», «В приёмке», «Доступно») и кнопкой «Заказать культивирование».*
+*Панель Sleeve Broker: таблица резерва со всеми статусами тел («Доступно», «В культивации», «В приёмке», «Зарезервировано», «Используется», «Списано»), кнопкой «Заказать культивирование» и действиями «Зарезервировать» / «Принять» / «Отклонить».*
 
 Исходник макета: [`use-case-diagrams/uc02-ManageSleeveReserve.html`](../use-case-diagrams/uc02-ManageSleeveReserve.html)
 
@@ -223,7 +239,23 @@ ManageSleeveReserve — пополнение резерва тел.
 
 Исходник макета: [`use-case-diagrams/uc02-ManageSleeveReserve-acceptance.html`](../use-case-diagrams/uc02-ManageSleeveReserve-acceptance.html)
 
-**Интерфейс:** панель Sleeve Broker, раздел «Резерв тел» — резерв, заказ культивирования и приёмка.
+### 9.4 Резервирование тела за клиентом (шаг 13, дополнительно)
+
+![UC-02: Резервирование тела](../use-case-diagrams/uc02-ManageSleeveReserve-reserve-mockup.png)
+
+*Закрепление доступного тела SLV-047 за выбранным клиентом (Meth) с переводом связанного заказа в статус «Подтверждён».*
+
+Исходник макета: [`use-case-diagrams/uc02-ManageSleeveReserve-reserve.html`](../use-case-diagrams/uc02-ManageSleeveReserve-reserve.html)
+
+### 9.5 Отклонение поступившего тела (альтернатива шага 12)
+
+![UC-02: Отклонение тела](../use-case-diagrams/uc02-ManageSleeveReserve-acceptance-rejected-mockup.png)
+
+*Расхождения параметров поступившего тела с заказом: тело отклоняется и переводится в статус «Списано», архив уведомляется.*
+
+Исходник макета: [`use-case-diagrams/uc02-ManageSleeveReserve-acceptance-rejected.html`](../use-case-diagrams/uc02-ManageSleeveReserve-acceptance-rejected.html)
+
+**Интерфейс:** панель Sleeve Broker, раздел «Резерв тел» — резерв, заказ культивирования, приёмка (в том числе отклонение) и резервирование.
 
 Генетический архив либо выделяет готовое тело со своего склада, либо выращивает новое; отдельных альтернативных последовательностей у прецедента нет.
 
@@ -581,16 +613,6 @@ RegisterMeth — регистрация клиента через Google OAuth.
 
 <!-- FR: FR-014-01, FR-014-02 -->
 
-
-
-
-
-
-
-
-
-
-
 ---
 
 # Карта переходов (сквозной сценарий)
@@ -601,7 +623,7 @@ UC-05 регистрация → UC-01 каталог → UC-01 оформлен
 
 ## Ветка NoAvailableSleeves (клиент R. Osei, кейс CS-110)
 
-UC-01 оформление заказа → UC-01 обработка брокером (тела нет в резерве) → UC-02 заказ культивирования → UC-01 статус «Ожидает тело» → [поступление тела] → UC-02 приёмка → далее основной путь.
+UC-01 оформление заказа → UC-01 обработка брокером — тела нет в резерве (`uc01-OrderSleeve-broker-nowait`) → UC-02 заказ культивирования → UC-01 статус «Ожидает тело» → [поступление тела] → UC-02 приёмка → далее основной путь.
 
 ## Ветки-исключения
 
@@ -616,14 +638,18 @@ UC-01 оформление заказа → UC-01 обработка броке�
 | UC-05 | Публичная страница / Google | `uc05-RegisterMeth.html` | — | Войти через Google → Разрешить | Личный кабинет |
 | UC-05 | AccountExists | `uc05-RegisterMeth-account-exists.html` | Публичная страница | Перейти в кабинет | существующий кабинет |
 | UC-05 | Личный кабинет (создан) | `uc05-RegisterMeth-cabinet.html` | Публичная страница | Перейти в каталог тел | UC-01 каталог |
-| UC-01 | Каталог тел | `uc01-OrderSleeve.html` | Личный кабинет | Заказать | UC-01 оформление |
+| UC-01 | Каталог тел | `uc01-OrderSleeve.html` | Кабинет / Мои заказы | Заказать | UC-01 оформление |
 | UC-01 | Оформление заказа | `uc01-OrderSleeve-order.html` | Каталог | Подтвердить заказ | UC-01 обработка брокером |
+| UC-01 | Мои заказы | `uc01-OrderSleeve-orders.html` | Личный кабинет | Открыть заказ | UC-01 статус «Подтверждён» / «Ожидает тело» |
 | UC-01 | Обработка заказа (брокер) | `uc01-OrderSleeve-broker.html` | Оформление | Зарезервировать | UC-01 статус «Подтверждён» |
+| UC-01 | Обработка без тела (NoAvailableSleeves) | `uc01-OrderSleeve-broker-nowait.html` | Обработка | «Ожидает тело» / культивирование | UC-01 статус «Ожидает тело» / UC-02 |
 | UC-01 | Статус «Подтверждён» | `uc01-OrderSleeve-status.html` | Обработка | (авто) | UC-03 список процедур |
-| UC-01 | Статус «Ожидает тело» | `uc01-OrderSleeve-waiting.html` | Обработка (тела нет) | — | UC-02 культивация |
-| UC-02 | Резерв тел | `uc02-ManageSleeveReserve.html` | — | Заказать культивирование / Принять | UC-02 культивация / приёмка |
+| UC-01 | Статус «Ожидает тело» | `uc01-OrderSleeve-waiting.html` | Брокер (тела нет) | — | UC-02 культивация |
+| UC-02 | Резерв тел | `uc02-ManageSleeveReserve.html` | — | Культивирование / Принять / Отклонить / Зарезервировать | UC-02 культивация / приёмка / резерв |
 | UC-02 | Заказ культивирования | `uc02-ManageSleeveReserve-cultivation.html` | Резерв | Создать заказ | Резерв («В культивации») |
 | UC-02 | Приёмка тела | `uc02-ManageSleeveReserve-acceptance.html` | Резерв («В приёмке») | Принять в резерв | Резерв («Доступно») |
+| UC-02 | Отклонение тела | `uc02-ManageSleeveReserve-acceptance-rejected.html` | Приёмка | Отклонить | Резерв («Списано») |
+| UC-02 | Резервирование тела | `uc02-ManageSleeveReserve-reserve.html` | Резерв («Доступно») | Зарезервировать | Резерв («Зарезервировано») |
 | UC-03 | Список процедур | `uc03-ConductNeedlecast-list.html` | — | Открыть | UC-03 процедура (старт) |
 | UC-03 | Процедура (старт) | `uc03-ConductNeedlecast.html` | Список | Начать перенос | UC-03 в процессе |
 | UC-03 | Перенос в процессе | `uc03-ConductNeedlecast-progress.html` | Процедура | Отметить результат (Успешно) | UC-03 протокол |
@@ -642,21 +668,9 @@ UC-01 оформление заказа → UC-01 обработка броке�
 | Сущность | Happy-path | Ветка NoAvailableSleeves | Исключения |
 | :-- | :-- | :-- | :-- |
 | Клиент | M. Kovacs (MTH-8842) | R. Osei | L. Tanaka (CS-104), K. Neuman (CS-102) |
-| Заказ | ORD-531 | ORD-524 | — |
-| Кейс | CS-101 | CS-110 | CS-104, CS-102, CS-097 |
+| Заказ | ORD-531, ORD-541 (Новый), ORD-512 (Завершён) | ORD-524 | — |
+| Кейс | CS-101, CS-090 | CS-110 | CS-104, CS-102, CS-097 |
 | Тело | SLV-042 (Ж, 172/58/26) | SLV-210 (Ж, 176/60/27) | SLV-117, SLV-121 |
+| Тело (резерв) | SLV-047 (Ж, 174/60/27), SLV-051 (М, 180/76/29) | — | SLV-046 (в приёмке), SLV-012 (используется), SLV-031 (списано), SLV-061 (отклонено) |
 | Стек | STK-77 | — | STK-12 |
 | Сертификат | CERT-101 | — | — |
-
----
-
-//Интерфейсы должны покрывать все тексты
-//Одна большая диаграмма должна связывать все use case
-
-
-
-
-
-
-
-

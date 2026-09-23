@@ -1,5 +1,6 @@
 package ru.scms.back.services;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,8 +10,6 @@ import ru.scms.back.entities.User;
 import ru.scms.back.enums.AuditAction;
 import ru.scms.back.repositories.AuditLogRepository;
 import ru.scms.back.repositories.UserRepository;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -38,9 +37,20 @@ public class AuditService {
     }
 
     private AuditLogDto toDto(AuditLog a) {
-        String userName = a.getUserId() == null ? null
-                : userRepository.findById(a.getUserId()).map(User::getDisplayName).orElse(null);
-        return new AuditLogDto(a.getId(), a.getUserId(), userName, a.getAction(),
-                a.getEntityType(), a.getEntityId(), a.getDetails(), a.getCreatedAt());
+        String userName = a.getUserId() == null
+                ? null
+                : userRepository
+                        .findById(a.getUserId())
+                        .map(User::getDisplayName)
+                        .orElse(null);
+        return new AuditLogDto(
+                a.getId(),
+                a.getUserId(),
+                userName,
+                a.getAction(),
+                a.getEntityType(),
+                a.getEntityId(),
+                a.getDetails(),
+                a.getCreatedAt());
     }
 }

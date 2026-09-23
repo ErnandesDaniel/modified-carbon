@@ -182,14 +182,15 @@ plantuml -version
 ```
 software/
 ├── backend/          # Spring Boot 3.4 (Java 21) + PostgreSQL + Liquibase — API (:3001)
-├── client-portal/    # Next.js 16 — внешний портал Meth (:3000)
-└── internal-portal/  # Next.js 16 — внутренний портал персонала (:3002)
+├── client-portal/    # Vite + React 19 (SPA) — внешний портал Meth (:3000)
+├── internal-portal/  # Vite + React 19 (SPA) — внутренний портал персонала (:3002)
+└── infra/            # compose полного стека (Postgres + backend + порталы)
 ```
 
 | Портал | Кто | Аутентификация | Возможности |
 | :---- | :---- | :---- | :---- |
-| client-portal | Meth (клиент) | Google OAuth (UC-05) / демо-вход | Каталог тел, заказ (UC-01), статус кейса, сертификаты |
-| internal-portal | Персонал | Dev-вход + выбор роли | Резерв/культивация (UC-02), needlecast (UC-03), валидация и сертификация (UC-04), аудит, RBAC |
+| client-portal | Meth (клиент) | Google OAuth2 / демо-вход (cookie) | Каталог тел, заказ (UC-01), статус кейса, сертификаты |
+| internal-portal | Персонал | Dev-вход + выбор роли (cookie) | Резерв/культивация (UC-02), needlecast (UC-03), валидация и сертификация (UC-04), аудит, RBAC |
 
 Backend покрывает все прецеденты: заказы и резерв тел, культивирование и приёмку,
 процедуру needlecast с инцидентами, чекпоинты и генерацию сертификатов, дашборды,
@@ -200,16 +201,27 @@ Backend покрывает все прецеденты: заказы и резе
 ### Быстрый старт
 
 ```powershell
-# 1. Backend + PostgreSQL
-cd software/backend; Copy-Item .env.example .env; docker compose up -d; mvn spring-boot:run
+# 1. Инфраструктура (PostgreSQL + pgAdmin)
+cd software; Copy-Item infra/.env.example infra/.env
+docker compose -f infra/compose.yaml up -d
 
-# 2. Внутренний портал
-cd software/internal-portal; pnpm install; pnpm dev      # http://localhost:3002
+# 2. Backend
+cd software/backend; Copy-Item .env.example .env; mvn spring-boot:run
 
-# 3. Внешний портал
-cd software/client-portal; pnpm install; pnpm dev        # http://localhost:3000
+# 3. Внутренний портал
+cd software/internal-portal; bun install; bun run dev    # http://localhost:3002
+
+# 4. Внешний портал
+cd software/client-portal; bun install; bun run dev      # http://localhost:3000
 ```
 
 Swagger: http://localhost:3001/api/swagger-ui/index.html
+
+Полный стек одной командой:
+
+```powershell
+cd software; Copy-Item infra/.env.example infra/.env
+docker compose -f infra/compose.yaml --profile full up -d --build
+```
 
 ---

@@ -1,5 +1,6 @@
 package ru.scms.back.services;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,6 @@ import ru.scms.back.repositories.CheckpointRepository;
 import ru.scms.back.repositories.IncidentRepository;
 import ru.scms.back.repositories.NeedlecastCaseRepository;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class ValidationService {
@@ -34,33 +33,38 @@ public class ValidationService {
     @Transactional(readOnly = true)
     public List<CheckpointDto> checkpoints(Long caseId) {
         return checkpointRepository.findByCaseIdOrderByIdAsc(caseId).stream()
-                .map(dtoMapper::toCheckpoint).toList();
+                .map(dtoMapper::toCheckpoint)
+                .toList();
     }
 
     @Transactional
     public CheckpointDto updateCheckpoint(Long checkpointId, CheckpointStatus status, Long actorId) {
-        Checkpoint cp = checkpointRepository.findById(checkpointId)
+        Checkpoint cp = checkpointRepository
+                .findById(checkpointId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Checkpoint not found"));
         cp.setStatus(status);
         checkpointRepository.save(cp);
-        auditService.log(actorId, AuditAction.CHECKPOINT, "CASE", cp.getCaseId(),
-                "Чекпоинт «" + cp.getLabel() + "»: " + status);
+        auditService.log(
+                actorId, AuditAction.CHECKPOINT, "CASE", cp.getCaseId(), "Чекпоинт «" + cp.getLabel() + "»: " + status);
         return dtoMapper.toCheckpoint(cp);
     }
 
     @Transactional
     public CertificateDto confirm(Long caseId, Long actorId) {
-        NeedlecastCase c = caseRepository.findById(caseId)
+        NeedlecastCase c = caseRepository
+                .findById(caseId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Case not found"));
 
         List<Checkpoint> checkpoints = checkpointRepository.findByCaseIdOrderByIdAsc(caseId);
         boolean hasFailed = checkpoints.stream().anyMatch(cp -> cp.getStatus() == CheckpointStatus.FAILED);
-        boolean allPassed = !checkpoints.isEmpty() && checkpoints.stream()
-                .filter(cp -> Boolean.TRUE.equals(cp.getRequired()))
-                .allMatch(cp -> cp.getStatus() == CheckpointStatus.PASSED);
+        boolean allPassed = !checkpoints.isEmpty()
+                && checkpoints.stream()
+                        .filter(cp -> Boolean.TRUE.equals(cp.getRequired()))
+                        .allMatch(cp -> cp.getStatus() == CheckpointStatus.PASSED);
 
         if (hasFailed) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Есть непройденные чекпоинты — сертификация невозможна");
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT, "Есть непройденные чекпоинты — сертификация невозможна");
         }
         if (!allPassed) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Не все обязательные чекпоинты пройдены");
@@ -70,14 +74,14 @@ public class ValidationService {
         caseRepository.save(c);
 
         CertificateDto certificate = certificateService.generate(caseId, actorId);
-        auditService.log(actorId, AuditAction.CERTIFY, "CASE", caseId,
-                "Клиент " + c.getCode() + " сертифицирован");
+        auditService.log(actorId, AuditAction.CERTIFY, "CASE", caseId, "Клиент " + c.getCode() + " сертифицирован");
         return certificate;
     }
 
     @Transactional
     public void reportComplication(Long caseId, IncidentRequestDto request, Long actorId) {
-        NeedlecastCase c = caseRepository.findById(caseId)
+        NeedlecastCase c = caseRepository
+                .findById(caseId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Case not found"));
         c.setStatus(CaseStatus.CORRECTIVE);
         c.setIncidentType(request.type());
@@ -91,7 +95,11 @@ public class ValidationService {
                 .resolved(false)
                 .build());
 
-        auditService.log(actorId, AuditAction.INCIDENT, "CASE", caseId,
+        auditService.log(
+                actorId,
+                AuditAction.INCIDENT,
+                "CASE",
+                caseId,
                 "Осложнение (" + request.type() + ") по кейсу " + c.getCode() + " — выпуск заблокирован");
     }
 }

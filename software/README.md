@@ -1,48 +1,56 @@
-# SCMS — Программная реализация
+# SCMS — Sleeving Clinic Management System
 
-Рабочее приложение Sleeving Clinic Management System: единый backend и два раздельных
-веб-портала (внешний для клиентов Meth и внутренний для персонала клиники).
+Рабочее приложение SCMS, реализующее прецеденты UC-01…UC-05: единый backend, внешний портал
+клиента (Meth) и внутренний портал персонала. Архитектура и стиль повторяют эталонный проект
+`ai-graph-chat` (Spring Boot + Vite/React + FSD).
 
-> 📋 План демонстрации соответствия прецедентам UC-01…UC-05 — в [`DEMO.md`](DEMO.md).
+План демонстрации соответствия прецедентам — в [`DEMO.md`](DEMO.md).
 
-## Состав
+## Структура
 
 ```
 software/
-├── backend/          # Spring Boot 3.4 (Java 21) + PostgreSQL + Liquibase — API
-├── client-portal/    # Next.js 16 — внешний портал Meth (Google OAuth / демо-вход)
-└── internal-portal/  # Next.js 16 — внутренний портал персонала (dev-вход + выбор роли)
+├── backend/          # Spring Boot 3.4 (Java 21) + PostgreSQL + Liquibase — API (:3001)
+├── client-portal/    # Vite + React 19 (SPA) — внешний портал Meth (:3000)
+├── internal-portal/  # Vite + React 19 (SPA) — внутренний портал персонала (:3002)
+└── infra/            # compose, .env, конфиги запуска
 ```
-
-| Приложение | Порт | Назначение |
-| :---- | :---- | :---- |
-| backend | 3001 (`/api`) | REST API, БД, бизнес-логика, JWT |
-| client-portal | 3000 | Каталог, заказ тела, статус кейса, сертификаты |
-| internal-portal | 3002 | Резерв тел, needlecast, валидация, аудит, роли |
 
 ## Быстрый старт
 
-### 1. Backend + БД
+Подробно — в [`infra/README.md`](infra/README.md). Кратко:
 
 ```powershell
-cd software/backend
-Copy-Item .env.example .env
-docker compose up -d          # PostgreSQL + pgAdmin
-mvn spring-boot:run           # http://localhost:3001/api
+# 1. Переменные окружения
+Copy-Item infra/.env.example infra/.env      # и заполнить
+
+# 2а. Весь стек в контейнерах
+docker compose -f infra/compose.yaml --profile full up -d --build
+
+# 2б. Или локальная разработка: инфраструктура + mvn + bun
+docker compose -f infra/compose.yaml up -d
+cd backend;        Copy-Item .env.example .env; mvn spring-boot:run
+cd ../client-portal;   bun install; bun run dev
+cd ../internal-portal; bun install; bun run dev
 ```
 
-Swagger: http://localhost:3001/api/swagger-ui/index.html
+Адреса:
 
-### 2. Внутренний портал (персонал)
+- Клиент (Meth): http://localhost:3000
+- Персонал: http://localhost:3002
+- Backend / Swagger UI: http://localhost:3001/api/swagger-ui/index.html
+- pgAdmin: http://localhost:8081
 
-```powershell
-cd software/internal-portal
-pnpm install
-pnpm dev                      # http://localhost:3002
-```
+## Аутентификация (cookie-based, как в ai-graph-chat)
 
-Вход — кнопкой «Войти как сотрудник» (дефолтный сотрудник). Роль выбирается в
-разделе **Настройки**; меню и главная страница меняются под роль:
+- **Клиент (Meth):** Google OAuth2 — фронт редиректит на `/api/oauth2/authorization/google`,
+  backend (`oauth2Login`) кладёт JWT в httpOnly-cookie и редиректит обратно. Демо-вход без
+  Google: кнопка «Демо-вход (M. Kovacs)» → `POST /api/auth/client-dev-login`.
+- **Персонал:** `POST /api/auth/dev-login` (имя сотрудника) → cookie. Роль переключается в
+  «Настройках» (`PATCH /api/user/me`) — меню меняется под роль (RBAC).
+- Прочее: `GET /api/auth/me`, `POST /api/auth/logout`, `POST /api/auth/refresh`.
+
+## Роли персонала (internal-portal)
 
 | Роль | Доступные разделы |
 | :---- | :---- |
@@ -51,25 +59,20 @@ pnpm dev                      # http://localhost:3002
 | Psychosurgeon | Валидация |
 | Администратор | Все разделы + Пользователи, Аудит |
 
-### 3. Внешний портал (клиент Meth)
+## Покрытие прецедентов
 
-```powershell
-cd software/client-portal
-pnpm install
-pnpm dev                      # http://localhost:3000
-```
+| UC | Где |
+| :---- | :---- |
+| UC-05 RegisterMeth | client-portal `/login` (Google + демо) |
+| UC-01 OrderSleeve | client `/cabinet/catalog` → `POST /orders`; internal `/orders` |
+| UC-02 ManageSleeveReserve | internal `/sleeves` (культивация, приёмка, резерв) |
+| UC-03 ConductNeedlecast | internal `/needlecast` (старт/результат/инцидент) |
+| UC-04 ExamineAndCertify | internal `/validation` (чекпоинты → сертификат) |
+| RBAC / Аудит | internal `/settings`, `/users`, `/audit` |
 
-Вход: Google OAuth либо «Демо-вход (M. Kovacs)» для быстрой проверки без Google.
-Для реального Google OAuth заполните `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET`
-в `software/client-portal/.env.local`.
+## Документация подсистем
 
-## Поток данных
-
-```
-Next.js portal ──(cookie session)──► /api/proxy/* ──(JWT Bearer)──► backend /api/*
-                                              └── PostgreSQL (Liquibase)
-```
-
-- `client-portal` получает JWT через NextAuth (`/auth/login`) либо демо-вход (`/auth/client-dev-login`).
-- `internal-portal` получает JWT через `/auth/dev-login` и хранит его в httpOnly-cookie.
-- Оба портала проксируют запросы в backend, подставляя `Authorization: Bearer <JWT>`.
+- [`infra/README.md`](infra/README.md) — запуск, переменные окружения, режимы Docker
+- [`backend/README.md`](backend/README.md) — API, аутентификация, стиль кода
+- [`client-portal/README.md`](client-portal/README.md) — внешний портал Meth
+- [`internal-portal/README.md`](internal-portal/README.md) — внутренний портал персонала

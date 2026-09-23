@@ -1,49 +1,75 @@
-# SCMS Client Portal
+# SCMS · Sleeving Clinic — Client Portal
 
-Внешний портал клиента Meth (Next.js 16 + Ant Design 5 + NextAuth v5).
+Внешний портал клиники для роли **Meth** (заказчик тела). Vite + React 19 SPA
+(Feature-Sliced Design), TanStack Router (code-based) + TanStack Query, Ant Design (ru_RU, `#722ed1`).
+
+## Стек
+
+- bun (package manager), Vite 6, TypeScript strict
+- React 19 + `@ant-design/v5-patch-for-react-19`
+- `@tanstack/react-router` — маршрутизация кодом в `src/app/router.tsx`
+- `@tanstack/react-query` — всё серверное состояние
+- `antd` + `@ant-design/icons`
+- `axios` — инстанс с `baseURL: /api` и `withCredentials: true`
+
+## Требования
+
+Backend должен быть запущен на **http://localhost:3001** (context-path `/api`).
+В dev-режиме Vite проксирует `'/api' -> 'http://localhost:3001'` (path сохраняется).
 
 ## Запуск
 
-```powershell
-pnpm install
-pnpm dev        # http://localhost:3000
-pnpm build      # production build
+```bash
+bun install
+bun run dev      # http://localhost:3000
 ```
 
-Требуется запущенный backend (`../backend`, http://localhost:3001/api).
+Прочие скрипты:
 
-## Настройка окружения
-
-Создайте `.env.local` на основе `.env.example`:
-
-```
-BACKEND_URL=http://localhost:3001/api
-AUTH_SECRET=z7R4vN1mX5qJ0bY8zP9kL2w7R4vN1mX5
-AUTH_URL=http://localhost:3000
-GOOGLE_CLIENT_ID=...
-GOOGLE_CLIENT_SECRET=...
-SERVICE_AUTHORIZATION_SECRET=my-test-secret-key
+```bash
+bun run build      # tsc -b && vite build
+bun run preview    # предпросмотр production-сборки, порт 3000
+bun run lint       # tsc --noEmit
+bun run typecheck  # tsc --noEmit
 ```
 
-`AUTH_SECRET` должен совпадать с `jwt.secret` backend, `SERVICE_AUTHORIZATION_SECRET` —
-с одноимённой переменной backend.
+## Переменные окружения
 
-## Аутентификация
+`.env` (см. `.env.example`):
 
-- **Google OAuth** (UC-05): NextAuth-провайдер Google; в колбэке `signIn` backend
-  регистрирует/находит пользователя через `POST /auth/login` (с секретным заголовком).
-- **Демо-вход (M. Kovacs)**: `POST /auth/client-dev-login` — для проверки без Google.
+```
+VITE_API_BASE=/api
+```
 
-Все запросы к API идут через `/api/proxy/*`, который подписывает backend-JWT и
-подставляет `Authorization: Bearer`.
+## Авторизация
 
-## Экраны
+- При старте выполняется `GET /api/auth/me`. Пока запрос идёт — показывается спиннер.
+- Публичные маршруты: `/` (лендинг) и `/login`. Остальные защищены guard'ом
+  (`beforeLoad` в `src/app/router.tsx`) и редиректят на `/login`.
+- **Google**: кнопка ведёт на `/api/oauth2/authorization/google` (backend сам ставит cookie и
+  возвращает на портал).
+- **Демо**: `POST /api/auth/client-dev-login`, затем обновляется `/api/auth/me` и переход в `/cabinet`.
+- **Выход**: `POST /api/auth/logout`, сброс кэша и переход на `/login`.
+- Ответ 401 вне публичных маршрутов и вне `/auth/*` перехватывается axios-интерцептором и
+  перенаправляет на `/login` (исключение для `/auth/*` нужно, чтобы `GET /auth/me` не ломал
+  публичный лендинг).
 
-| Маршрут | Назначение |
-| :---- | :---- |
-| `/` | Публичная страница клиники |
-| `/login` | Вход через Google или демо-вход |
-| `/cabinet` | Личный кабинет: этап кейса, заказы, стеки, сертификаты |
-| `/cabinet/catalog` | Каталог доступных тел с фильтрами и заказом (UC-01) |
-| `/cabinet/orders` | Мои заказы и их статусы |
-| `/cabinet/certificates` | Сертификаты совместимости |
+## Структура (FSD)
+
+```
+src/
+  app/        # router, providers (query/antd/auth), styles
+  features/   # landing, auth/login, cabinet (layout + pages)
+  shared/     # api (dto + endpoints + hooks), config (labels/env), lib, ui
+```
+
+## Маршруты
+
+| Маршрут                  | Экран                                   |
+| ------------------------ | --------------------------------------- |
+| `/`                      | Публичный лендинг                       |
+| `/login`                 | Вход (Google / демо)                    |
+| `/cabinet`               | Дашборд: этап кейса, заказы, кейсы, сертификаты |
+| `/cabinet/catalog`       | Каталог доступных тел + заказ           |
+| `/cabinet/orders`        | Мои заказы                              |
+| `/cabinet/certificates`  | Сертификаты (печать PDF)                |

@@ -1,8 +1,7 @@
 package ru.scms.back.dto;
 
-import ru.scms.back.enums.StackStatus;
-
 import java.time.LocalDateTime;
+import ru.scms.back.enums.StackStatus;
 
 public record StackDto(
         Long id,
@@ -11,6 +10,4 @@ public record StackDto(
         String ownerName,
         StackStatus status,
         String location,
-        LocalDateTime lastExtractedAt
-) {
-}
+        LocalDateTime lastExtractedAt) {}

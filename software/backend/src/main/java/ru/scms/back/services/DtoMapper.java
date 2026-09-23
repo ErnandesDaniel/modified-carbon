@@ -2,9 +2,29 @@ package ru.scms.back.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.scms.back.dto.*;
-import ru.scms.back.entities.*;
-import ru.scms.back.repositories.*;
+import ru.scms.back.dto.CaseDto;
+import ru.scms.back.dto.CertificateDto;
+import ru.scms.back.dto.CheckpointDto;
+import ru.scms.back.dto.GeneticArchiveDto;
+import ru.scms.back.dto.IncidentDto;
+import ru.scms.back.dto.OrderDto;
+import ru.scms.back.dto.SleeveDto;
+import ru.scms.back.dto.StackDto;
+import ru.scms.back.dto.UserDto;
+import ru.scms.back.entities.Certificate;
+import ru.scms.back.entities.Checkpoint;
+import ru.scms.back.entities.GeneticArchive;
+import ru.scms.back.entities.Incident;
+import ru.scms.back.entities.NeedlecastCase;
+import ru.scms.back.entities.Sleeve;
+import ru.scms.back.entities.SleeveOrder;
+import ru.scms.back.entities.Stack;
+import ru.scms.back.entities.User;
+import ru.scms.back.repositories.GeneticArchiveRepository;
+import ru.scms.back.repositories.NeedlecastCaseRepository;
+import ru.scms.back.repositories.SleeveRepository;
+import ru.scms.back.repositories.StackRepository;
+import ru.scms.back.repositories.UserRepository;
 
 @Component
 @RequiredArgsConstructor
@@ -25,61 +45,156 @@ public class DtoMapper {
     }
 
     public SleeveDto toSleeve(Sleeve s) {
-        String archiveName = s.getGeneticArchiveId() == null ? null
-                : geneticArchiveRepository.findById(s.getGeneticArchiveId()).map(GeneticArchive::getName).orElse(null);
-        String reservedName = s.getReservedForUserId() == null ? null
-                : userRepository.findById(s.getReservedForUserId()).map(User::getDisplayName).orElse(null);
-        return new SleeveDto(s.getId(), s.getCode(), s.getGender(), s.getHeight(), s.getWeight(), s.getAge(),
-                s.getGeneticArchiveId(), archiveName, s.getStatus(), s.getDnaDonor(), s.getNotes(),
-                s.getCultivationStartedAt(), s.getPlannedReadyAt(), s.getCultivationStagePercent(),
-                s.getReservedForUserId(), reservedName, s.getCreatedAt());
+        String archiveName = s.getGeneticArchiveId() == null
+                ? null
+                : geneticArchiveRepository
+                        .findById(s.getGeneticArchiveId())
+                        .map(GeneticArchive::getName)
+                        .orElse(null);
+        String reservedName = s.getReservedForUserId() == null
+                ? null
+                : userRepository
+                        .findById(s.getReservedForUserId())
+                        .map(User::getDisplayName)
+                        .orElse(null);
+        return new SleeveDto(
+                s.getId(),
+                s.getCode(),
+                s.getGender(),
+                s.getHeight(),
+                s.getWeight(),
+                s.getAge(),
+                s.getGeneticArchiveId(),
+                archiveName,
+                s.getStatus(),
+                s.getDnaDonor(),
+                s.getNotes(),
+                s.getCultivationStartedAt(),
+                s.getPlannedReadyAt(),
+                s.getCultivationStagePercent(),
+                s.getReservedForUserId(),
+                reservedName,
+                s.getCreatedAt());
     }
 
     public StackDto toStack(Stack t) {
-        String ownerName = t.getOwnerUserId() == null ? null
-                : userRepository.findById(t.getOwnerUserId()).map(User::getDisplayName).orElse(null);
-        return new StackDto(t.getId(), t.getCode(), t.getOwnerUserId(), ownerName, t.getStatus(),
-                t.getLocation(), t.getLastExtractedAt());
+        String ownerName = t.getOwnerUserId() == null
+                ? null
+                : userRepository
+                        .findById(t.getOwnerUserId())
+                        .map(User::getDisplayName)
+                        .orElse(null);
+        return new StackDto(
+                t.getId(),
+                t.getCode(),
+                t.getOwnerUserId(),
+                ownerName,
+                t.getStatus(),
+                t.getLocation(),
+                t.getLastExtractedAt());
     }
 
     public OrderDto toOrder(SleeveOrder o) {
-        String methName = userRepository.findById(o.getMethUserId()).map(User::getDisplayName).orElse(null);
-        String sleeveCode = o.getSleeveId() == null ? null
-                : sleeveRepository.findById(o.getSleeveId()).map(Sleeve::getCode).orElse(null);
-        String archiveName = o.getGeneticArchiveId() == null ? null
-                : geneticArchiveRepository.findById(o.getGeneticArchiveId()).map(GeneticArchive::getName).orElse(null);
-        return new OrderDto(o.getId(), o.getCode(), o.getMethUserId(), methName, o.getSleeveId(), sleeveCode,
-                o.getGender(), o.getHeight(), o.getWeight(), o.getAge(), o.getGeneticArchiveId(), archiveName,
-                o.getStatus(), o.getCreatedAt());
+        String methName = userRepository
+                .findById(o.getMethUserId())
+                .map(User::getDisplayName)
+                .orElse(null);
+        String sleeveCode = o.getSleeveId() == null
+                ? null
+                : sleeveRepository
+                        .findById(o.getSleeveId())
+                        .map(Sleeve::getCode)
+                        .orElse(null);
+        String archiveName = o.getGeneticArchiveId() == null
+                ? null
+                : geneticArchiveRepository
+                        .findById(o.getGeneticArchiveId())
+                        .map(GeneticArchive::getName)
+                        .orElse(null);
+        return new OrderDto(
+                o.getId(),
+                o.getCode(),
+                o.getMethUserId(),
+                methName,
+                o.getSleeveId(),
+                sleeveCode,
+                o.getGender(),
+                o.getHeight(),
+                o.getWeight(),
+                o.getAge(),
+                o.getGeneticArchiveId(),
+                archiveName,
+                o.getStatus(),
+                o.getCreatedAt());
     }
 
     public CaseDto toCase(NeedlecastCase c) {
-        String methName = userRepository.findById(c.getMethUserId()).map(User::getDisplayName).orElse(null);
-        Sleeve sleeve = c.getSleeveId() == null ? null : sleeveRepository.findById(c.getSleeveId()).orElse(null);
-        String stackCode = c.getStackId() == null ? null
+        String methName = userRepository
+                .findById(c.getMethUserId())
+                .map(User::getDisplayName)
+                .orElse(null);
+        Sleeve sleeve = c.getSleeveId() == null
+                ? null
+                : sleeveRepository.findById(c.getSleeveId()).orElse(null);
+        String stackCode = c.getStackId() == null
+                ? null
                 : stackRepository.findById(c.getStackId()).map(Stack::getCode).orElse(null);
-        return new CaseDto(c.getId(), c.getCode(), c.getOrderId(), c.getMethUserId(), methName,
-                c.getSleeveId(), sleeve == null ? null : sleeve.getCode(),
-                sleeve == null ? null : sleeve.getGender(), sleeve == null ? null : sleeve.getHeight(),
-                c.getStackId(), stackCode, c.getStatus(), c.getNeedlecasterName(),
-                c.getStartTime(), c.getEndTime(), c.getResult(), c.getIncidentType(), c.getIncidentNote(),
+        return new CaseDto(
+                c.getId(),
+                c.getCode(),
+                c.getOrderId(),
+                c.getMethUserId(),
+                methName,
+                c.getSleeveId(),
+                sleeve == null ? null : sleeve.getCode(),
+                sleeve == null ? null : sleeve.getGender(),
+                sleeve == null ? null : sleeve.getHeight(),
+                c.getStackId(),
+                stackCode,
+                c.getStatus(),
+                c.getNeedlecasterName(),
+                c.getStartTime(),
+                c.getEndTime(),
+                c.getResult(),
+                c.getIncidentType(),
+                c.getIncidentNote(),
                 c.getCreatedAt());
     }
 
     public CheckpointDto toCheckpoint(Checkpoint cp) {
-        return new CheckpointDto(cp.getId(), cp.getCaseId(), cp.getLabel(), cp.getDescription(),
-                cp.getCategory(), cp.getStatus(), cp.getRequired());
+        return new CheckpointDto(
+                cp.getId(),
+                cp.getCaseId(),
+                cp.getLabel(),
+                cp.getDescription(),
+                cp.getCategory(),
+                cp.getStatus(),
+                cp.getRequired());
     }
 
     public IncidentDto toIncident(Incident i) {
-        return new IncidentDto(i.getId(), i.getCaseId(), i.getType(), i.getDescription(),
-                i.getResolved(), i.getCreatedAt());
+        return new IncidentDto(
+                i.getId(), i.getCaseId(), i.getType(), i.getDescription(), i.getResolved(), i.getCreatedAt());
     }
 
     public CertificateDto toCertificate(Certificate c) {
-        String methName = userRepository.findById(c.getMethUserId()).map(User::getDisplayName).orElse(null);
-        String caseCode = caseRepository.findById(c.getCaseId()).map(NeedlecastCase::getCode).orElse(null);
-        return new CertificateDto(c.getId(), c.getCaseId(), caseCode, c.getMethUserId(), methName,
-                c.getCode(), c.getStatus(), c.getVerificationCode(), c.getIssuedAt());
+        String methName = userRepository
+                .findById(c.getMethUserId())
+                .map(User::getDisplayName)
+                .orElse(null);
+        String caseCode = caseRepository
+                .findById(c.getCaseId())
+                .map(NeedlecastCase::getCode)
+                .orElse(null);
+        return new CertificateDto(
+                c.getId(),
+                c.getCaseId(),
+                caseCode,
+                c.getMethUserId(),
+                methName,
+                c.getCode(),
+                c.getStatus(),
+                c.getVerificationCode(),
+                c.getIssuedAt());
     }
 }

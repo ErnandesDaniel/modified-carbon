@@ -1,6 +1,3 @@
 package ru.scms.back.dto;
 
-public record DevLoginRequestDto(
-        String name
-) {
-}
+public record DevLoginRequestDto(String name) {}

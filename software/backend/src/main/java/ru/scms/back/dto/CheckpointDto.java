@@ -10,6 +10,4 @@ public record CheckpointDto(
         String description,
         CheckpointCategory category,
         CheckpointStatus status,
-        Boolean required
-) {
-}
+        Boolean required) {}

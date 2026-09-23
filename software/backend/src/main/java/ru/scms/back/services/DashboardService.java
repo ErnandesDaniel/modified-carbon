@@ -1,11 +1,11 @@
 package ru.scms.back.services;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.scms.back.dto.AdminDashboardDto;
 import ru.scms.back.dto.ClientDashboardDto;
-import ru.scms.back.dto.OrderDto;
 import ru.scms.back.dto.UserDto;
 import ru.scms.back.entities.NeedlecastCase;
 import ru.scms.back.entities.SleeveOrder;
@@ -18,8 +18,6 @@ import ru.scms.back.repositories.NeedlecastCaseRepository;
 import ru.scms.back.repositories.SleeveOrderRepository;
 import ru.scms.back.repositories.SleeveRepository;
 import ru.scms.back.repositories.StackRepository;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +39,8 @@ public class DashboardService {
     @Transactional(readOnly = true)
     public AdminDashboardDto admin() {
         List<CaseStatus> activeStatuses = List.of(CaseStatus.PENDING, CaseStatus.IN_PROGRESS);
-        List<CaseStatus> validationStatuses = List.of(CaseStatus.IN_PROGRESS, CaseStatus.COMPLETED, CaseStatus.CORRECTIVE);
+        List<CaseStatus> validationStatuses =
+                List.of(CaseStatus.IN_PROGRESS, CaseStatus.COMPLETED, CaseStatus.CORRECTIVE);
         return new AdminDashboardDto(
                 sleeveRepository.count(),
                 sleeveRepository.countByStatus(SleeveStatus.AVAILABLE),
@@ -56,8 +55,7 @@ public class DashboardService {
                 caseRepository.countByStatusIn(validationStatuses),
                 incidentRepository.countByResolvedFalse(),
                 orderRepository.countByStatus(OrderStatus.NEW),
-                auditService.recent()
-        );
+                auditService.recent());
     }
 
     @Transactional(readOnly = true)
@@ -72,8 +70,9 @@ public class DashboardService {
                 orders.stream().map(dtoMapper::toOrder).toList(),
                 cases.stream().map(dtoMapper::toCase).toList(),
                 certificateService.byMeth(methUserId),
-                stackRepository.findByOwnerUserIdOrderByIdAsc(methUserId).stream().map(dtoMapper::toStack).toList()
-        );
+                stackRepository.findByOwnerUserIdOrderByIdAsc(methUserId).stream()
+                        .map(dtoMapper::toStack)
+                        .toList());
     }
 
     private String resolveStage(List<SleeveOrder> orders, List<NeedlecastCase> cases) {

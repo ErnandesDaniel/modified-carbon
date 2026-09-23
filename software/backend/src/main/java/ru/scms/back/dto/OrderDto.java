@@ -1,9 +1,8 @@
 package ru.scms.back.dto;
 
+import java.time.LocalDateTime;
 import ru.scms.back.enums.OrderStatus;
 import ru.scms.back.enums.SleeveGender;
-
-import java.time.LocalDateTime;
 
 public record OrderDto(
         Long id,
@@ -19,6 +18,4 @@ public record OrderDto(
         Long geneticArchiveId,
         String geneticArchiveName,
         OrderStatus status,
-        LocalDateTime createdAt
-) {
-}
+        LocalDateTime createdAt) {}

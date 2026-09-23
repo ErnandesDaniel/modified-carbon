@@ -1,8 +1,7 @@
 package ru.scms.back.dto;
 
-import ru.scms.back.enums.CertificateStatus;
-
 import java.time.LocalDateTime;
+import ru.scms.back.enums.CertificateStatus;
 
 public record CertificateDto(
         Long id,
@@ -13,6 +12,4 @@ public record CertificateDto(
         String code,
         CertificateStatus status,
         String verificationCode,
-        LocalDateTime issuedAt
-) {
-}
+        LocalDateTime issuedAt) {}

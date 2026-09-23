@@ -1,9 +1,8 @@
 package ru.scms.back.repositories;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.scms.back.entities.AuditLog;
-
-import java.util.List;
 
 public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
 

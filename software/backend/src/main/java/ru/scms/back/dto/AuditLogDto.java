@@ -1,8 +1,7 @@
 package ru.scms.back.dto;
 
-import ru.scms.back.enums.AuditAction;
-
 import java.time.LocalDateTime;
+import ru.scms.back.enums.AuditAction;
 
 public record AuditLogDto(
         Long id,
@@ -12,6 +11,4 @@ public record AuditLogDto(
         String entityType,
         Long entityId,
         String details,
-        LocalDateTime createdAt
-) {
-}
+        LocalDateTime createdAt) {}

@@ -1,6 +1,3 @@
 package ru.scms.back.dto;
 
-public record StartProcedureRequestDto(
-        String needlecasterName
-) {
-}
+public record StartProcedureRequestDto(String needlecasterName) {}

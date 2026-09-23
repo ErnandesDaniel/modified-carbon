@@ -2,15 +2,15 @@ package ru.scms.back.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.scms.back.annotations.CurrentUserId;
 import ru.scms.back.dto.StackDto;
-import ru.scms.back.entities.Stack;
 import ru.scms.back.repositories.StackRepository;
 import ru.scms.back.services.DtoMapper;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/stacks")
@@ -30,6 +30,8 @@ public class StackController {
     @GetMapping("/mine")
     @Operation(summary = "Мои стеки (для клиента)")
     public List<StackDto> mine(@CurrentUserId Long userId) {
-        return stackRepository.findByOwnerUserIdOrderByIdAsc(userId).stream().map(dtoMapper::toStack).toList();
+        return stackRepository.findByOwnerUserIdOrderByIdAsc(userId).stream()
+                .map(dtoMapper::toStack)
+                .toList();
     }
 }

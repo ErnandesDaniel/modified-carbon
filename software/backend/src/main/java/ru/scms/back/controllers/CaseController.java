@@ -2,8 +2,15 @@ package ru.scms.back.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import ru.scms.back.annotations.CurrentUserId;
 import ru.scms.back.dto.CaseDto;
 import ru.scms.back.dto.CompleteProcedureRequestDto;
@@ -12,8 +19,6 @@ import ru.scms.back.dto.IncidentRequestDto;
 import ru.scms.back.dto.StartProcedureRequestDto;
 import ru.scms.back.enums.CaseStatus;
 import ru.scms.back.services.CaseService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/cases")
@@ -55,24 +60,28 @@ public class CaseController {
 
     @PostMapping("/{id}/start")
     @Operation(summary = "UC-03: начать перенос")
-    public CaseDto start(@CurrentUserId Long actorId, @PathVariable Long id,
-                         @RequestBody(required = false) StartProcedureRequestDto request) {
+    public CaseDto start(
+            @CurrentUserId Long actorId,
+            @PathVariable Long id,
+            @RequestBody(required = false) StartProcedureRequestDto request) {
         String needlecaster = request == null ? null : request.needlecasterName();
         return caseService.start(id, needlecaster, actorId);
     }
 
     @PostMapping("/{id}/complete")
     @Operation(summary = "UC-03: отметить успешное завершение переноса")
-    public CaseDto complete(@CurrentUserId Long actorId, @PathVariable Long id,
-                            @RequestBody(required = false) CompleteProcedureRequestDto request) {
+    public CaseDto complete(
+            @CurrentUserId Long actorId,
+            @PathVariable Long id,
+            @RequestBody(required = false) CompleteProcedureRequestDto request) {
         String result = request == null ? "SUCCESS" : request.result();
         return caseService.complete(id, result, actorId);
     }
 
     @PostMapping("/{id}/incident")
     @Operation(summary = "UC-03 (ProcedureFailed): зафиксировать инцидент")
-    public CaseDto reportIncident(@CurrentUserId Long actorId, @PathVariable Long id,
-                                  @RequestBody IncidentRequestDto request) {
+    public CaseDto reportIncident(
+            @CurrentUserId Long actorId, @PathVariable Long id, @RequestBody IncidentRequestDto request) {
         return caseService.reportIncident(id, request, actorId);
     }
 }

@@ -1,48 +1,81 @@
 # SCMS Internal Portal
 
-Внутренний портал персонала клиники (Next.js 16 + Ant Design 5).
+Внутренний портал персонала клиники (Vite + React 19 + TanStack + Ant Design 5).
+
+SPA с ролевым доступом (RBAC) для сотрудников: Sleeve Broker, Needlecaster, Psychosurgeon, Admin.
+
+## Стек
+
+- **Bun** — пакетный менеджер и рантайм скриптов
+- **Vite 6** + **React 19** + **TypeScript** (strict)
+- **@tanstack/react-router** — code-based маршрутизация (`src/app/router.tsx`)
+- **@tanstack/react-query** — серверное состояние
+- **Ant Design 5** + `@ant-design/v5-patch-for-react-19`, локаль `ru_RU`, тема `colorPrimary: #722ed1`
+- **axios** — `baseURL: /api`, `withCredentials: true`, 401 -> редирект на `/login`
 
 ## Запуск
 
-```powershell
-pnpm install
-pnpm dev        # http://localhost:3002
-pnpm build      # production build
+```sh
+bun install
+bun run dev        # http://localhost:3002
 ```
 
-Требуется запущенный backend (`../backend`, http://localhost:3001/api). Адрес backend
-настраивается в `.env.local`:
+Vite проксирует `/api` на backend `http://localhost:3001` (`changeOrigin: true`).
+
+Требуется запущенный backend (`software/backend`, http://localhost:3001).
+
+### Скрипты
+
+| Скрипт | Назначение |
+| :---- | :---- |
+| `bun run dev` | dev-сервер на порту **3002** |
+| `bun run build` | `tsc --noEmit && vite build` (папка `dist/`) |
+| `bun run preview` | предпросмотр production-сборки |
+| `bun run lint` | проверка типов (`tsc --noEmit`) |
+| `bun run typecheck` | проверка типов (`tsc --noEmit`) |
+
+## Переменные окружения
+
+Скопируйте `.env.example` в `.env`:
 
 ```
-BACKEND_URL=http://localhost:3001/api
+VITE_API_BASE=/api
 ```
 
 ## Аутентификация
 
-Демо-режим: кнопка «Войти как сотрудник» вызывает `POST /auth/dev-login` на backend,
-токен сохраняется в httpOnly-cookie, все запросы проксируются через `/api/backend/*`.
+No cookie -> redirect на `/login`. Сессия загружается через `GET /api/auth/me`.
 
-## Роли и разделы
+Демо-вход: кнопка «Войти как сотрудник» вызывает `POST /api/auth/dev-login` (body `{ name }`),
+backend ставит httpOnly-cookie, после чего портал переходит на `/dashboard`.
 
-Роль выбирается в разделе **Настройки** (`PATCH /user/me`). Меню строится по роли:
+## Роли и разделы (RBAC)
 
-- **Sleeve Broker** — Каталог тел (UC-02), Заказы (UC-01)
-- **Needlecaster** — Needlecast (UC-03)
-- **Psychosurgeon** — Валидация и сертификация (UC-04)
-- **Администратор** — все разделы, Пользователи и роли, Аудит
+Роль берётся из `user.role`; меню и разделы фильтруются по роли. Смена роли доступна в
+**Настройки** (`PATCH /api/user/me`) и мгновенно перестраивает интерфейс.
 
-Общие разделы: Дашборд, Сертификаты.
+| Раздел | Путь | Роли |
+| :---- | :---- | :---- |
+| Дашборд | `/dashboard` | все сотрудники |
+| Каталог тел | `/sleeves` | SLEEVE_BROKER, ADMIN |
+| Заказы | `/orders` | SLEEVE_BROKER, ADMIN |
+| Needlecast | `/needlecast`, `/needlecast/:id` | NEEDLECASTER, ADMIN |
+| Валидация | `/validation`, `/validation/:id` | PSYCHOSURGEON, ADMIN |
+| Сертификаты | `/certificates` | все сотрудники |
+| Пользователи | `/users` | ADMIN |
+| Аудит | `/audit` | ADMIN |
+| Настройки | `/settings` | все сотрудники |
 
-## Экраны
+## Архитектура (FSD)
 
-| Маршрут | Назначение |
-| :---- | :---- |
-| `/dashboard` | Сводка клиники + рабочая очередь по роли |
-| `/sleeves` | Каталог тел: фильтры, культивирование, приёмка, резерв |
-| `/orders` | Заказы клиентов: подтверждение, ожидание тела, отмена |
-| `/needlecast`, `/needlecast/[id]` | Procedure needlecast: старт, результат, инцидент |
-| `/validation`, `/validation/[id]` | Чекпоинты, сертификация, осложнения |
-| `/certificates` | Выданные сертификаты |
-| `/users` | Управление ролями (RBAC) |
-| `/audit` | Журнал аудита |
-| `/settings` | Профиль и выбор роли |
+```
+src/
+  app/            # провайдеры, router.tsx, shell
+  features/       # страницы-фичи (auth, dashboard, sleeves, orders, needlecast, validation, certificates, users, audit, settings)
+  shared/         # api (typed REST), config, lib, ui, styles
+```
+
+### Typed API layer
+
+`src/shared/api` — рукописный типизированный слой, повторяющий структуру reference `shared/rest-client`:
+DTO (`dto/`), axios-инстанс (`axiosInstance.ts`) и запросы + фабрики `queryOptions` (`index.ts`).

@@ -1,5 +1,9 @@
 package ru.scms.back.services;
 
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -11,7 +15,6 @@ import ru.scms.back.dto.IncidentRequestDto;
 import ru.scms.back.entities.Checkpoint;
 import ru.scms.back.entities.Incident;
 import ru.scms.back.entities.NeedlecastCase;
-import ru.scms.back.entities.Sleeve;
 import ru.scms.back.entities.SleeveOrder;
 import ru.scms.back.entities.Stack;
 import ru.scms.back.enums.AuditAction;
@@ -24,11 +27,6 @@ import ru.scms.back.repositories.IncidentRepository;
 import ru.scms.back.repositories.NeedlecastCaseRepository;
 import ru.scms.back.repositories.SleeveRepository;
 import ru.scms.back.repositories.StackRepository;
-
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -53,13 +51,15 @@ public class CaseService {
     @Transactional(readOnly = true)
     public List<CaseDto> byStatuses(Collection<CaseStatus> statuses) {
         return caseRepository.findByStatusInOrderByCreatedAtAsc(statuses).stream()
-                .map(dtoMapper::toCase).toList();
+                .map(dtoMapper::toCase)
+                .toList();
     }
 
     @Transactional(readOnly = true)
     public List<CaseDto> mine(Long methUserId) {
         return caseRepository.findByMethUserIdOrderByCreatedAtDesc(methUserId).stream()
-                .map(dtoMapper::toCase).toList();
+                .map(dtoMapper::toCase)
+                .toList();
     }
 
     @Transactional(readOnly = true)
@@ -72,7 +72,8 @@ public class CaseService {
         if (order.getSleeveId() == null) {
             return;
         }
-        Optional<Stack> stack = stackRepository.findByOwnerUserIdOrderByIdAsc(order.getMethUserId()).stream().findFirst();
+        Optional<Stack> stack = stackRepository.findByOwnerUserIdOrderByIdAsc(order.getMethUserId()).stream()
+                .findFirst();
         if (stack.isEmpty()) {
             return;
         }
@@ -111,8 +112,8 @@ public class CaseService {
             stackRepository.save(stack);
         });
 
-        auditService.log(actorId, AuditAction.NEEDLECAST_START, "CASE", caseId,
-                "Начат needlecast по кейсу " + c.getCode());
+        auditService.log(
+                actorId, AuditAction.NEEDLECAST_START, "CASE", caseId, "Начат needlecast по кейсу " + c.getCode());
         return dtoMapper.toCase(c);
     }
 
@@ -128,7 +129,11 @@ public class CaseService {
         caseRepository.save(c);
         ensureCheckpoints(caseId);
 
-        auditService.log(actorId, AuditAction.NEEDLECAST_COMPLETE, "CASE", caseId,
+        auditService.log(
+                actorId,
+                AuditAction.NEEDLECAST_COMPLETE,
+                "CASE",
+                caseId,
                 "Процедура " + c.getCode() + " завершена: " + c.getResult());
         return dtoMapper.toCase(c);
     }
@@ -150,7 +155,11 @@ public class CaseService {
                 .resolved(false)
                 .build());
 
-        auditService.log(actorId, AuditAction.INCIDENT, "CASE", caseId,
+        auditService.log(
+                actorId,
+                AuditAction.INCIDENT,
+                "CASE",
+                caseId,
                 "Зафиксирован инцидент (" + request.type() + ") по кейсу " + c.getCode());
         return dtoMapper.toCase(c);
     }
@@ -158,7 +167,8 @@ public class CaseService {
     @Transactional(readOnly = true)
     public List<IncidentDto> incidents(Long caseId) {
         return incidentRepository.findByCaseIdOrderByCreatedAtDesc(caseId).stream()
-                .map(dtoMapper::toIncident).toList();
+                .map(dtoMapper::toIncident)
+                .toList();
     }
 
     @Transactional
@@ -167,12 +177,31 @@ public class CaseService {
             return;
         }
         List<Checkpoint> defaults = List.of(
-                cp(caseId, "Когнитивный тест #1", "Базовая ориентация: имя, место, дата.", CheckpointCategory.COGNITIVE),
-                cp(caseId, "Когнитивный тест #2", "Память: события за последние 48 часов до переноса.", CheckpointCategory.COGNITIVE),
-                cp(caseId, "Проверка Stack Shock", "Оценка по шкале Stack Shock Index (0-10).", CheckpointCategory.STACK),
-                cp(caseId, "Физический осмотр", "Рефлексы, подвижность конечностей, реакция зрачков.", CheckpointCategory.PHYSICAL),
-                cp(caseId, "Идентификация личности", "Подтверждение личности через кодовую фразу и biometric scan.", CheckpointCategory.IDENTITY)
-        );
+                cp(
+                        caseId,
+                        "Когнитивный тест #1",
+                        "Базовая ориентация: имя, место, дата.",
+                        CheckpointCategory.COGNITIVE),
+                cp(
+                        caseId,
+                        "Когнитивный тест #2",
+                        "Память: события за последние 48 часов до переноса.",
+                        CheckpointCategory.COGNITIVE),
+                cp(
+                        caseId,
+                        "Проверка Stack Shock",
+                        "Оценка по шкале Stack Shock Index (0-10).",
+                        CheckpointCategory.STACK),
+                cp(
+                        caseId,
+                        "Физический осмотр",
+                        "Рефлексы, подвижность конечностей, реакция зрачков.",
+                        CheckpointCategory.PHYSICAL),
+                cp(
+                        caseId,
+                        "Идентификация личности",
+                        "Подтверждение личности через кодовую фразу и biometric scan.",
+                        CheckpointCategory.IDENTITY));
         checkpointRepository.saveAll(defaults);
     }
 
@@ -189,7 +218,8 @@ public class CaseService {
 
     @Transactional(readOnly = true)
     public NeedlecastCase getEntity(Long id) {
-        return caseRepository.findById(id)
+        return caseRepository
+                .findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Case not found"));
     }
 }

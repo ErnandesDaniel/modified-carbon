@@ -8,6 +8,4 @@ public record ClientDashboardDto(
         List<OrderDto> orders,
         List<CaseDto> cases,
         List<CertificateDto> certificates,
-        List<StackDto> stacks
-) {
-}
+        List<StackDto> stacks) {}

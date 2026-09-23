@@ -1,0 +1,90 @@
+name: scms
+
+# Режимы запуска (как в эталонном проекте ai-graph-chat):
+#   Только инфраструктура (Postgres + pgAdmin) для локальной разработки:
+#       docker compose -f infra/compose.yaml up -d
+#   Весь стек в контейнерах (backend + два портала):
+#       docker compose -f infra/compose.yaml --profile full up -d --build
+services:
+  postgres:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${ADMIN_DB_USERNAME}
+      POSTGRES_PASSWORD: ${ADMIN_DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      APP_DB_USERNAME: ${APP_DB_USERNAME}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ../backend/src/main/resources/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${ADMIN_DB_USERNAME} -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "${PG_ADMIN_PORT:-8081}:80"
+    logging:
+      driver: none
+
+  backend:
+    profiles: ["full"]
+    build: ../backend
+    restart: unless-stopped
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME}
+      ADMIN_DB_USERNAME: ${ADMIN_DB_USERNAME}
+      ADMIN_DB_PASSWORD: ${ADMIN_DB_PASSWORD}
+      APP_DB_USERNAME: ${APP_DB_USERNAME}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD}
+      APP_PORT: 3001
+      AUTH_SECRET: ${AUTH_SECRET}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI}
+      FRONTEND_BASE_URL: ${FRONTEND_BASE_URL}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      FORWARD_HEADERS_STRATEGY: ${FORWARD_HEADERS_STRATEGY:-none}
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  client-portal:
+    profiles: ["full"]
+    build: ../client-portal
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  internal-portal:
+    profiles: ["full"]
+    build: ../internal-portal
+    restart: unless-stopped
+    ports:
+      - "3002:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+  pgadmin_data:

@@ -16,6 +16,4 @@ public record AdminDashboardDto(
         long pendingValidation,
         long openIncidents,
         long newOrders,
-        List<AuditLogDto> recentAudit
-) {
-}
+        List<AuditLogDto> recentAudit) {}

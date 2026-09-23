@@ -1,5 +1,6 @@
 package ru.scms.back.services;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,6 @@ import ru.scms.back.enums.UserAuthProvider;
 import ru.scms.back.repositories.UserIdentityRepository;
 import ru.scms.back.repositories.UserRepository;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -28,19 +27,19 @@ public class UserService {
 
     @Transactional
     public User getOrCreateUser(UserAuthProvider provider, String providerUserId, String name, String email) {
-        return userIdentityRepository.findByProviderNameAndProviderUserId(provider, providerUserId)
-                .map(identity -> userRepository.findById(identity.getUserId())
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found for identity")))
+        return userIdentityRepository
+                .findByProviderNameAndProviderUserId(provider, providerUserId)
+                .map(identity -> userRepository
+                        .findById(identity.getUserId())
+                        .orElseThrow(
+                                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found for identity")))
                 .orElseGet(() -> createUser(provider, providerUserId, name, email));
     }
 
     private User createUser(UserAuthProvider provider, String providerUserId, String name, String email) {
         AppRole role = provider == UserAuthProvider.LOCAL ? AppRole.SLEEVE_BROKER : AppRole.METH;
-        User newUser = userRepository.save(User.builder()
-                .displayName(name)
-                .email(email)
-                .role(role)
-                .build());
+        User newUser = userRepository.save(
+                User.builder().displayName(name).email(email).role(role).build());
 
         userIdentityRepository.save(UserIdentity.builder()
                 .userId(newUser.getId())
@@ -84,7 +83,8 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User getUserOrThrow(Long userId) {
-        return userRepository.findById(userId)
+        return userRepository
+                .findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
 
@@ -95,7 +95,9 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public List<UserDto> listUsers() {
-        return userRepository.findAllByOrderByIdAsc().stream().map(dtoMapper::toUser).toList();
+        return userRepository.findAllByOrderByIdAsc().stream()
+                .map(dtoMapper::toUser)
+                .toList();
     }
 
     @Transactional
@@ -109,8 +111,7 @@ public class UserService {
         }
         if (request.role() != null && request.role() != user.getRole()) {
             user.setRole(request.role());
-            auditService.log(userId, AuditAction.ROLE_CHANGE, "USER", userId,
-                    "Роль изменена на " + request.role());
+            auditService.log(userId, AuditAction.ROLE_CHANGE, "USER", userId, "Роль изменена на " + request.role());
         }
         return dtoMapper.toUser(userRepository.save(user));
     }
