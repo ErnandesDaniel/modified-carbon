@@ -25,7 +25,7 @@ docker compose -f infra/compose.yaml --profile full up -d --build
 Готовность проверить так (backend поднимается последним — он накатывает Liquibase):
 
 ```powershell
-docker compose -f infra/compose.yaml --profile full ps
+docker compose -f compose.yaml --profile full up -d --build
 # backend готов, когда Swagger отвечает:
 Invoke-WebRequest http://localhost:3001/api/v3/api-docs -UseBasicParsing | Select-Object -ExpandProperty StatusCode
 ```

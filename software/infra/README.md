@@ -47,7 +47,7 @@ Swagger: http://localhost:3001/api/swagger-ui/index.html
 ### 2. Весь стек в контейнерах
 
 ```powershell
-docker compose -f infra/compose.yaml --profile full up -d --build
+docker compose -f compose.yaml --profile full up -d --build
 ```
 
 Поднимаются: `postgres`, `pgadmin`, `backend`, `client-portal` (nginx, :3000),
@@ -56,9 +56,9 @@ docker compose -f infra/compose.yaml --profile full up -d --build
 ### Остановка
 
 ```powershell
-docker compose -f infra/compose.yaml down                # инфраструктура
-docker compose -f infra/compose.yaml --profile full down # весь стек
-docker compose -f infra/compose.yaml --profile full down -v   # + удалить volume'ы (сброс БД)
+docker compose -f compose.yaml down                # инфраструктура
+docker compose -f compose.yaml --profile full down # весь стек
+docker compose -f compose.yaml --profile full down -v   # + удалить volume'ы (сброс БД)
 ```
 
 ## Переменные окружения
