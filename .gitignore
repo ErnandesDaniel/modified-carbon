@@ -6,3 +6,4 @@ plantuml.jar
 .env.local
 .env.*.local
 pdf/
+ai-graph-chat/
