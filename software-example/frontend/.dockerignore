@@ -1,9 +1,0 @@
-.git
-.next
-node_modules
-.dockerignore
-.env
-.gitignore
-.gitlab-ci.yml
-Dockerfile
-README.md
