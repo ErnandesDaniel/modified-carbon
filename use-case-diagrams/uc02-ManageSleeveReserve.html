@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<title>UC-02 ManageSleeveReserve</title>
+<title>UC-02 ManageSleeveReserve · Резерв тел</title>
 <style>
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -22,19 +22,13 @@ body {
 .role { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(0,0,0,.65); }
 .page-header { padding: 20px 24px 0; }
 .page-header h1 { margin: 0; font-size: 18px; font-weight: 600; }
-.content { padding: 16px 24px 24px; display: flex; flex-direction: column; gap: 16px; }
+.content { padding: 16px 24px 24px; }
 .card { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 1px 2px rgba(0,0,0,.03), 0 1px 6px -1px rgba(0,0,0,.02), 0 2px 4px rgba(0,0,0,.02); }
-.card h3 { margin: 0 0 16px; font-size: 16px; font-weight: 600; }
-.form { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; }
-.field { display: flex; flex-direction: column; gap: 6px; }
-.field .label { font-size: 14px; }
-input[type=text], select { height: 32px; padding: 4px 11px; border: 1px solid #d9d9d9; border-radius: 6px; font: inherit; font-size: 14px; color: rgba(0,0,0,.88); background: #fff; }
-input[type=text] { width: 110px; }
-select { padding-right: 28px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5L6 8l3.5-3.5' fill='none' stroke='%23000' stroke-opacity='.25' stroke-width='1.4'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 11px center; }
-input[type=text]:focus, select:focus { outline: none; border-color: #722ed1; box-shadow: 0 0 0 2px rgba(114,46,209,.12); }
-.radios { display: flex; gap: 14px; align-items: center; height: 32px; }
-.radios label { display: flex; align-items: center; gap: 6px; }
-input[type=radio] { accent-color: #722ed1; width: 16px; height: 16px; margin: 0; }
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; }
+.toolbar h3 { margin: 0; font-size: 16px; font-weight: 600; }
+.toolbar .right { display: flex; gap: 8px; align-items: center; }
+input[type=text] { height: 32px; padding: 4px 11px; border: 1px solid #d9d9d9; border-radius: 6px; font: inherit; font-size: 14px; color: rgba(0,0,0,.88); background: #fff; width: 200px; }
+input[type=text]:focus { outline: none; border-color: #722ed1; box-shadow: 0 0 0 2px rgba(114,46,209,.12); }
 .btn { height: 32px; padding: 4px 15px; border: 1px solid #d9d9d9; border-radius: 6px; background: #fff; color: rgba(0,0,0,.88); font: inherit; font-size: 14px; display: inline-flex; align-items: center; }
 .btn-primary { background: #722ed1; border-color: #722ed1; color: #fff; }
 .btn-sm { height: 24px; padding: 0 7px; font-size: 12px; }
@@ -44,10 +38,15 @@ thead th { background: #fafafa; text-align: left; font-weight: 600; padding: 12p
 tbody td { padding: 12px 16px; border-bottom: 1px solid #f0f0f0; }
 tbody tr:last-child td { border-bottom: none; }
 .tag { display: inline-block; padding: 0 7px; font-size: 12px; line-height: 20px; border-radius: 4px; border: 1px solid transparent; }
+.tag-default { background: #fafafa; border-color: #d9d9d9; }
 .tag-success { background: #f6ffed; border-color: #b7eb8f; color: #52c41a; }
 .tag-processing { background: #e6f4ff; border-color: #91caff; color: #1677ff; }
 .tag-warning { background: #fffbe6; border-color: #ffe58f; color: #faad14; }
+.tag-inuse { background: #f9f0ff; border-color: #d3adf7; color: #722ed1; }
 .tag-purple { background: #f9f0ff; border-color: #d3adf7; color: #722ed1; }
+.mainnav { height: 44px; background: #fff; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 2px; padding: 0 24px; font-size: 14px; }
+.mainnav a { color: rgba(0,0,0,.65); text-decoration: none; padding: 0 12px; height: 44px; display: inline-flex; align-items: center; border-bottom: 2px solid transparent; }
+.mainnav a.active { color: #722ed1; border-bottom-color: #722ed1; font-weight: 500; }
 </style>
 </head>
 <body>
@@ -56,31 +55,19 @@ tbody tr:last-child td { border-bottom: none; }
     <div class="brand">SCMS<small>Sleeving Clinic Management System</small></div>
     <div class="role"><span class="tag tag-purple">Sleeve Broker</span> Sleeve Broker</div>
   </header>
+  <nav class="mainnav">
+    <a href="#" class="active">Каталог тел</a>
+    <a href="#">Заказы</a>
+  </nav>
   <div class="page-header"><h1>Резерв тел</h1></div>
   <main class="content">
     <div class="card">
-      <h3>Заказать культивирование</h3>
-      <div class="form">
-        <div class="field">
-          <span class="label">Генетический архив</span>
-          <select><option>Архив «Нью-Голливуд»</option><option>Архив «Протекторат»</option></select>
+      <div class="toolbar">
+        <h3>Резерв тел</h3>
+        <div class="right">
+          <button class="btn btn-primary">Заказать культивирование</button>
         </div>
-        <div class="field"><span class="label">Рост, см</span><input type="text" value="176"></div>
-        <div class="field"><span class="label">Вес, кг</span><input type="text" value="70"></div>
-        <div class="field"><span class="label">Возраст</span><input type="text" value="28"></div>
-        <div class="field">
-          <span class="label">Пол</span>
-          <div class="radios">
-            <label><input type="radio" name="sex"> М</label>
-            <label><input type="radio" name="sex" checked> Ж</label>
-          </div>
-        </div>
-        <button class="btn btn-primary">Создать заказ</button>
       </div>
-    </div>
-
-    <div class="card">
-      <h3>Резерв тел</h3>
       <div class="table">
         <table>
           <thead>
@@ -88,19 +75,39 @@ tbody tr:last-child td { border-bottom: none; }
           </thead>
           <tbody>
             <tr>
-              <td>SLV-045</td><td>Ж</td><td>176</td><td>70</td><td>28</td>
+              <td>SLV-047</td><td>Ж</td><td>174</td><td>60</td><td>27</td>
+              <td><span class="tag tag-success">Доступно</span></td>
+              <td><button class="btn btn-primary btn-sm">Зарезервировать</button> <button class="btn btn-sm">Подробнее</button></td>
+            </tr>
+            <tr>
+              <td>SLV-051</td><td>М</td><td>180</td><td>76</td><td>29</td>
+              <td><span class="tag tag-success">Доступно</span></td>
+              <td><button class="btn btn-primary btn-sm">Зарезервировать</button> <button class="btn btn-sm">Подробнее</button></td>
+            </tr>
+            <tr>
+              <td>SLV-210</td><td>Ж</td><td>176</td><td>60</td><td>27</td>
               <td><span class="tag tag-processing">В культивации</span></td>
               <td><button class="btn btn-sm">Отследить</button></td>
             </tr>
             <tr>
               <td>SLV-046</td><td>М</td><td>182</td><td>78</td><td>30</td>
               <td><span class="tag tag-warning">В приёмке</span></td>
-              <td><button class="btn btn-primary btn-sm">Принять</button></td>
+              <td><button class="btn btn-primary btn-sm">Принять</button> <button class="btn btn-sm">Отклонить</button></td>
             </tr>
             <tr>
-              <td>SLV-047</td><td>Ж</td><td>169</td><td>56</td><td>25</td>
-              <td><span class="tag tag-success">Доступно</span></td>
+              <td>SLV-042</td><td>Ж</td><td>172</td><td>58</td><td>26</td>
+              <td><span class="tag tag-default">Зарезервировано</span></td>
               <td><button class="btn btn-sm">Подробнее</button></td>
+            </tr>
+            <tr>
+              <td>SLV-012</td><td>М</td><td>188</td><td>84</td><td>34</td>
+              <td><span class="tag tag-inuse">Используется</span></td>
+              <td><button class="btn btn-sm">Подробнее</button></td>
+            </tr>
+            <tr>
+              <td>SLV-031</td><td>Ж</td><td>169</td><td>56</td><td>25</td>
+              <td><span class="tag tag-default">Списано</span></td>
+              <td><button class="btn btn-sm">Детали</button></td>
             </tr>
           </tbody>
         </table>

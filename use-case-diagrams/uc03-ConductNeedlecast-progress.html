@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<title>UC-04 ExamineAndCertify</title>
+<title>UC-03 ConductNeedlecast · Перенос в процессе</title>
 <style>
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -22,6 +22,7 @@ body {
 .role { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(0,0,0,.65); }
 .page-header { padding: 20px 24px 0; }
 .page-header h1 { margin: 0; font-size: 18px; font-weight: 600; }
+.page-header .crumb { color: rgba(0,0,0,.45); font-size: 13px; margin-bottom: 6px; }
 .content { padding: 16px 24px 24px; }
 .card { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 1px 2px rgba(0,0,0,.03), 0 1px 6px -1px rgba(0,0,0,.02), 0 2px 4px rgba(0,0,0,.02); }
 .desc { display: flex; flex-wrap: wrap; border: 1px solid #f0f0f0; border-radius: 8px; overflow: hidden; }
@@ -31,15 +32,16 @@ body {
 .desc .v { padding: 10px 12px; flex: 1; }
 .block { margin-top: 20px; }
 .block .label { font-size: 14px; margin-bottom: 8px; display: block; }
-.checks { display: flex; flex-direction: column; gap: 10px; }
-.checks label { display: flex; align-items: center; gap: 8px; }
-input[type=checkbox] { accent-color: #722ed1; width: 16px; height: 16px; margin: 0; }
+.radios { display: flex; gap: 16px; align-items: center; height: 32px; }
+.radios label { display: flex; align-items: center; gap: 6px; }
+input[type=radio] { accent-color: #722ed1; width: 16px; height: 16px; margin: 0; }
 select { height: 32px; padding: 4px 28px 4px 11px; border: 1px solid #d9d9d9; border-radius: 6px; font: inherit; font-size: 14px; color: rgba(0,0,0,.88); background: #fff; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5L6 8l3.5-3.5' fill='none' stroke='%23000' stroke-opacity='.25' stroke-width='1.4'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 11px center; }
+.actions { display: flex; gap: 8px; margin-top: 20px; }
 .btn { height: 32px; padding: 4px 15px; border: 1px solid #d9d9d9; border-radius: 6px; background: #fff; color: rgba(0,0,0,.88); font: inherit; font-size: 14px; display: inline-flex; align-items: center; }
 .btn-primary { background: #722ed1; border-color: #722ed1; color: #fff; }
 .btn-danger { color: #ff4d4f; border-color: #ff4d4f; }
-.actions { display: flex; gap: 8px; margin-top: 20px; }
 .tag { display: inline-block; padding: 0 7px; font-size: 12px; line-height: 20px; border-radius: 4px; border: 1px solid transparent; }
+.tag-processing { background: #e6f4ff; border-color: #91caff; color: #1677ff; }
 .tag-purple { background: #f9f0ff; border-color: #d3adf7; color: #722ed1; }
 .mainnav { height: 44px; background: #fff; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 2px; padding: 0 24px; font-size: 14px; }
 .mainnav a { color: rgba(0,0,0,.65); text-decoration: none; padding: 0 12px; height: 44px; display: inline-flex; align-items: center; border-bottom: 2px solid transparent; }
@@ -50,51 +52,47 @@ select { height: 32px; padding: 4px 28px 4px 11px; border: 1px solid #d9d9d9; bo
 <div class="app">
   <header class="topbar">
     <div class="brand">SCMS<small>Sleeving Clinic Management System</small></div>
-    <div class="role"><span class="tag tag-purple">Psychosurgeon</span> Psychosurgeon</div>
+    <div class="role"><span class="tag tag-purple">Needlecaster</span> Needlecaster</div>
   </header>
   <nav class="mainnav">
-    <a href="#" class="active">Валидация</a>
+    <a href="#" class="active">Needlecast</a>
   </nav>
-  <div class="page-header"><h1>Осмотр и сертификация</h1></div>
+  <div class="page-header">
+    <div class="crumb">Процедуры / CS-101</div>
+    <h1>Процедура переноса</h1>
+  </div>
   <main class="content">
     <div class="card">
       <div class="desc">
         <div class="cell"><div class="k">Клиент</div><div class="v">M. Kovacs</div></div>
         <div class="cell"><div class="k">Кейс</div><div class="v">CS-101</div></div>
         <div class="cell"><div class="k">Кортикальный стек</div><div class="v">STK-77</div></div>
-        <div class="cell"><div class="k">Тело (sleeve)</div><div class="v">SLV-042</div></div>
+        <div class="cell"><div class="k">Тело (sleeve)</div><div class="v">SLV-042 (Ж, 172 см)</div></div>
+        <div class="cell"><div class="k">Статус</div><div class="v"><span class="tag tag-processing">Перенос в процессе</span></div></div>
+        <div class="cell"><div class="k">Время начала</div><div class="v">09:32:14</div></div>
       </div>
 
       <div class="block">
-        <span class="label">Протокол переноса</span>
-        <div class="desc">
-          <div class="cell"><div class="k">Время переноса</div><div class="v">2384-05-15 09:32 → 10:07</div></div>
-          <div class="cell"><div class="k">Результат</div><div class="v">Успешно</div></div>
+        <span class="label">Результат процедуры</span>
+        <div class="radios">
+          <label><input type="radio" name="res" checked> Успешно</label>
+          <label><input type="radio" name="res"> Ошибка</label>
         </div>
       </div>
 
       <div class="block">
-        <span class="label">Чек-лист осмотра</span>
-        <div class="checks">
-          <label><input type="checkbox" checked> Ориентация — норма</label>
-          <label><input type="checkbox" checked> Память — норма</label>
-          <label><input type="checkbox"> Целостность личности</label>
-        </div>
-      </div>
-
-      <div class="block">
-        <span class="label">Тип осложнения (при отклонениях)</span>
+        <span class="label">Тип инцидента (при ошибке)</span>
         <select>
           <option>— не требуется —</option>
           <option>Stack shock</option>
-          <option>Фрагментация личности</option>
           <option>Отторжение</option>
+          <option>Повреждение стека</option>
         </select>
       </div>
 
       <div class="actions">
-        <button class="btn btn-primary">Подтвердить</button>
-        <button class="btn btn-danger">Зафиксировать осложнение</button>
+        <button class="btn btn-primary">Отметить результат</button>
+        <button class="btn btn-danger">Зафиксировать инцидент</button>
       </div>
     </div>
   </main>

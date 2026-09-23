@@ -163,30 +163,7 @@ Markdown (и превью в WebStorm, и `md-to-pdf`) умеет отображ
 3. Картинка в `Usecase.md` обновляется сама — путь не меняется.
 4. `.html` и `.png` коммитятся в git вместе.
 
-### Как получить PNG из HTML
-
-Открыть `.html` в браузере и сделать скриншот блока макета (элемент `.app`).
-Или через headless-браузер, например Playwright:
-
-```js
-await page.setViewportSize({ width: 1300, height: 900 });
-await page.goto('use-case-diagrams/uc01-OrderSleeve.html');
-await page.locator('.app').screenshot({ path: 'use-case-diagrams/uc01-OrderSleeve-mockup.png' });
-```
-
-Макет (`.app`) центрируется по горизонтали, а скриншот снимается с самого блока —
-поэтому на изображении нет смещения контента.
-
----
-
 ## Инструментарий
-
-### md-to-pdf
-
-```powershell
-# Проверка установки
-md-to-pdf --version
-```
 
 ### PlantUML
 

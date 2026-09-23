@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<title>UC-01 OrderSleeve</title>
+<title>UC-01 OrderSleeve · Мои заказы</title>
 <style>
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -24,25 +24,20 @@ body {
 .page-header h1 { margin: 0; font-size: 18px; font-weight: 600; }
 .content { padding: 16px 24px 24px; }
 .card { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 1px 2px rgba(0,0,0,.03), 0 1px 6px -1px rgba(0,0,0,.02), 0 2px 4px rgba(0,0,0,.02); }
-.filters { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; }
-.field { display: flex; flex-direction: column; gap: 6px; }
-.field .label { font-size: 14px; }
-input[type=text] { height: 32px; padding: 4px 11px; border: 1px solid #d9d9d9; border-radius: 6px; font: inherit; font-size: 14px; color: rgba(0,0,0,.88); background: #fff; width: 110px; }
-input[type=text]:focus { outline: none; border-color: #722ed1; box-shadow: 0 0 0 2px rgba(114,46,209,.12); }
-.radios { display: flex; gap: 14px; align-items: center; height: 32px; }
-.radios label { display: flex; align-items: center; gap: 6px; }
-input[type=radio] { accent-color: #722ed1; width: 16px; height: 16px; margin: 0; }
-.btn { height: 32px; padding: 4px 15px; border: 1px solid #d9d9d9; border-radius: 6px; background: #fff; color: rgba(0,0,0,.88); font: inherit; font-size: 14px; display: inline-flex; align-items: center; }
-.btn-primary { background: #722ed1; border-color: #722ed1; color: #fff; }
-.btn-sm { height: 24px; padding: 0 7px; font-size: 12px; }
-.table { border: 1px solid #f0f0f0; border-radius: 8px; overflow: hidden; margin-top: 20px; }
+.card h3 { margin: 0 0 16px; font-size: 16px; font-weight: 600; }
+.table { border: 1px solid #f0f0f0; border-radius: 8px; overflow: hidden; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 thead th { background: #fafafa; text-align: left; font-weight: 600; padding: 12px 16px; border-bottom: 1px solid #f0f0f0; }
 tbody td { padding: 12px 16px; border-bottom: 1px solid #f0f0f0; }
 tbody tr:last-child td { border-bottom: none; }
+.btn { height: 32px; padding: 4px 15px; border: 1px solid #d9d9d9; border-radius: 6px; background: #fff; color: rgba(0,0,0,.88); font: inherit; font-size: 14px; display: inline-flex; align-items: center; }
+.btn-primary { background: #722ed1; border-color: #722ed1; color: #fff; }
+.btn-sm { height: 24px; padding: 0 7px; font-size: 12px; }
 .tag { display: inline-block; padding: 0 7px; font-size: 12px; line-height: 20px; border-radius: 4px; border: 1px solid transparent; }
 .tag-default { background: #fafafa; border-color: #d9d9d9; }
 .tag-success { background: #f6ffed; border-color: #b7eb8f; color: #52c41a; }
+.tag-processing { background: #e6f4ff; border-color: #91caff; color: #1677ff; }
+.tag-warning { background: #fffbe6; border-color: #ffe58f; color: #faad14; }
 .tag-purple { background: #f9f0ff; border-color: #d3adf7; color: #722ed1; }
 .mainnav { height: 44px; background: #fff; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 2px; padding: 0 24px; font-size: 14px; }
 .mainnav a { color: rgba(0,0,0,.65); text-decoration: none; padding: 0 12px; height: 44px; display: inline-flex; align-items: center; border-bottom: 2px solid transparent; }
@@ -57,48 +52,39 @@ tbody tr:last-child td { border-bottom: none; }
   </header>
   <nav class="mainnav">
     <a href="#">Личный кабинет</a>
-    <a href="#" class="active">Каталог тел</a>
-    <a href="#">Мои заказы</a>
+    <a href="#">Каталог тел</a>
+    <a href="#" class="active">Мои заказы</a>
     <a href="#">Документы</a>
   </nav>
-  <div class="page-header"><h1>Каталог тел</h1></div>
+  <div class="page-header"><h1>Мои заказы</h1></div>
   <main class="content">
     <div class="card">
-      <div class="filters">
-        <div class="field"><span class="label">Рост, см</span><input type="text" value="172"></div>
-        <div class="field"><span class="label">Вес, кг</span><input type="text" value="58"></div>
-        <div class="field"><span class="label">Возраст</span><input type="text" value="24–32"></div>
-        <div class="field">
-          <span class="label">Пол</span>
-          <div class="radios">
-            <label><input type="radio" name="sex" checked> Любой</label>
-            <label><input type="radio" name="sex"> М</label>
-            <label><input type="radio" name="sex"> Ж</label>
-          </div>
-        </div>
-        <button class="btn btn-primary">Найти</button>
-      </div>
-
+      <h3>Заказы клиента M. Kovacs</h3>
       <div class="table">
         <table>
           <thead>
-            <tr><th>ID</th><th>Пол</th><th>Рост</th><th>Вес</th><th>Возраст</th><th>Статус</th><th>Действие</th></tr>
+            <tr><th>Заказ</th><th>Тело</th><th>Дата</th><th>Статус</th><th>Кейс</th><th>Действие</th></tr>
           </thead>
           <tbody>
             <tr>
-              <td>SLV-042</td><td>Ж</td><td>172</td><td>58</td><td>26</td>
-              <td><span class="tag tag-success">Доступно</span></td>
-              <td><button class="btn btn-primary btn-sm">Заказать</button></td>
+              <td>ORD-541</td><td>SLV-061</td><td>2384-05-15</td>
+              <td><span class="tag tag-default">Новый</span></td><td>—</td>
+              <td><button class="btn btn-sm">Отменить</button></td>
             </tr>
             <tr>
-              <td>SLV-117</td><td>М</td><td>185</td><td>80</td><td>31</td>
-              <td><span class="tag tag-success">Доступно</span></td>
-              <td><button class="btn btn-primary btn-sm">Заказать</button></td>
+              <td>ORD-531</td><td>SLV-042</td><td>2384-05-12</td>
+              <td><span class="tag tag-success">Подтверждён</span></td><td>CS-101</td>
+              <td><button class="btn btn-primary btn-sm">Открыть</button></td>
             </tr>
             <tr>
-              <td>SLV-203</td><td>Ж</td><td>168</td><td>55</td><td>24</td>
-              <td><span class="tag tag-default">Зарезервировано</span></td>
-              <td><button class="btn btn-sm">Подробнее</button></td>
+              <td>ORD-524</td><td>SLV-210</td><td>2384-05-11</td>
+              <td><span class="tag tag-warning">Ожидает тело</span></td><td>CS-110</td>
+              <td><button class="btn btn-sm">Открыть</button></td>
+            </tr>
+            <tr>
+              <td>ORD-512</td><td>SLV-033</td><td>2384-04-28</td>
+              <td><span class="tag tag-success">Завершён</span></td><td>CS-090</td>
+              <td><button class="btn btn-sm">Сертификат</button></td>
             </tr>
           </tbody>
         </table>
