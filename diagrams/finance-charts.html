@@ -31,7 +31,7 @@
   const MONTHS = ['Фев 26','Мар 26','Апр 26','Май 26','Июн 26','Июл 26','Авг 26','Сен 26','Окт 26','Ноя 26','Дек 26',
                   'Янв 27','Фев 27','Мар 27','Апр 27','Май 27','Июн 27','Июл 27','Авг 27','Сен 27','Окт 27','Ноя 27','Дек 27'];
   const CUM = [-952000,-1278500,-1605000,-1931500,-2258000,-2258000,-2258000,-2939500,-3621000,-4302500,-6000000,
-               -5009000,-4018000,-3027000,-2036000,-1045000,-54000,937000,1928000,2919000,3910000,4901000,5892000];
+               -5125008,-4250016,-3375024,-2500032,-1625040,-750048,124944,999936,1874928,2749920,3624912,4499904];
 
   const fmt = n => {
     const s = Math.abs(n).toLocaleString('ru-RU').replace(/\u00A0/g,' ');
@@ -72,13 +72,13 @@
     for (let i = 1; i < n; i++) d += ` L ${x(i)} ${y(CUM[i - 1])} L ${x(i)} ${y(CUM[i])}`;
     svg.appendChild(svgEl('path', { d, fill: 'none', stroke: '#722ed1', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }));
 
-    const frac = 54000 / 991000;
+    const frac = 750048 / 874992;
     const bx = x(16) + (x(17) - x(16)) * frac;
     const by = y(0);
     svg.appendChild(svgEl('line', { x1: bx, x2: bx, y1: m.top, y2: by, stroke: '#52c41a', 'stroke-width': 1.5, 'stroke-dasharray': '4 4' }));
     svg.appendChild(svgEl('circle', { cx: bx, cy: by, r: 5, fill: '#52c41a' }));
     const lbl = svgEl('text', { x: bx - 8, y: by - 12, 'text-anchor': 'end', 'font-size': 12, 'font-weight': 600, fill: '#389e0d' });
-    lbl.textContent = 'Точка окупаемости ≈ 6,1 мес (июль 2027)';
+    lbl.textContent = 'Точка окупаемости ≈ 6,9 мес (июль 2027)';
     svg.appendChild(lbl);
 
     const lg = svgEl('g', {});

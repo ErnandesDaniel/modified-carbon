@@ -67,7 +67,7 @@
 ## 2.2 Assumptions and Constraints (Влияющие факторы и ограничения)
 
 - Технологический стек: Java (backend, Spring Boot), TypeScript (frontend, React), PostgreSQL.
-- Развёртывание: сервер helios.cs.ifmo.ru (FreeBSD, OpenJDK 21, Node.js 22).
+- Развёртывание: production — выделенный облачный VPS (Docker Compose); разработка и тестирование — учебный сервер helios.cs.ifmo.ru (FreeBSD, OpenJDK 21, Node.js 22).
 - Срок разработки: 2 учебных семестра (февраль — декабрь 2026, ~10 месяцев, 34 активные недели).
 - Бюджет: 6 000 000 кредитов (расчёт в разделе 4).
 - Документация ведётся на русском и английском языках (билингвальный формат).
