@@ -4,6 +4,14 @@
 
 **Архитектурно значимые прецеденты:** UC-01 (OrderSleeve), UC-02 (ManageSleeveReserve), UC-03 (ConductNeedlecast), UC-04 (ExamineAndCertify), UC-05 (RegisterMeth) — все прецеденты являются архитектурно значимыми, так как определяют ключевые требования к производительности, безопасности и интеграции с внешними системами.
 
+## Общая диаграмма прецедентов (Overall Use-Case Diagram)
+
+Сводная диаграмма связывает все пять прецедентов в единый процесс обслуживания клиента. Поток выполнения читается слева направо: регистрация (`UC-05`) и пополнение резерва (`UC-02`) → заказ тела (`UC-01`) → перенос сознания (`UC-03`) → осмотр и сертификация (`UC-04`).
+
+![Общая диаграмма вариантов использования SCMS](../use-case-diagrams/uc00-Overview.png)
+
+Исходник диаграммы: [`use-case-diagrams/uc00-Overview.puml`](../use-case-diagrams/uc00-Overview.puml)
+
 ---
 
 # UC-01. OrderSleeve — Заказ тела клиентом
@@ -84,15 +92,49 @@ Meth просматривает каталог доступных тел, выб
 
 ## 9. Interface example (Пример интерфейса)
 
-![UC-01: Макет интерфейса](../use-case-diagrams/uc01-OrderSleeve-mockup.png)
+Прецедент охватывает несколько экранов. Ниже приведены макеты всех шагов основного потока и точки расширения.
 
-*Макет личного кабинета Meth: фильтр подбора тела (рост/вес/пол/возраст), таблица доступных тел с кнопкой «Заказать» и статус заказа.*
+### 9.1 Каталог тел (шаги 1–5)
+
+![UC-01: Каталог тел](../use-case-diagrams/uc01-OrderSleeve-mockup.png)
+
+*Личный кабинет Meth: фильтр подбора тела (рост/вес/пол/возраст) и таблица доступных тел с кнопкой «Заказать».*
 
 Исходник макета: [`use-case-diagrams/uc01-OrderSleeve.html`](../use-case-diagrams/uc01-OrderSleeve.html)
 
-**Интерфейс:** личный кабинет Meth, вкладка «Каталог тел» — экран, в котором выполняется весь основной поток прецедента.
+### 9.2 Оформление заказа (шаг 6)
 
-Альтернативный поток отображается в этом же интерфейсе: при отсутствии тела в резерве (NoAvailableSleeves) заказ переводится в статус «Ожидает тело», а Sleeve Broker инициирует культивирование.
+![UC-01: Оформление заказа](../use-case-diagrams/uc01-OrderSleeve-order-mockup.png)
+
+*Подтверждение выбранного тела: параметры, условия и создание заказа со статусом «Новый».*
+
+Исходник макета: [`use-case-diagrams/uc01-OrderSleeve-order.html`](../use-case-diagrams/uc01-OrderSleeve-order.html)
+
+### 9.3 Обработка заказа Sleeve Broker (шаги 7–11)
+
+![UC-01: Обработка заказа брокером](../use-case-diagrams/uc01-OrderSleeve-broker-mockup.png)
+
+*Sleeve Broker: список поступивших заказов, проверка резерва и кнопка «Зарезервировать», переводящая заказ в статус «Подтверждён».*
+
+Исходник макета: [`use-case-diagrams/uc01-OrderSleeve-broker.html`](../use-case-diagrams/uc01-OrderSleeve-broker.html)
+
+### 9.4 Статус заказа Meth — «Подтверждён» (шаги 12–13, основная последовательность)
+
+![UC-01: Статус заказа «Подтверждён»](../use-case-diagrams/uc01-OrderSleeve-status-mockup.png)
+
+*Личный кабинет Meth: таймлайн кейса CS-101. Тело SLV-042 зарезервировано, заказ ORD-531 в статусе «Подтверждён».*
+
+Исходник макета: [`use-case-diagrams/uc01-OrderSleeve-status.html`](../use-case-diagrams/uc01-OrderSleeve-status.html)
+
+### 9.5 Статус заказа Meth — «Ожидает тело» (точка расширения NoAvailableSleeves)
+
+![UC-01: Статус заказа «Ожидает тело»](../use-case-diagrams/uc01-OrderSleeve-waiting-mockup.png)
+
+*Личный кабинет Meth: кейс CS-110 (ORD-524, тело SLV-210). Подходящего тела не было в резерве — заказано культивирование, заказ в статусе «Ожидает тело».*
+
+Исходник макета: [`use-case-diagrams/uc01-OrderSleeve-waiting.html`](../use-case-diagrams/uc01-OrderSleeve-waiting.html)
+
+**Интерфейс:** личный кабинет Meth (каталог, оформление, статус) и панель Sleeve Broker (обработка заказа).
 
 <!-- FR: FR-003-01, FR-013-01, FR-013-02 -->
 
@@ -157,13 +199,31 @@ ManageSleeveReserve — пополнение резерва тел.
 
 ## 9. Interface example (Пример интерфейса)
 
-![UC-02: Макет интерфейса](../use-case-diagrams/uc02-ManageSleeveReserve-mockup.png)
+### 9.1 Резерв тел (шаги 1–2, 13)
 
-*Макет панели Sleeve Broker: форма заказа культивирования (генетический архив, параметры тела) и таблица резерва со статусами и действием «Принять».*
+![UC-02: Резерв тел](../use-case-diagrams/uc02-ManageSleeveReserve-mockup.png)
+
+*Панель Sleeve Broker: таблица резерва со статусами тел («В культивации», «В приёмке», «Доступно») и кнопкой «Заказать культивирование».*
 
 Исходник макета: [`use-case-diagrams/uc02-ManageSleeveReserve.html`](../use-case-diagrams/uc02-ManageSleeveReserve.html)
 
-**Интерфейс:** панель Sleeve Broker, вкладка «Каталог sleeves» — рабочий экран управления резервом тел.
+### 9.2 Заказ культивирования (шаги 3–8)
+
+![UC-02: Заказ культивирования](../use-case-diagrams/uc02-ManageSleeveReserve-cultivation-mockup.png)
+
+*Форма заказа: выбор генетического архива и параметров тела (рост, вес, пол, возраст), отправка запроса в API архива.*
+
+Исходник макета: [`use-case-diagrams/uc02-ManageSleeveReserve-cultivation.html`](../use-case-diagrams/uc02-ManageSleeveReserve-cultivation.html)
+
+### 9.3 Приёмка поступившего тела (шаги 9–13)
+
+![UC-02: Приёмка тела](../use-case-diagrams/uc02-ManageSleeveReserve-acceptance-mockup.png)
+
+*Сверка фактических параметров поступившего тела с заказом и действия «Принять в резерв» / «Отклонить».*
+
+Исходник макета: [`use-case-diagrams/uc02-ManageSleeveReserve-acceptance.html`](../use-case-diagrams/uc02-ManageSleeveReserve-acceptance.html)
+
+**Интерфейс:** панель Sleeve Broker, раздел «Резерв тел» — резерв, заказ культивирования и приёмка.
 
 Генетический архив либо выделяет готовое тело со своего склада, либо выращивает новое; отдельных альтернативных последовательностей у прецедента нет.
 
@@ -249,15 +309,47 @@ Needlecaster проводит процедуру переноса сознани
 
 ## 9. Interface example (Пример интерфейса)
 
-![UC-03: Макет интерфейса](../use-case-diagrams/uc03-ConductNeedlecast-mockup.png)
+### 9.1 Список назначенных процедур (шаги 1–3)
 
-*Макет рабочего места Needlecaster: карточка процедуры (клиент, стек, тело), кнопка «Начать перенос», выбор результата и кнопки «Отметить результат» / «Зафиксировать инцидент».*
+![UC-03: Список процедур](../use-case-diagrams/uc03-ConductNeedlecast-list-mockup.png)
+
+*Рабочее место Needlecaster: список кейсов на сегодня с параметрами и действием «Открыть».*
+
+Исходник макета: [`use-case-diagrams/uc03-ConductNeedlecast-list.html`](../use-case-diagrams/uc03-ConductNeedlecast-list.html)
+
+### 9.2 Страница процедуры — старт (шаги 4–5)
+
+![UC-03: Страница процедуры](../use-case-diagrams/uc03-ConductNeedlecast-mockup.png)
+
+*Карточка процедуры (клиент, стек, тело), статус «Запланировано» и кнопка «Начать перенос».*
 
 Исходник макета: [`use-case-diagrams/uc03-ConductNeedlecast.html`](../use-case-diagrams/uc03-ConductNeedlecast.html)
 
-**Интерфейс:** рабочее место Needlecaster, вкладка «Процедура» — экран проведения переноса сознания.
+### 9.3 Перенос в процессе (шаги 6–8)
 
-Альтернативный поток ProcedureFailed: Needlecaster нажимает «Зафиксировать инцидент», выбирает тип (stack shock / отторжение / повреждение стека) и указывает описание — кейс блокируется.
+![UC-03: Перенос в процессе](../use-case-diagrams/uc03-ConductNeedlecast-progress-mockup.png)
+
+*После «Начать перенос»: время начала зафиксировано, статус «Перенос в процессе», форма отметки результата (успех/ошибка) и кнопки «Отметить результат» / «Зафиксировать инцидент».*
+
+Исходник макета: [`use-case-diagrams/uc03-ConductNeedlecast-progress.html`](../use-case-diagrams/uc03-ConductNeedlecast-progress.html)
+
+### 9.4 Протокол процедуры (шаги 9–11)
+
+![UC-03: Протокол процедуры](../use-case-diagrams/uc03-ConductNeedlecast-protocol-mockup.png)
+
+*Сохранённый протокол: время начала и завершения, длительность, результат и ответственный; статус кейса «Перенос завершён».*
+
+Исходник макета: [`use-case-diagrams/uc03-ConductNeedlecast-protocol.html`](../use-case-diagrams/uc03-ConductNeedlecast-protocol.html)
+
+### 9.5 Фиксация инцидента (точка расширения ProcedureFailed)
+
+![UC-03: Фиксация инцидента](../use-case-diagrams/uc03-ConductNeedlecast-incident-mockup.png)
+
+*Форма инцидента: тип (stack shock / отторжение / повреждение стека) и описание. После сохранения кейс блокируется и переводится в статус «Инцидент».*
+
+Исходник макета: [`use-case-diagrams/uc03-ConductNeedlecast-incident.html`](../use-case-diagrams/uc03-ConductNeedlecast-incident.html)
+
+**Интерфейс:** рабочее место Needlecaster — список процедур, проведение переноса, протокол и фиксация инцидента.
 
 <!-- FR: FR-007-01, FR-008-01, FR-008-02 -->
 
@@ -341,15 +433,47 @@ Psychosurgeon осматривает клиента после переноса 
 
 ## 9. Interface example (Пример интерфейса)
 
-![UC-04: Макет интерфейса](../use-case-diagrams/uc04-ExamineAndCertify-mockup.png)
+### 9.1 Кейсы на валидации (шаги 1–3)
 
-*Макет панели Psychosurgeon: данные кейса, чек-лист осмотра, выбор типа осложнения и кнопки «Подтвердить» / «Зафиксировать осложнение».*
+![UC-04: Кейсы на валидации](../use-case-diagrams/uc04-ExamineAndCertify-list-mockup.png)
+
+*Панель Psychosurgeon: список кейсов, ожидающих постпроцедурного осмотра, с действием «Открыть».*
+
+Исходник макета: [`use-case-diagrams/uc04-ExamineAndCertify-list.html`](../use-case-diagrams/uc04-ExamineAndCertify-list.html)
+
+### 9.2 Осмотр и сертификация (шаги 4–7)
+
+![UC-04: Осмотр и сертификация](../use-case-diagrams/uc04-ExamineAndCertify-mockup.png)
+
+*Данные кейса и протокол переноса, чек-лист осмотра, выбор типа осложнения и кнопки «Подтвердить» / «Зафиксировать осложнение».*
 
 Исходник макета: [`use-case-diagrams/uc04-ExamineAndCertify.html`](../use-case-diagrams/uc04-ExamineAndCertify.html)
 
-**Интерфейс:** панель Psychosurgeon, вкладка «Кейсы на валидации» — экран осмотра и сертификации клиента.
+### 9.3 Сертификат совместимости (шаги 7–9)
 
-Альтернативный поток Complications: Psychosurgeon нажимает «Зафиксировать осложнение», выбирает тип (stack shock / фрагментация личности / отторжение) и указывает описание — выпуск клиента блокируется (индикатор «Заблокирован»), кейс переводится в статус «Корректирующие процедуры».
+![UC-04: Сертификат совместимости](../use-case-diagrams/uc04-ExamineAndCertify-certificate-mockup.png)
+
+*Автоматически сгенерированный PDF-сертификат: реквизиты клиники, ID клиента, даты процедур и QR-код для проверки подлинности; сертификат доступен Meth.*
+
+Исходник макета: [`use-case-diagrams/uc04-ExamineAndCertify-certificate.html`](../use-case-diagrams/uc04-ExamineAndCertify-certificate.html)
+
+### 9.4 Документы у Meth — доступный сертификат (шаг 8)
+
+![UC-04: Документы Meth](../use-case-diagrams/uc04-ExamineAndCertify-meth-certificate-mockup.png)
+
+*Личный кабинет Meth, раздел «Документы»: сертификат совместимости CERT-101 доступен для скачивания; кейс CS-101 в статусе «Завершено».*
+
+Исходник макета: [`use-case-diagrams/uc04-ExamineAndCertify-meth-certificate.html`](../use-case-diagrams/uc04-ExamineAndCertify-meth-certificate.html)
+
+### 9.5 Фиксация осложнения (точка расширения Complications)
+
+![UC-04: Фиксация осложнения](../use-case-diagrams/uc04-ExamineAndCertify-complication-mockup.png)
+
+*Форма осложнения: тип (stack shock / фрагментация личности / отторжение), описание и контрольные точки. Выпуск клиента блокируется, кейс переводится в статус «Корректирующие процедуры».*
+
+Исходник макета: [`use-case-diagrams/uc04-ExamineAndCertify-complication.html`](../use-case-diagrams/uc04-ExamineAndCertify-complication.html)
+
+**Интерфейс:** панель Psychosurgeon — кейсы на валидации, осмотр, сертификат и фиксация осложнения.
 
 <!-- FR: FR-009-01, FR-010-01, FR-010-02, FR-011-01, FR-011-02 -->
 
@@ -429,15 +553,31 @@ RegisterMeth — регистрация клиента через Google OAuth.
 
 ## 9. Interface example (Пример интерфейса)
 
-![UC-05: Макет интерфейса](../use-case-diagrams/uc05-RegisterMeth-mockup.png)
+### 9.1 Публичная страница и вход через Google (шаги 1–6)
 
-*Макет публичной страницы: кнопка «Войти через Google», экран подтверждения доступа Google (имя, email, аватар).*
+![UC-05: Вход через Google](../use-case-diagrams/uc05-RegisterMeth-mockup.png)
+
+*Публичная страница клиники: кнопка «Войти через Google» и экран подтверждения доступа (имя, email, аватар).*
 
 Исходник макета: [`use-case-diagrams/uc05-RegisterMeth.html`](../use-case-diagrams/uc05-RegisterMeth.html)
 
-**Интерфейс:** публичная страница клиники — точка входа для незарегистрированного Meth.
+### 9.2 Личный кабинет клиента (шаги 7–9)
 
-Альтернативный поток: если email уже зарегистрирован (AccountExists), Meth перенаправляется на вход в существующий личный кабинет.
+![UC-05: Личный кабинет](../use-case-diagrams/uc05-RegisterMeth-cabinet-mockup.png)
+
+*Личный кабинет Meth после создания учётной записи: профиль из Google и доступ к каталогу тел.*
+
+Исходник макета: [`use-case-diagrams/uc05-RegisterMeth-cabinet.html`](../use-case-diagrams/uc05-RegisterMeth-cabinet.html)
+
+### 9.3 AccountExists (точка расширения)
+
+![UC-05: AccountExists](../use-case-diagrams/uc05-RegisterMeth-account-exists-mockup.png)
+
+*Если email из Google уже зарегистрирован, новая учётная запись не создаётся — Meth перенаправляется на вход в существующий личный кабинет.*
+
+Исходник макета: [`use-case-diagrams/uc05-RegisterMeth-account-exists.html`](../use-case-diagrams/uc05-RegisterMeth-account-exists.html)
+
+**Интерфейс:** публичная страница клиники и личный кабинет Meth.
 
 <!-- FR: FR-014-01, FR-014-02 -->
 
@@ -450,6 +590,65 @@ RegisterMeth — регистрация клиента через Google OAuth.
 
 
 
+
+---
+
+# Карта переходов (сквозной сценарий)
+
+## Основной путь (happy-path: клиент M. Kovacs, кейс CS-101)
+
+UC-05 регистрация → UC-01 каталог → UC-01 оформление заказа → UC-01 обработка брокером (резерв) → UC-01 статус «Подтверждён» → UC-03 список процедур → UC-03 старт → UC-03 перенос в процессе → UC-03 протокол → UC-04 список на валидации → UC-04 осмотр (Подтвердить) → UC-04 сертификат → UC-04 документы у Meth (скачивание).
+
+## Ветка NoAvailableSleeves (клиент R. Osei, кейс CS-110)
+
+UC-01 оформление заказа → UC-01 обработка брокером (тела нет в резерве) → UC-02 заказ культивирования → UC-01 статус «Ожидает тело» → [поступление тела] → UC-02 приёмка → далее основной путь.
+
+## Ветки-исключения
+
+- **ProcedureFailed:** UC-03 перенос в процессе → «Зафиксировать инцидент» → кейс в статусе «Инцидент» (заблокирован).
+- **Complications:** UC-04 осмотр → «Зафиксировать осложнение» → кейс «Корректирующие процедуры» (выпуск заблокирован).
+- **AccountExists:** UC-05 вход через Google → существующий личный кабинет.
+
+## Таблица экранов и переходов
+
+| UC | Экран | Исходник | Откуда | Действие | Куда |
+| :-- | :-- | :-- | :-- | :-- | :-- |
+| UC-05 | Публичная страница / Google | `uc05-RegisterMeth.html` | — | Войти через Google → Разрешить | Личный кабинет |
+| UC-05 | AccountExists | `uc05-RegisterMeth-account-exists.html` | Публичная страница | Перейти в кабинет | существующий кабинет |
+| UC-05 | Личный кабинет (создан) | `uc05-RegisterMeth-cabinet.html` | Публичная страница | Перейти в каталог тел | UC-01 каталог |
+| UC-01 | Каталог тел | `uc01-OrderSleeve.html` | Личный кабинет | Заказать | UC-01 оформление |
+| UC-01 | Оформление заказа | `uc01-OrderSleeve-order.html` | Каталог | Подтвердить заказ | UC-01 обработка брокером |
+| UC-01 | Обработка заказа (брокер) | `uc01-OrderSleeve-broker.html` | Оформление | Зарезервировать | UC-01 статус «Подтверждён» |
+| UC-01 | Статус «Подтверждён» | `uc01-OrderSleeve-status.html` | Обработка | (авто) | UC-03 список процедур |
+| UC-01 | Статус «Ожидает тело» | `uc01-OrderSleeve-waiting.html` | Обработка (тела нет) | — | UC-02 культивация |
+| UC-02 | Резерв тел | `uc02-ManageSleeveReserve.html` | — | Заказать культивирование / Принять | UC-02 культивация / приёмка |
+| UC-02 | Заказ культивирования | `uc02-ManageSleeveReserve-cultivation.html` | Резерв | Создать заказ | Резерв («В культивации») |
+| UC-02 | Приёмка тела | `uc02-ManageSleeveReserve-acceptance.html` | Резерв («В приёмке») | Принять в резерв | Резерв («Доступно») |
+| UC-03 | Список процедур | `uc03-ConductNeedlecast-list.html` | — | Открыть | UC-03 процедура (старт) |
+| UC-03 | Процедура (старт) | `uc03-ConductNeedlecast.html` | Список | Начать перенос | UC-03 в процессе |
+| UC-03 | Перенос в процессе | `uc03-ConductNeedlecast-progress.html` | Процедура | Отметить результат (Успешно) | UC-03 протокол |
+| UC-03 | Перенос в процессе | `uc03-ConductNeedlecast-progress.html` | Процедура | Зафиксировать инцидент | UC-03 инцидент |
+| UC-03 | Протокол | `uc03-ConductNeedlecast-protocol.html` | В процессе | (авто) | UC-04 список на валидации |
+| UC-03 | Фиксация инцидента | `uc03-ConductNeedlecast-incident.html` | В процессе | Сохранить инцидент | кейс «Инцидент» (блок) |
+| UC-04 | Кейсы на валидации | `uc04-ExamineAndCertify-list.html` | — | Открыть | UC-04 осмотр |
+| UC-04 | Осмотр | `uc04-ExamineAndCertify.html` | Список | Подтвердить | UC-04 сертификат |
+| UC-04 | Осмотр | `uc04-ExamineAndCertify.html` | Список | Зафиксировать осложнение | UC-04 осложнение |
+| UC-04 | Сертификат | `uc04-ExamineAndCertify-certificate.html` | Осмотр | Скачать PDF | — |
+| UC-04 | Осложнение | `uc04-ExamineAndCertify-complication.html` | Осмотр | Зафиксировать | кейс «Корректирующие процедуры» |
+| UC-04 | Документы Meth | `uc04-ExamineAndCertify-meth-certificate.html` | Сертификат | Скачать | — |
+
+## Сквозной датасет (единый для всех макетов)
+
+| Сущность | Happy-path | Ветка NoAvailableSleeves | Исключения |
+| :-- | :-- | :-- | :-- |
+| Клиент | M. Kovacs (MTH-8842) | R. Osei | L. Tanaka (CS-104), K. Neuman (CS-102) |
+| Заказ | ORD-531 | ORD-524 | — |
+| Кейс | CS-101 | CS-110 | CS-104, CS-102, CS-097 |
+| Тело | SLV-042 (Ж, 172/58/26) | SLV-210 (Ж, 176/60/27) | SLV-117, SLV-121 |
+| Стек | STK-77 | — | STK-12 |
+| Сертификат | CERT-101 | — | — |
+
+---
 
 //Интерфейсы должны покрывать все тексты
 //Одна большая диаграмма должна связывать все use case

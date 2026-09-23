@@ -55,6 +55,10 @@
 
 ## 2.1 Product Functions (Функционал продукта)
 
+![Общая диаграмма вариантов использования SCMS](../use-case-diagrams/uc00-Overview.png)
+
+*Общая диаграмма — сводная диаграмма прецедентов SCMS. Связывает UC-01…UC-05 и показывает поток обслуживания клиента: UC-05 / UC-02 → UC-01 → UC-03 → UC-04.*
+
 ![UC-01: Заказ тела клиентом](../use-case-diagrams/uc01-OrderSleeve.png)
 
 *Диаграмма 1 — UC-01 OrderSleeve (Заказ тела клиентом). Акторы: Meth, Sleeve Broker. Прецеденты: заказ тела, просмотр каталога, фильтрация; NoAvailableSleeves (extend).*
