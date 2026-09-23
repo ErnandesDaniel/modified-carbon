@@ -7,7 +7,7 @@
 
 ## 0. Запуск и адреса
 
-Запустить стек (см. [`README.md`](README.md) / [`infra/README.md`](infra/README.md)) — либо весь в Docker:
+Демонстрация рассчитана на **полностью развёрнутый в Docker стек** (профиль `full`).
 
 ```powershell
 cd software
@@ -22,8 +22,20 @@ docker compose -f infra/compose.yaml --profile full up -d --build
 | Backend / Swagger | http://localhost:3001/api/swagger-ui/index.html | — |
 | pgAdmin | http://localhost:8081 | `admin@admin.com` / `admin` |
 
+Готовность проверить так (backend поднимается последним — он накатывает Liquibase):
+
+```powershell
+docker compose -f infra/compose.yaml --profile full ps
+# backend готов, когда Swagger отвечает:
+Invoke-WebRequest http://localhost:3001/api/v3/api-docs -UseBasicParsing | Select-Object -ExpandProperty StatusCode
+```
+
 > Google-вход работает только если redirect URI `http://localhost:3000/api/login/oauth2/code/google`
 > добавлен в Google Console. Для демонстрации достаточно **демо-входа**.
+
+> ⚠️ **Перед демонстрацией сбрось базу до исходных сидов** (раздел 9), если она уже
+> менялась (например, остались заказы/кейсы от прошлых прогонов). Иначе часть сценариев
+> может выглядеть иначе.
 
 ---
 
@@ -213,15 +225,43 @@ $cert = Invoke-RestMethod -Method Post "$b/cases/$($case.id)/confirm" -WebSessio
 
 ---
 
-## 9. Сброс данных (если что-то уже изменено)
+## 9. Сброс базы до исходных сидов
+
+Данные **сидируются автоматически**: при старте backend Liquibase накатывает
+`01-init-schema.sql` (схема) и `02-seed-data.sql` (данные). Дополнительно ничего готовить
+не нужно.
+
+> ❗ `docker compose down` **без** флага `-v` данные **сохраняет** — сиды повторно не
+> применятся. Сбрасывает именно `-v`: он удаляет volume `scms_pgdata`, после чего при
+> следующем старте backend накатывает схему и сиды заново.
+
+### Полный стек в Docker
 
 ```powershell
-docker compose -f infra/compose.yaml --profile full down -v
+cd software
+docker compose -f infra/compose.yaml --profile full down -v      # остановить + удалить данные БД
 docker compose -f infra/compose.yaml --profile full up -d --build
 ```
 
-При старте backend Liquibase заново применит схему и сиды (`CS-101` уже завершён с
-сертификатом `CERT-CS-101`; `ORD-1002` — пример «Ожидает тело»; `CS-104` — инцидент).
+> Демонстрация идёт на профиле `full`; отдельный dev-режим (infra + `mvn`) здесь не нужен.
+
+### Что будет в свежей БД
+
+| Сущность | Значения |
+| :---- | :---- |
+| Клиенты | `M. Kovacs` (демо-вход) и другие |
+| Заказы | `ORD-1001`, `ORD-1002` («Ожидает тело»), `ORD-1003` |
+| Кейсы | `CS-101` (завершён + `CERT-CS-101`), `CS-102` (в процессе), `CS-103` (ожидает), `CS-104` (инцидент) |
+| Тела | 10 шт., в т.ч. `SLV-046` (в приёмке) и доступные для заказа |
+| Стек клиента | `STK-77` у M. Kovacs (нужен, чтобы при подтверждении заказа создался кейс) |
+
+### Проверка, что сиды на месте
+
+```powershell
+$b = "http://localhost:3001/api"
+Invoke-RestMethod -Method Post "$b/auth/dev-login" -ContentType 'application/json' -Body '{"name":"Demo Staff"}' -SessionVariable s | Out-Null
+"кейсов: $((Invoke-RestMethod "$b/cases" -WebSession $s).Count); сертификатов: $((Invoke-RestMethod "$b/certificates" -WebSession $s).Count)"
+```
 
 ---
 
