@@ -13,7 +13,7 @@
 //   node demo.mjs --no-docker  # стек уже запущен, только играть
 //   node demo.mjs --headless   # без окна (для проверки в CI)
 //
-// Флаги: --no-reset, --no-docker, --headless, --speed=fast|normal|slow
+// Флаги: --no-reset, --no-build, --no-docker, --headless, --speed=fast|normal|slow
 
 import { chromium } from "playwright";
 import { spawnSync } from "node:child_process";
@@ -34,6 +34,7 @@ const has = (f) => args.includes(f);
 const HEADLESS = has("--headless");
 const NO_DOCKER = has("--no-docker");
 const NO_RESET = has("--no-reset");
+const NO_BUILD = has("--no-build");
 const speedArg = (args.find((a) => a.startsWith("--speed=")) || "--speed=normal").split("=")[1];
 const BEAT = { fast: 350, normal: 1200, slow: 2500 }[speedArg] ?? 1200;
 const SLOWMO = { fast: 150, normal: 500, slow: 900 }[speedArg] ?? 500;
@@ -121,8 +122,9 @@ async function main() {
       log("Сброс БД к исходным сидам (docker compose down -v)…");
       sh("docker", [...COMPOSE, "down", "-v"], { cwd: SOFTWARE_DIR });
     }
-    log("Поднимаю стек в Docker (docker compose --profile full up -d --build)…");
-    sh("docker", [...COMPOSE, "up", "-d", "--build"], { cwd: SOFTWARE_DIR });
+    const upArgs = ["up", "-d", ...(NO_BUILD ? [] : ["--build"])];
+    log(`Поднимаю стек в Docker (docker compose --profile full ${upArgs.join(" ")})…`);
+    sh("docker", [...COMPOSE, ...upArgs], { cwd: SOFTWARE_DIR });
     log("Жду готовности backend (Liquibase накатывает схему и сиды)…");
     await waitBackend();
   }

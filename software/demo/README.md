@@ -36,11 +36,16 @@ bun run demo:slow           # медленнее
 Полезные флаги:
 
 ```powershell
+node demo.mjs --no-build    # не пересобирать образы (клики быстрее, если уже собрано)
 node demo.mjs --no-reset    # не удалять volume БД (продолжить с текущими данными)
 node demo.mjs --no-docker   # стек уже запущен — только проиграть сценарий
 node demo.mjs --headless    # без окна (для проверки)
 node demo.mjs --speed=fast
 ```
+
+> Первый запуск долгий, потому что собираются Docker-образы: backend — Maven (`mvn package`),
+> порталы — `bun install` + `vite build`. Последующие запуски с `--no-build` (или `--no-docker`)
+> стартуют почти мгновенно.
 
 Скриншоты каждого шага сохраняются в `software/demo/screenshots/` (в git не хранятся).
 
