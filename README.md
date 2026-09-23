@@ -145,35 +145,6 @@ Markdown (и превью в WebStorm, и `md-to-pdf`) умеет отображ
 Итог: в `.md` видна готовая картинка сразу и в превью WebStorm, и в PDF; HTML нужен
 только как исходник, из которого картинка собирается.
 
-### Структура файлов
-
-Макеты лежат в `use-case-diagrams/` рядом с UC-диаграммами: `.html` — исходник,
-`-mockup.png` — скриншот для документа.
-
-```
-use-case-diagrams/
-├── uc01-OrderSleeve.puml              # UC-01: диаграмма прецедента
-├── uc01-OrderSleeve.png
-├── uc01-OrderSleeve.html              # Исходник макета интерфейса
-├── uc01-OrderSleeve-mockup.png        # Скриншот макета для документа
-├── uc02-ManageSleeveReserve.puml
-├── uc02-ManageSleeveReserve.png
-├── uc02-ManageSleeveReserve.html
-├── uc02-ManageSleeveReserve-mockup.png
-├── uc03-ConductNeedlecast.puml
-├── uc03-ConductNeedlecast.png
-├── uc03-ConductNeedlecast.html
-├── uc03-ConductNeedlecast-mockup.png
-├── uc04-ExamineAndCertify.puml
-├── uc04-ExamineAndCertify.png
-├── uc04-ExamineAndCertify.html
-├── uc04-ExamineAndCertify-mockup.png
-├── uc05-RegisterMeth.puml
-├── uc05-RegisterMeth.png
-├── uc05-RegisterMeth.html
-└── uc05-RegisterMeth-mockup.png
-```
-
 ### Как вставить макет в Markdown
 
 В `Usecase.md` вставляется **PNG** (относительным путём), а **HTML** указывается
