@@ -129,7 +129,7 @@ async function main() {
     await waitBackend();
   }
 
-  const browser = await chromium.launch({ headless: HEADLESS || undefined, slowMo: HEADLESS ? 0 : SLOWMO });
+  const browser = await chromium.launch({ headless: HEADLESS, slowMo: HEADLESS ? 0 : SLOWMO });
   const clientCtx = await browser.newContext({ viewport: { width: 1360, height: 900 } });
   const internalCtx = await browser.newContext({ viewport: { width: 1360, height: 900 } });
   const cp = await clientCtx.newPage();
